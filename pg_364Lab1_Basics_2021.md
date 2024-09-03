@@ -68,6 +68,8 @@ By the end of this week's lab, you will be able to:
 4. Put everything together into an interactive markdown website (like this guide)
 5. Understand the process for submitting assignments
 
+The lab is worth 110 points and there is a rubric at the end of this page.
+
 <p class="comment">**Assignment 1 is due by midnight the night before your next lab on Canvas.**.</p>
 
 <br>  
@@ -225,10 +227,55 @@ Now below your code, answer the following questions.
 
 If you want to make it neat, you can use sub headings, or bold/italic text (see that R cheatsheet).  Press knit a lot!  Check you haven't made a mistake, check it all works.
 
+<br><br>
+
+### 6. Version control AND... I WANT YOU TO CHEAT!
+
+We believe that you did update/install R and R-studio, but given that there has recently been a huge spatial update and most issues come from the wrong version, we want to check
+
+copy/paste this code into your lab script and run it
+
+
+``` r
+##---###
+# R Version
+version
+
+# R-Studio Version()
+RStudio.Version()
+```
+
+<b4>
+
+#### **6b. Cheating???**
+
+The reason your homework was late is because I (Dr G) was coming up with a fancy new quiz structure.  I want you to see if you can break it :)
+ 
+https://aonsrp-helen-greatrex.shinyapps.io/quiz_template/ 
+
+Try the quiz a few times, getting it wrong first a few times then right.  When they are all correct, you will see a unique pass-code.
+
+Copy/paste it to a code chunk that looks like this
+
+
+
+``` r
+## Not case sensitive, but it is spelling sensitive
+# Make a code chunk that looks like this and replace "word1-word2" with your password
+password <- "word1-word2"
+```
+
+
+NOW.....  I WANT YOU TO BREAK THIS.  THERE ARE 10000 passcodes, try to find them. 
+
+Try to find the questions.. think of every way someone could cheat this. The actual quiz will have infinitely rotating questions. 
+
+**If you find the the codes/questions/answers and show me how you do it, you automatically get 100% on lab 1.** 
+
+<br>
 <br>
 
-
-### 6. Above and beyond
+### 7. Above and beyond
 
 Remember that an A is 94%, so you can ignore this section and still easily get an A.
 
@@ -237,11 +284,14 @@ But here is your time to shine. Also, if you are struggling in another part of t
 **To get the final 5 marks in the lab, you need to show me someting new, e.g. you need to go above and beyond the lab questions in some way.** 
 
  - You get 2/5 for doing something new in any way
- - You get 4/5 for something really impressive or multiple small things.
+ sliding scale to..
+ - You get 5/5 for something really impressive or multiple small things.
  
 Please tell us in your R script what you did!
 
 Here in lab 1, maybe you added in different text formats to make your lab script more clear (bold/italic etc).  Maybe you worked out how to add axis labels to ggplot (note, it's a pain), maybe you used nested headings or sub-headings, or worked out how to add a table of contents.  
+Or.. ask chatgpt to make you a cool plot with the mpg data. Or check out the ggstatplot package.
+
 
 
 <br>
@@ -273,13 +323,18 @@ Your code and document is neat and easy to read. LOOK AT YOUR HTML FILE IN YOUR 
 
 You have described the lab late policy clearly in a way I could share with a new student.
 
-**Code Showcase: 24 MARKS** 
+**Code Showcase: 20 MARKS** 
 
 You have managed to successfully complete all the code challenges
  
-**Car analysis: 30 MARKS** 
+**Car analysis: 25 MARKS** 
 
 You included all the code and successfully answered the questions, providing reasoning where appropriate
+
+**Versions: 5 MARKS** 
+
+You included the code showing your version AND it was the most up to date version of R AND R-STUDIO
+
 
 **Above and beyond: 5 MARKS**
  
@@ -288,7 +343,7 @@ Here you need to go above and beyond the lab questions in some way.  Here in lab
 You get 2/5 for doing something new in any way, scaled to 5/5 for something really impressive or multiple small things.
 
 
-[100 marks total]
+[110 marks total]
 
 
 Overall, here is what your lab should correspond to:
