@@ -1,0 +1,34 @@
+name: "GEOG-364"
+output_dir: "."
+navbar:
+  title: "GEOG-364"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Tutorials"
+      menu:
+        - text: "1. About R, R-Studio & R-Studio Cloud"
+          href: pg_Tut1_about.html  
+        - text: "2. Getting started"
+          href: pg_Tut2_startup.html  
+        - text: "3. Console Basics"
+          href: pg_Tut3_basics.html           
+        - text: "4. Markdown"
+          href: pg_Tut4_markdown.html  
+    - text: "Labs"
+      menu:
+        - text: "Lab 1: R-Basics"
+          href: pg_364Lab1_Basics_2021.html  
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    mathjax: ~
+    toc_depth: 4
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+      number_sections: yes
+    css: styles.css
+    keep_md: true
+    lib_dir: site_libs
