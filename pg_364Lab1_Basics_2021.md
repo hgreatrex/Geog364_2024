@@ -78,25 +78,46 @@ The lab is worth 110 points and there is a rubric at the end of this page.
 
 ### 1. Set up R and R-Studio
 
- - Read about R [Tutorial 1A](https://psu-spatial.github.io/Geog364-2021/pg_Tut1_about.html).
- - Install BOTH R and R-Studio, or create an R-Studio Cloud account. This is covered in  [Tutorial 1B](https://psu-spatial.github.io/Geog364-2021/pg_Tut1_about.html).
- - Set up your global settings. Work through [Tutorial 2A](https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html) and change your settings.
+ - Read about R [Tutorial 1A](https://hgreatrex.github.io/Geog364_2024/pg_Tut1_about.html#Tut1A_WhatisR).
+ - Install BOTH R and R-Studio, or create an R-Studio Cloud account. This is covered in  [Tutorial 1B](https://hgreatrex.github.io/Geog364_2024/pg_Tut1_about.html#Tutorial_1B_Accessing_R_and_R-studio).
+ - Open R-Studio [Make sure you click the right button!](https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Opening_R-Studio)
+ - Set up your global settings. Work through [Tutorial 2A](https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2A:_Change_settings) and change your settings.
  
 <br>  
 
-### 2. Getting started on Lab 1
+### 2. Getting set up for Lab 1
 
- - Use [Tutorial 2B](https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html) to understand what an R-Package is.
- - Use [Tutorial 2C](https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html) to make your first R-project called GEOG364-Lab1-Project
- - Now work through [Tutorial 3](https://psu-spatial.github.io/Geog364-2021/pg_Tut3_basics.html) to get used to the console
- 
-<br>  
-  
-### 3. Packages & Markdown basics
+#### a. Projects
 
- - Work through [Tutorial 4A,4B and 4C](https://psu-spatial.github.io/Geog364-2021/pg_Tut4_markdown.html) to make your first Markdown document
+We are going to be storing each lab as a project. 
+ - Use [Tutorial 2C - Projects](https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2C:_Create_an_R-Project) to make your first R-project called GEOG364-Lab1-Project
 
 <br>
+
+#### a. Understanding the basics
+
+Now we are going to take a look around and work through [Tutorial 3](https://hgreatrex.github.io/Geog364_2024/pg_Tut3_basics.html) to get used to the console
+
+<br>  
+  
+
+#### c. Markdown basics
+
+ - Work through [Tutorial 4A,4B and 4C](https://hgreatrex.github.io/Geog364_2024/pg_Tut4_markdown.html) to understand what R markdown is and to make your first Markdown document. You are going to make one as your lab report in the next section
+
+<br>
+
+#### d. Packages 
+
+ - Use [Tutorial 2B - Libraries/Packages](https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2B:_Install_packages) to understand what an R-Package is.
+
+ - Now INSTALL these four packages.  We will load them later on.
+ 
+    - tidyverse
+    - skimr
+    - ggplot2
+    - plotly
+     
 <br>
 
 ## Step B: Actual lab
@@ -109,12 +130,33 @@ Everything above was for your own learning.  Now we will start the actual lab yo
  
  - Inside your R project, create a new RMarkdown document called `GEOG-364-Lab1.Rmd`.
 
-
  - Delete all the text below line 11 (e.g. everything from R Markdown onwards)
-
+ 
 <br>  
+ 
+### 2. Packages
+ 
+ 
+ - Now we need to load the packages we installed earlier on. (remember we only need to _download_ the packages once, but we still need to load them every time we run our lab report (in the same way you only download your banking app once from the app store but need to press the icon every time you want to start using it).  WE ALSO NEED TO LOAD THE PACKAGES IN A CODE CHUNK RATHER THAN IN THE CONSOLE. This is because When you press knit, in the background, your computer makes a new version of R where nothing is loaded, then it processes your code.
 
-### 2. Adding text
+ - If you haven't already, please first **install them** using the tutorial to help. 
+ 
+ - Then somewhere near the top of your script (but below the YAML code, so line 12 ish?),  Create a code chunk. (if you're stuck - https://rmarkdown.rstudio.com/lesson-3.html) and add this code. 
+  
+
+```r
+library(skimr)
+library(ggplot2)
+library(plotly)
+```
+
+ - Run the code chunk! (pressing the green arrow, or go to the run button on the top right and press Run All). This will load the packages, Sometimes you see a load of "friendly loading text". Try running the code chunk twice and it should go away.
+
+ 
+<br>  
+  
+
+### 3. Adding text to your report
 
 - In the white text area, create a level 1 heading called *"Introduction to GEOG-364"*.  For a cheat sheet to help with this, move your mouse to the top of the page, click the help menu, then click Markdown Quick reference (spaces and whitespace are important!).  If you want to add sub-headings etc, go for it!
 
@@ -127,13 +169,15 @@ Everything above was for your own learning.  Now we will start the actual lab yo
 <br>  
 
 
-### 3. Adding maths and functions
+### 4. Adding maths and functions
 
 
- - Leave another blank line and add a new heading called *"Code Showcase"*.  Add a blank line afterwards too.
+ - Leave another blank line and add a new heading called *"Code Showcase"*.  Add a blank line afterwards too. I say to leave a blank line because R ignores them and will tidy everything up.  but if everything is scrunched up too close together (say you write text almost touching a code chunk), sometimes it works and sometimes it crashes annoyingly.
 
 
- - Create a code chunk.  Inside use R code to calculate the following (Hint, you can put these all in one code chunk, or have separate code chunks with them in.  Just remember to leave blank lines between them)
+ - Create a code chunk .  
+ 
+ - INSIDE the code chunk, use R code to calculate the following (Hint, you can put these all in one code chunk, or have separate code chunks with them in.  Just remember to leave blank lines between them)
 
     + 103^3^  (e.g `103*103*103`, or `103^3`)
   
@@ -143,60 +187,54 @@ Everything above was for your own learning.  Now we will start the actual lab yo
   
     + Create a sequence from 1000 to 2000, incrementing by 100 (e.g. 1000,1100,1200...).  Hint, see what google says for R and sequences, or see [here](http://www.simonqueenborough.info/R/basic/lessons/Sequences_of_Numbers.html). 
   
+ - This should actually be running the code and showing you the answers in your document. If not, see https://rmarkdown.rstudio.com/lesson-3.html 
   
- - Press "knit" at the top of the screen.  If you haven't made a mistake a pop up should appear with a html file and your edits.
+ - Press "knit" at the top of the screen.  If you haven't made a mistake a pop up should appear with a html file and your edits. If you have made a mistake, the red text will tell you there is an error and which line it is on in your code. I'm happy to help debug.
 
 <br>
-
-### 4. Packages
-
-If you have run through the tutorials, you should have installed all the packages you need for this course.
-
-**IF NOT GO AND DO [Tutorial 2B](https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html)]**
-
-You only need to _download_ the packages once, but we still need to load them every time we need a command in that package (in the same way you only download your banking app once from the app store but need to press the icon every time you want to use it).
-
-WE ALSO NEED TO LOAD THE PACKAGES IN A CODE CHUNK RATHER THAN IN THE CONSOLE. When you press knit, in the background, your computer makes a new version of R where nothing is loaded, then it processes your code.
-
-Today we will be using commands from the skimr package, the ggplot2 package and the plotly package.
-
-Please first **install them** using the tutorial to help. 
-
-Then somewhere near the topc of your script, make a new code chunk and add this code. Remember to run the code chunk! (pressing the green arrow, or go to the run button on the top right and press Run All)
-
-
-``` r
-library(skimr)
-library(ggplot2)
-library(plotly)
-```
-
-You will need to run the code chunk every time you start R, in the same way you need to reopen apps if you restart your phone.
 
 ### 5. Data analysis
 
 Part 5 is taken from this tutorial (https://r4ds.had.co.nz/data-visualisation.html). 
 
-Leave a blank line, and create a new heading called *Car Analysis*.  Leave a blank line afterwards too.  
-
 We’re going to work with a table of data that’s already pre-loaded into R inside the ggplot2 package. Make sure you have run the library code chunk.  Now, type the `?mpg` command in the console. This will bring up the help file. If it can't find the dataset, you need to load the ggplot2 package using the library command or install ggplot2.
 
+<br>
 
-Read the background of the dataset and briefly summarise it in your file (in the white space).
+#### a. Summarise the dataset. 
 
-Now look at the data itself.  In the console, type `View(mpg)`.  This will open a new tab with the spreadsheet itself.  
+Leave a blank line, and create a new heading called *Car Analysis*.  Leave a blank line afterwards too.  See above for why, 
+
+Read the background of the dataset in the help file and  summarise it in your report (in the white space). E.g. imagine you are describing the dataset to a newspaper for a study.
+
+<br>
+
+#### b. Exploratory data analysis
+
+Now look at the data itself.  In the CONSOLE, type `View(mpg)`.  This will open a new tab with the spreadsheet itself.  
 
 Let's look at the summary statistics. Leave a blank line and create a new code chunk containing the following code
 
 
-``` r
+```r
 # mpg comes from the ggplot2 package
-# skim comes from the skimr package
+summary(mpg)
+```
+
+or for the same thing but in a different format try
+
+
+```r
+# mpg comes from the ggplot2 package
 skim(mpg)
 ```
 
+<br>
 
-and finally, let's make your first plot.
+#### c. Your first plot
+
+
+Let's make your first scatter plot.
 
 Among the variables in the mpg dataset are:
 
@@ -206,10 +244,10 @@ Among the variables in the mpg dataset are:
 
  - `class`, the class of car e.g. mini, SUV, pick up..
  
-To make a nice looking plot, let's use the ggplot package rather than the basic r commands.  Create a code chunk
+To make a nice looking plot of the relationship between these variables, create a code chunk, copy this code into it and run.
 
 
-``` r
+```r
 # ggplotly comes from the plotly package
 # Choose the dataset and tell R the columns to plot
 p <- ggplot(data = mpg) +                  
@@ -218,10 +256,13 @@ p <- ggplot(data = mpg) +
 ggplotly(p)  # Plot interactively
 ```
 
+<br>
+
+
 Now below your code, answer the following questions.
 
-1. What's the unit of observation? (e.g. what does one row in the MPG SPREADSHEET/TABLE correspond to)
-2. Does this data tell me exactly how my car outside will perform? Explain your answer.
+1. What's the object-of-analysis? (e.g. what does one row in the MPG SPREADSHEET/TABLE correspond to)
+2. Does this data tell me exactly how my personal car sitting outside my house will perform? Explain your answer.
 2. Create a code chunk and see if you can calculate the mean manufacturing year of the car models in the dataset. 
 3. AS FULLY AS POSSIBLE BASED ON THE PLOT, describe the relationship between car’s engine size and its fuel efficiency on the highway.  The more detail you add the more marks you get..
 
@@ -233,16 +274,18 @@ If you want to make it neat, you can use sub headings, or bold/italic text (see 
 
 We believe that you did update/install R and R-studio, but given that there has recently been a huge spatial update and most issues come from the wrong version, we want to check
 
-copy/paste this code into your lab script and run it
+Create a new heading for this section & name it version control
+
+Copy/paste this code into your lab script and run it. You should be on R version 4.4.1 (Race for Your Life)  and RStudio 2024.04.2-“Chocolate Cosmos".  If not, go back to tutorial 1B or talk to Dr G.
 
 
-``` r
+```r
 ##---###
 # R Version
 version
 
 # R-Studio Version()
-RStudio.Version()
+rstudioapi::versionInfo()
 ```
 
 <b4>
@@ -255,20 +298,16 @@ https://aonsrp-helen-greatrex.shinyapps.io/quiz_template/
 
 Try the quiz a few times, getting it wrong first a few times then right.  When they are all correct, you will see a unique pass-code.
 
-Copy/paste it to a code chunk that looks like this
+Copy/paste it to a code chunk that looks like this in your lab report and replace "word1-word2" with your password
 
 
 
-``` r
-## Not case sensitive, but it is spelling sensitive
-# Make a code chunk that looks like this and replace "word1-word2" with your password
+```r
 password <- "word1-word2"
 ```
 
 
-NOW.....  I WANT YOU TO BREAK THIS.  THERE ARE 10000 passcodes, try to find them. 
-
-Try to find the questions.. think of every way someone could cheat this. The actual quiz will have infinitely rotating questions. 
+BONUS MARKS!   NOW.....  I WANT YOU TO BREAK MY QUIZ!! FOR EXAMPLE THERE ARE 10000 passcodes and the questions/answers out there, try to find them, or think of every way someone could cheat this. The actual quiz will have infinitely rotating questions. 
 
 **If you find the the codes/questions/answers and show me how you do it, you automatically get 100% on lab 1.** 
 

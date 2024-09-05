@@ -154,7 +154,7 @@ YAML code is annnoying to edit, because here, *spaces really do matter*. Everyth
 **Select everything in my code chunk here and replace your YAML with this (remember the --- on line 1 and at the end).**
 
 
-``` r
+```r
 ---
 title: "GEOG-364 - Lab 2"
 author: "hlg5155"

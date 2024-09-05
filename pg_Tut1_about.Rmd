@@ -157,7 +157,8 @@ R is free and having it on your own computer will give you a lot more freedom to
 
 <br>
 
-<p class="comment">**Your R AND R-Studio MUST be up to date, or things wont' work**. R should be a minimum of 4.1.2 (2021-11-01) -- "Bird Hippie" and R-studio a minimum of Version 1.4.1717</p>
+<p class="comment">**Your R AND R-Studio MUST be up to date, or things wont' work**. R should be a minimum of R 4.4.1 "Race for Your Life" and RStudio 2024.04.2
+“Chocolate Cosmos”</p>
 
 
 <div style="margin-bottom:25px;">

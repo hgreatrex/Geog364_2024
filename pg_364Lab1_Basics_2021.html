@@ -14,7 +14,7 @@
 
 <title>Lab 1: Introduction to R</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -452,41 +452,65 @@ on Canvas.</strong>.
 <h3>1. Set up R and R-Studio</h3>
 <ul>
 <li>Read about R <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut1_about.html">Tutorial
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut1_about.html#Tut1A_WhatisR">Tutorial
 1A</a>.</li>
 <li>Install BOTH R and R-Studio, or create an R-Studio Cloud account.
 This is covered in <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut1_about.html">Tutorial
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut1_about.html#Tutorial_1B_Accessing_R_and_R-studio">Tutorial
 1B</a>.</li>
+<li>Open R-Studio <a
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Opening_R-Studio">Make
+sure you click the right button!</a></li>
 <li>Set up your global settings. Work through <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html">Tutorial
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2A:_Change_settings">Tutorial
 2A</a> and change your settings.</li>
 </ul>
 <p><br></p>
 </div>
-<div id="getting-started-on-lab-1" class="section level3">
-<h3>2. Getting started on Lab 1</h3>
+<div id="getting-set-up-for-lab-1" class="section level3">
+<h3>2. Getting set up for Lab 1</h3>
+<div id="a.-projects" class="section level4">
+<h4>a. Projects</h4>
+<p>We are going to be storing each lab as a project. - Use <a
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2C:_Create_an_R-Project">Tutorial
+2C - Projects</a> to make your first R-project called
+GEOG364-Lab1-Project</p>
+<p><br></p>
+</div>
+<div id="a.-understanding-the-basics" class="section level4">
+<h4>a. Understanding the basics</h4>
+<p>Now we are going to take a look around and work through <a
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut3_basics.html">Tutorial
+3</a> to get used to the console</p>
+<p><br></p>
+</div>
+<div id="c.-markdown-basics" class="section level4">
+<h4>c. Markdown basics</h4>
 <ul>
-<li>Use <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html">Tutorial
-2B</a> to understand what an R-Package is.</li>
-<li>Use <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html">Tutorial
-2C</a> to make your first R-project called GEOG364-Lab1-Project</li>
-<li>Now work through <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut3_basics.html">Tutorial
-3</a> to get used to the console</li>
+<li>Work through <a
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut4_markdown.html">Tutorial
+4A,4B and 4C</a> to understand what R markdown is and to make your first
+Markdown document. You are going to make one as your lab report in the
+next section</li>
 </ul>
 <p><br></p>
 </div>
-<div id="packages-markdown-basics" class="section level3">
-<h3>3. Packages &amp; Markdown basics</h3>
+<div id="d.-packages" class="section level4">
+<h4>d. Packages</h4>
 <ul>
-<li>Work through <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut4_markdown.html">Tutorial
-4A,4B and 4C</a> to make your first Markdown document</li>
+<li><p>Use <a
+href="https://hgreatrex.github.io/Geog364_2024/pg_Tut2_startup.html#Tutorial_2B:_Install_packages">Tutorial
+2B - Libraries/Packages</a> to understand what an R-Package is.</p></li>
+<li><p>Now INSTALL these four packages. We will load them later on.</p>
+<ul>
+<li>tidyverse</li>
+<li>skimr</li>
+<li>ggplot2</li>
+<li>plotly</li>
+</ul></li>
 </ul>
-<p><br> <br></p>
+<p><br></p>
+</div>
 </div>
 </div>
 <div id="step-b-actual-lab" class="section level2">
@@ -504,8 +528,39 @@ Markdown onwards)</p></li>
 </ul>
 <p><br></p>
 </div>
-<div id="adding-text" class="section level3">
-<h3>2. Adding text</h3>
+<div id="packages" class="section level3">
+<h3>2. Packages</h3>
+<ul>
+<li><p>Now we need to load the packages we installed earlier on.
+(remember we only need to <em>download</em> the packages once, but we
+still need to load them every time we run our lab report (in the same
+way you only download your banking app once from the app store but need
+to press the icon every time you want to start using it). WE ALSO NEED
+TO LOAD THE PACKAGES IN A CODE CHUNK RATHER THAN IN THE CONSOLE. This is
+because When you press knit, in the background, your computer makes a
+new version of R where nothing is loaded, then it processes your
+code.</p></li>
+<li><p>If you haven’t already, please first <strong>install
+them</strong> using the tutorial to help.</p></li>
+<li><p>Then somewhere near the top of your script (but below the YAML
+code, so line 12 ish?), Create a code chunk. (if you’re stuck - <a
+href="https://rmarkdown.rstudio.com/lesson-3.html"
+class="uri">https://rmarkdown.rstudio.com/lesson-3.html</a>) and add
+this code.</p></li>
+</ul>
+<pre class="r"><code>library(skimr)
+library(ggplot2)
+library(plotly)</code></pre>
+<ul>
+<li>Run the code chunk! (pressing the green arrow, or go to the run
+button on the top right and press Run All). This will load the packages,
+Sometimes you see a load of “friendly loading text”. Try running the
+code chunk twice and it should go away.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="adding-text-to-your-report" class="section level3">
+<h3>3. Adding text to your report</h3>
 <ul>
 <li><p>In the white text area, create a level 1 heading called
 <em>“Introduction to GEOG-364”</em>. For a cheat sheet to help with
@@ -523,11 +578,16 @@ mistake a pop up should appear with a html file and your edits.</p></li>
 <p><br></p>
 </div>
 <div id="adding-maths-and-functions" class="section level3">
-<h3>3. Adding maths and functions</h3>
+<h3>4. Adding maths and functions</h3>
 <ul>
 <li><p>Leave another blank line and add a new heading called <em>“Code
-Showcase”</em>. Add a blank line afterwards too.</p></li>
-<li><p>Create a code chunk. Inside use R code to calculate the following
+Showcase”</em>. Add a blank line afterwards too. I say to leave a blank
+line because R ignores them and will tidy everything up. but if
+everything is scrunched up too close together (say you write text almost
+touching a code chunk), sometimes it works and sometimes it crashes
+annoyingly.</p></li>
+<li><p>Create a code chunk .</p></li>
+<li><p>INSIDE the code chunk, use R code to calculate the following
 (Hint, you can put these all in one code chunk, or have separate code
 chunks with them in. Just remember to leave blank lines between
 them)</p>
@@ -547,63 +607,55 @@ your tutorials and quote marks!)</p></li>
 or see <a
 href="http://www.simonqueenborough.info/R/basic/lessons/Sequences_of_Numbers.html">here</a>.</p></li>
 </ul></li>
+<li><p>This should actually be running the code and showing you the
+answers in your document. If not, see <a
+href="https://rmarkdown.rstudio.com/lesson-3.html"
+class="uri">https://rmarkdown.rstudio.com/lesson-3.html</a></p></li>
 <li><p>Press “knit” at the top of the screen. If you haven’t made a
-mistake a pop up should appear with a html file and your edits.</p></li>
+mistake a pop up should appear with a html file and your edits. If you
+have made a mistake, the red text will tell you there is an error and
+which line it is on in your code. I’m happy to help debug.</p></li>
 </ul>
 <p><br></p>
-</div>
-<div id="packages" class="section level3">
-<h3>4. Packages</h3>
-<p>If you have run through the tutorials, you should have installed all
-the packages you need for this course.</p>
-<p><strong>IF NOT GO AND DO <a
-href="https://psu-spatial.github.io/Geog364-2021/pg_Tut2_startup.html">Tutorial
-2B</a>]</strong></p>
-<p>You only need to <em>download</em> the packages once, but we still
-need to load them every time we need a command in that package (in the
-same way you only download your banking app once from the app store but
-need to press the icon every time you want to use it).</p>
-<p>WE ALSO NEED TO LOAD THE PACKAGES IN A CODE CHUNK RATHER THAN IN THE
-CONSOLE. When you press knit, in the background, your computer makes a
-new version of R where nothing is loaded, then it processes your
-code.</p>
-<p>Today we will be using commands from the skimr package, the ggplot2
-package and the plotly package.</p>
-<p>Please first <strong>install them</strong> using the tutorial to
-help.</p>
-<p>Then somewhere near the topc of your script, make a new code chunk
-and add this code. Remember to run the code chunk! (pressing the green
-arrow, or go to the run button on the top right and press Run All)</p>
-<pre class="r"><code>library(skimr)
-library(ggplot2)
-library(plotly)</code></pre>
-<p>You will need to run the code chunk every time you start R, in the
-same way you need to reopen apps if you restart your phone.</p>
 </div>
 <div id="data-analysis" class="section level3">
 <h3>5. Data analysis</h3>
 <p>Part 5 is taken from this tutorial (<a
 href="https://r4ds.had.co.nz/data-visualisation.html"
 class="uri">https://r4ds.had.co.nz/data-visualisation.html</a>).</p>
-<p>Leave a blank line, and create a new heading called <em>Car
-Analysis</em>. Leave a blank line afterwards too.</p>
 <p>We’re going to work with a table of data that’s already pre-loaded
 into R inside the ggplot2 package. Make sure you have run the library
 code chunk. Now, type the <code>?mpg</code> command in the console. This
 will bring up the help file. If it can’t find the dataset, you need to
 load the ggplot2 package using the library command or install
 ggplot2.</p>
-<p>Read the background of the dataset and briefly summarise it in your
-file (in the white space).</p>
-<p>Now look at the data itself. In the console, type
+<p><br></p>
+<div id="a.-summarise-the-dataset." class="section level4">
+<h4>a. Summarise the dataset.</h4>
+<p>Leave a blank line, and create a new heading called <em>Car
+Analysis</em>. Leave a blank line afterwards too. See above for why,</p>
+<p>Read the background of the dataset in the help file and summarise it
+in your report (in the white space). E.g. imagine you are describing the
+dataset to a newspaper for a study.</p>
+<p><br></p>
+</div>
+<div id="b.-exploratory-data-analysis" class="section level4">
+<h4>b. Exploratory data analysis</h4>
+<p>Now look at the data itself. In the CONSOLE, type
 <code>View(mpg)</code>. This will open a new tab with the spreadsheet
 itself.</p>
 <p>Let’s look at the summary statistics. Leave a blank line and create a
 new code chunk containing the following code</p>
 <pre class="r"><code># mpg comes from the ggplot2 package
-# skim comes from the skimr package
+summary(mpg)</code></pre>
+<p>or for the same thing but in a different format try</p>
+<pre class="r"><code># mpg comes from the ggplot2 package
 skim(mpg)</code></pre>
-<p>and finally, let’s make your first plot.</p>
+<p><br></p>
+</div>
+<div id="c.-your-first-plot" class="section level4">
+<h4>c. Your first plot</h4>
+<p>Let’s make your first scatter plot.</p>
 <p>Among the variables in the mpg dataset are:</p>
 <ul>
 <li><p><code>displ</code>, a car’s engine size, in litres.</p></li>
@@ -614,20 +666,21 @@ distance.</p></li>
 <li><p><code>class</code>, the class of car e.g. mini, SUV, pick
 up..</p></li>
 </ul>
-<p>To make a nice looking plot, let’s use the ggplot package rather than
-the basic r commands. Create a code chunk</p>
+<p>To make a nice looking plot of the relationship between these
+variables, create a code chunk, copy this code into it and run.</p>
 <pre class="r"><code># ggplotly comes from the plotly package
 # Choose the dataset and tell R the columns to plot
 p &lt;- ggplot(data = mpg) +                  
      geom_point(mapping = aes(x = displ, y = hwy, color = class)) 
 
 ggplotly(p)  # Plot interactively</code></pre>
+<p><br></p>
 <p>Now below your code, answer the following questions.</p>
 <ol style="list-style-type: decimal">
-<li>What’s the unit of observation? (e.g. what does one row in the MPG
+<li>What’s the object-of-analysis? (e.g. what does one row in the MPG
 SPREADSHEET/TABLE correspond to)</li>
-<li>Does this data tell me exactly how my car outside will perform?
-Explain your answer.</li>
+<li>Does this data tell me exactly how my personal car sitting outside
+my house will perform? Explain your answer.</li>
 <li>Create a code chunk and see if you can calculate the mean
 manufacturing year of the car models in the dataset.</li>
 <li>AS FULLY AS POSSIBLE BASED ON THE PLOT, describe the relationship
@@ -639,19 +692,24 @@ text (see that R cheatsheet). Press knit a lot! Check you haven’t made a
 mistake, check it all works.</p>
 <p><br><br></p>
 </div>
+</div>
 <div id="version-control-and-i-want-you-to-cheat"
 class="section level3">
 <h3>6. Version control AND… I WANT YOU TO CHEAT!</h3>
 <p>We believe that you did update/install R and R-studio, but given that
 there has recently been a huge spatial update and most issues come from
 the wrong version, we want to check</p>
-<p>copy/paste this code into your lab script and run it</p>
+<p>Create a new heading for this section &amp; name it version
+control</p>
+<p>Copy/paste this code into your lab script and run it. You should be
+on R version 4.4.1 (Race for Your Life) and RStudio 2024.04.2-“Chocolate
+Cosmos”. If not, go back to tutorial 1B or talk to Dr G.</p>
 <pre class="r"><code>##---###
 # R Version
 version
 
 # R-Studio Version()
-RStudio.Version()</code></pre>
+rstudioapi::versionInfo()</code></pre>
 <p><b4></p>
 <div id="b.-cheating" class="section level4">
 <h4><strong>6b. Cheating???</strong></h4>
@@ -662,14 +720,13 @@ with a fancy new quiz structure. I want you to see if you can break it
 class="uri">https://aonsrp-helen-greatrex.shinyapps.io/quiz_template/</a></p>
 <p>Try the quiz a few times, getting it wrong first a few times then
 right. When they are all correct, you will see a unique pass-code.</p>
-<p>Copy/paste it to a code chunk that looks like this</p>
-<pre class="r"><code>## Not case sensitive, but it is spelling sensitive
-# Make a code chunk that looks like this and replace &quot;word1-word2&quot; with your password
-password &lt;- &quot;word1-word2&quot;</code></pre>
-<p>NOW….. I WANT YOU TO BREAK THIS. THERE ARE 10000 passcodes, try to
-find them.</p>
-<p>Try to find the questions.. think of every way someone could cheat
-this. The actual quiz will have infinitely rotating questions.</p>
+<p>Copy/paste it to a code chunk that looks like this in your lab report
+and replace “word1-word2” with your password</p>
+<pre class="r"><code>password &lt;- &quot;word1-word2&quot;</code></pre>
+<p>BONUS MARKS! NOW….. I WANT YOU TO BREAK MY QUIZ!! FOR EXAMPLE THERE
+ARE 10000 passcodes and the questions/answers out there, try to find
+them, or think of every way someone could cheat this. The actual quiz
+will have infinitely rotating questions.</p>
 <p><strong>If you find the the codes/questions/answers and show me how
 you do it, you automatically get 100% on lab 1.</strong></p>
 <p><br> <br></p>
