@@ -83,14 +83,14 @@ Remember that the aim of programming is to provide a language so you can ask you
 Let's start by the simplest command possible.  Try typing each of the following commands into your R console and pressing Enter
 
 
-```r
+``` r
 1+1
 ```
 
 When you press enter, it should give you the answer.... 2
 
 
-```r
+``` r
 1+1
 ```
 
@@ -103,14 +103,14 @@ Note that spacing does not matter: `1+1` will generate the same answer as ` 1   
 When using R as a calculator, the order of operations is the same as you would have learned back in school, so use brackets to force a different order.  For example, try these two commands
 
 
-```r
+``` r
 3 + 5 * 2
 ```
 
 and
 
 
-```r
+``` r
 (3 + 5) * 2
 ```
 
@@ -119,7 +119,7 @@ We can also take shortcuts with our numbers.  For example `1:5` means take all t
 Try typing this command and make sure you understand the result.
 
 
-```r
+``` r
 (1 + 2) * 5:3
 ```
 
@@ -141,7 +141,7 @@ We can use this trick to make our first plot!  Try entering this command and see
 
 
 
-```r
+``` r
 plot(x= 1:5, y= 6:10,xlab="x-axis",ylab="y-axis")
 ```
 
@@ -156,7 +156,7 @@ We can also do comparisons in R - using the special symbols TRUE or FALSE (no qu
 Here we are asking R whether 1 is equal to 1.
 
 
-```r
+``` r
 # note two equals signs is read as "is equal to"
 1 == 1  
 ```
@@ -214,7 +214,7 @@ Try typing these EXACTLY into the console.
 To understand what I mean about parentheses, try typing each of these commands exactly and see what happens. 
 
 
-```r
+``` r
 # Typing this into the console will print out the underlying code
 file.choose 
 
@@ -228,7 +228,7 @@ file.choose()
 Sometimes we need to give the command some additional information as an argument.  Anything we wish to tell the command should be included inside the inside the parentheses (separated by commas).  The command literally only knows about the stuff inside the parentheses.
 
 
-```r
+``` r
 sin(1) # trigonometry functions.  Apply the sine function to the number 1. 
 
 log(10) # natural logarithm.  Take the natural logarithm of the number 10. 
@@ -239,7 +239,7 @@ nchar("hello") # Count the letters in the word hello
 We can also add optional extra arguments.  For example let's improve our plot.   This following command will plot the number 1 to 10 against the numbers 12 to 20, along with some axis labels.  When you run this, the plot will show up in the plots tab.  
 
 
-```r
+``` r
 # plot the numbers 1 to 10 against the numbers 11 to 20
 plot(1:10,11:20,col="dark blue", xlab="x values",ylab="GEOG-364 is the best") 
 ```
@@ -283,7 +283,7 @@ In R, we do this through assigning our results to a variable. e.g. we save the r
 The symbol to store data into a variable is using the assignment arrow `<-`, which is made up of the left arrow and a dash.  You can also use the equals sign, but it can cause complications later on.  Try typing this command into the console:
 
 
-```r
+``` r
 x <- 1/50
 ```
 
@@ -292,7 +292,7 @@ Notice that pressing enter did not print a value onto your screen as it did earl
 So our variable `x` is now associated with the value 0.02, or 1/50.  You can print a variable on screen by typing its name, no quotes, or by using the print command.  Try printing out your variable.  
 
 
-```r
+``` r
 x
 
 # or
@@ -307,7 +307,7 @@ print("x")
 This 'x' variable can be used in place of a number in any calculation that expects a number. Try typing
 
 
-```r
+``` r
 log(x)
 
 # this is now the same as 
@@ -321,7 +321,7 @@ The way R works is that first it looks for the commands on the right of the arro
 Notice also that variables can be reassigned. Type this into your console.
 
 
-```r
+``` r
 x <- 100
 print(x)
 ```
@@ -333,7 +333,7 @@ x used to contain the value 0.025 and and now it has the value 100.
 for example
 
 
-```r
+``` r
 vlogbrothers.DFTBA <- "Dont forget to be awesome"
 print(vlogbrothers.DFTBA)
 ```
@@ -347,7 +347,7 @@ How you name stuff is up to you, , but be consistent. Different people use diffe
 Finally, R IS CASE SENSITIVE.  X and x are different variables!  Try these and you will see both appear separately in your environment tab.
 
 
-```r
+``` r
 h <- 1
 H <- 2
 
@@ -356,26 +356,26 @@ print(ans)
 ```
 
 
-```r
+``` r
 print(h)
 ```
 
 
-```r
+``` r
 print(H)
 ```
 
 To delete a variable, you can use the `rm()` command e.g.
 
 
-```r
+``` r
 rm(x)
 ```
 
 and to clear everything, type
 
 
-```r
+``` r
 rm(list=ls())
 ```
 
@@ -385,7 +385,7 @@ rm(list=ls())
 As I showed above, you can now use multiple variables together in more complex commands. For example, try these commands:
 
 
-```r
+``` r
 x <- 2
 
 #Take the variable x, add 1 then save it to a new variable called y
@@ -402,7 +402,7 @@ You can even use this to change your original variable .  Try typing the code be
 **A short cut to do this is to type the commands the first time, then use the up-arrow on your keyboard to cycle back through previous commands you have typed**
 
 
-```r
+``` r
 x <- x + 1 # notice how RStudio updates its description of x in the environment tab
 x          # print the contents of "x" onto the screen
 ```
@@ -438,7 +438,7 @@ Installing a package doesn't make it available to you.  For that you need to loa
 In the console type this to install the full works of Shakespeare in the bardr package (https://www.rdocumentation.org/packages/bardr/versions/0.0.9)
 
 
-```r
+``` r
 library(bardr)
 ```
 
@@ -468,7 +468,7 @@ You can also use any command from any package by naming it and using ::
 For example, this command *forces* the computer to use the dplyr package version of filter.
 
 
-```r
+``` r
 dplyr::filter(mydata)
 ```
    

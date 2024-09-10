@@ -19,6 +19,8 @@ navbar:
       menu:
         - text: "Lab 1: R-Basics"
           href: pg_364Lab1_Basics_2021.html  
+        - text: "Lab 2: Summarising data"
+          href: pg_364Lab2_Summary.html 
 output:
   html_document:
     theme: flatly

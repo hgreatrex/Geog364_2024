@@ -162,7 +162,7 @@ OR
  - In the console, run the `install.packages()` command on the package you want to download **with quotes around the package name** e.g. 
  
    
-   ```r
+   ``` r
    install.packages("bardr")
    ```
    
@@ -235,7 +235,7 @@ Essentially, R-Studio is now "looking" inside your Lab 1 folder, making it easie
 If you want one, final check, try typing this into the console (INCLUDING THE EMPTY PARANTHESES/BRACKETS), press enter and see if it prints out the location of Lab 1 on your computer. If not, talk to an instructor.
 
 
-```r
+``` r
 getwd()
 ```
 

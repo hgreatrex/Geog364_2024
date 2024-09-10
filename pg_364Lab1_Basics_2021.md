@@ -144,7 +144,7 @@ Everything above was for your own learning.  Now we will start the actual lab yo
  - Then somewhere near the top of your script (but below the YAML code, so line 12 ish?),  Create a code chunk. (if you're stuck - https://rmarkdown.rstudio.com/lesson-3.html) and add this code. 
   
 
-```r
+``` r
 library(skimr)
 library(ggplot2)
 library(plotly)
@@ -216,7 +216,7 @@ Now look at the data itself.  In the CONSOLE, type `View(mpg)`.  This will open 
 Let's look at the summary statistics. Leave a blank line and create a new code chunk containing the following code
 
 
-```r
+``` r
 # mpg comes from the ggplot2 package
 summary(mpg)
 ```
@@ -224,7 +224,7 @@ summary(mpg)
 or for the same thing but in a different format try
 
 
-```r
+``` r
 # mpg comes from the ggplot2 package
 skim(mpg)
 ```
@@ -247,7 +247,7 @@ Among the variables in the mpg dataset are:
 To make a nice looking plot of the relationship between these variables, create a code chunk, copy this code into it and run.
 
 
-```r
+``` r
 # ggplotly comes from the plotly package
 # Choose the dataset and tell R the columns to plot
 p <- ggplot(data = mpg) +                  
@@ -279,7 +279,7 @@ Create a new heading for this section & name it version control
 Copy/paste this code into your lab script and run it. You should be on R version 4.4.1 (Race for Your Life)  and RStudio 2024.04.2-“Chocolate Cosmos".  If not, go back to tutorial 1B or talk to Dr G.
 
 
-```r
+``` r
 ##---###
 # R Version
 version
@@ -302,7 +302,7 @@ Copy/paste it to a code chunk that looks like this in your lab report and replac
 
 
 
-```r
+``` r
 password <- "word1-word2"
 ```
 
