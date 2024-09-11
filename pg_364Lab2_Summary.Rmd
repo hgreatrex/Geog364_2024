@@ -250,7 +250,7 @@ Task 12. [ ].  In your report, make a heading called Code Showcase (if you haven
 
 Some commands need a little more information.  For example, the `data()` command loads an inbuilt dataset into your workspace so we need to tell it which dataset we want. `rnorm()` generates a series of random numbers from a normal distribution, but we need to tell it how many we need Examples
 
- - `data(ggplot2::mpg)` # loads the mpg data from package ggplot2. Note, the :: means "use package"
+ - `data(mpg)` # loads the mpg data from package ggplot2. Note, the :: means "use package"
  - `summary(mpg)` # summarise the entire mgp dataset (hint for lab 1, this is how to get the average year!)
  - `rnorm(20)` # generates a series of 20 random numbers from a normal distribution
  - `names(mpg)` # print the column names of a dataset

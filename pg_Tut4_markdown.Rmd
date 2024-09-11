@@ -48,24 +48,6 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 
 This tutorial is all about getting used to the basic commands you can run in R.
 
-
- - [**Tutorial 4A: What is markdown**](#Tut4a_WhatIsIt)
- - [**Tutorial 4B: Creating a markdown document**](#Tut4B_MarkCreate)
- - [**Tutorial 4C: Markdown Basics**](#Tut4C_Basics)
- - [**Tutorial 4D: Knitting**](#Tut4Da_knit)
- - [**Tutorial 4E: YAML code**](#Tut4E_YAML)
- - [**Tutorial 4F: Formatting code chunks**](#Tut4F_chunk)
-      a. [Code chunk basics](#Tut4Fa_basics)
-      b. [Editing code chunk options](#Tut4Fb_options)
- - [**Tutorial 4G: Formatting text**](#Tut4G_format)
- - [**Tutorial 4H: Adding photos**](#Tut4H_photo)
- - [**Tutorial 4I: Adding equations**](#Tut4I_Eqn)
- - [**Tutorial 4J: Adding references**](#Tut4J_ref)
- - [**Tutorial 4K: Adding tables**](#Tut4K_Table)
- - [**Tutorial 4L: Different make formats**](#Tut4L_Make)
- 
- 
- 
  
 <br>
 
@@ -75,8 +57,7 @@ This tutorial is all about getting used to the basic commands you can run in R.
 
 Read more here: https://rmarkdown.rstudio.com
 
-As I said at the start, the console is like a phone call to the computer, you're talking but you're not keeping records of what you say (you can always press the up key to see previous commands but that's about it).  When you close R, everything you have done will be lost. 
-
+As I said at the start, the console is like a phone call to the computer, you're talking but you're not keeping records of what you say (you can always press the up key to see previous commands but that's about it).  Whengit
 What we need instead is a way to save the commands for future use - we can do this using scripts.  There are several types of document, or script that you can create and save in R-Studio.
 
  - A basic script (the filetype is .r).  This is simply just a blank notepad where you can save code commands.  When you "run" the commands in the script, R simply copy/pastes the commands over to the console.
@@ -241,6 +222,73 @@ The grey areas on your screen are called "code chunks" (see \@ref(fig:tut4fig6))
 The code inside chunks can be altered.  For example, on line 19, delete `summary(cars)` and type `1+1`.  Now press the green arrow and the new answer should appear directly under your code chunk.  
 
 Click in the white space at the end of the script, press enter a few times (around line 33) and press the green insert button (top right near the Run button).  Insert a new R code chunk.  Inside, type `1+2` and run it. 
- 
 
-Website created and maintained by [Helen Greatrex](https://www.geog.psu.edu/directory/helen-greatrex). Website template by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+
+
+## Code Chunk options {#T3_CodeChunkOptions}
+
+What are they? Essentially, instructions that you tell the computer when you press knit.
+
+### Creating them in Source mode
+
+Click source mode and have a look at a code chunk. You will see it starts with three little back-ticks and the {r} sign. For code chunk options, we will be focusing on the top line with the {r}
+
+![](im_T3CodeChunkOptions.png){width="600"}
+
+At the moment, the code chunk tells us that the code inside is written in R.
+
+We can also add other options, **separated using commas.**
+
+![](im_T3CodeChunkOptionsComplete.png){width="600"}
+
+In fact, you have often seen me add message=FALSE and warning=FALSE to prevent any spurious messages appearing when you press knit. Keep reading to see the many other things you can add.
+
+<br>
+
+### Creating them in View mode
+
+You can also edit code chunk options in view mode. Create a new code chunk, then click on the little (almost invisible) cogwheel near the run triangle
+
+![](im_T3CodeChunkOptionsView.png){width="700"}
+
+This will open a menu where you can choose many of the common options
+
+![](im_T3CodeChunkOptionsViewMenu.png){width="400"}
+
+<br>
+
+### Setting the default for the whole document {#T3_CodeChunkWholeDoc}
+
+Many templates already include this for you to edit.
+
+If not, you can put a code chunk at the top of your document (below the YAML code) containing `knitr::opts_chunk$set(echo=TRUE)` to change the default values of chunk options in a document.
+
+For example, you may put this in the first code chunk of your document to stop it showing messages on knit.
+
+````         
+```{}
+knitr::opts_chunk$set(echo=TRUE, 
+                      warning=FALSE, 
+                      message=FALSE)
+```
+````
+
+<br>
+
+### Common options
+
+Here are the common options we typically need:
+
+-   `message = TRUE/FALSE`. Don't show friendly R messages on knitting. I use this so often that I put it in that knitr code chunk at the top of my scripts. <br>
+
+-   `warning = TRUE/FALSE` . Don't show R warnings on knitting. It will still show errors, so this is another good one to use. <br>
+
+-   `include = TRUE/FALSE.` Show or Hide the code AND output in the final document. Really useful with inline code (next section) <br>
+
+-   `echo = TRUE/FALSE.` Show or Hide the code chunk code in the final document. The output will still be shown. <br>
+
+-   `eval = TRUE/FALSE`. This option determines whether the code is evaluated or executed. If **`eval = TRUE`**, the code is executed. If **`eval = FALSE`**, the code is not executed, but the code chunk is still displayed. This can be useful for showing example code without actually running it.
+
+-   Or for example, if you can't knit because of an error, you can add eval=FALSE to the problem code chunk so I can see what you did but you can still knit.
+
+<br><br>

@@ -1,5 +1,5 @@
 name: "GEOG-364"
-output_dir: "docs"
+output_dir: "."
 navbar:
   title: "GEOG-364"
   left:
