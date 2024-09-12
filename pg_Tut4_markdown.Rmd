@@ -81,14 +81,14 @@ Time to make your own. Go to the File menu on the top left, then click New File 
 Eventually a window will open up:
 
 ```{r, tut4fig1, echo=FALSE,fig.align='center',out.width="50%"}
-knitr::include_graphics('pg_Tut4_markdown_fig1.png')
+knitr::include_graphics('./index_images/pg_Tut4_markdown_fig1.png')
 ```
 
 It will ask you to name and save your file.  Give it a relevant name.  A new file should appear on your screen.  At the top of that window (by the knit button, there is a save button. Save it as something relevant INSIDE YOUR PROJECT FOLDER!
 
 
 ```{r, tut4fig2, echo=FALSE,fig.align='center',out.width="80%"}
-knitr::include_graphics('pg_Tut4_markdown_fig2.png')
+knitr::include_graphics('./index_images/pg_Tut4_markdown_fig2.png')
 ```
 
 The new file on your screen is your first markdown script. Essentially, we have some space for text, some space for code, and a space at the top of the file where we can add information about themes/styles etc.  
@@ -102,7 +102,7 @@ The new file on your screen is your first markdown script. Essentially, we have 
 Your file contains some friendly text to explain what is going on, which I have annotated here. Read the file and see what it says.
 
 ```{r, tut4fig3, echo=FALSE,fig.align='center',out.width="80%"}
-knitr::include_graphics('pg_Tut4_markdown_fig3.png')
+knitr::include_graphics('./index_images/pg_Tut4_markdown_fig3.png')
 ```
 
 <br>
@@ -120,7 +120,7 @@ You should see that the Markdown tab "builds" your document and you get an outpu
 For example, from my other class, here is a file with markdown and knitted output.
 
 ```{r, tut4fig4, echo=FALSE,fig.align='center',out.width="80%"}
-knitr::include_graphics('pg_Tut4_markdown_fig4.png')
+knitr::include_graphics('./index_images/pg_Tut4_markdown_fig4.png')
 ```
 
 
@@ -133,7 +133,7 @@ knitr::include_graphics('pg_Tut4_markdown_fig4.png')
 Your YAML code is the code at the top of your file in between the --- lines. (see \@ref(fig:tut4fig4))).  Let's zoom in
 
 ```{r, tut4fig5, echo=FALSE,fig.align='center',out.width="80%"}
-knitr::include_graphics('pg_Tut4_markdown_fig5.png')
+knitr::include_graphics('./index_images/pg_Tut4_markdown_fig5.png')
 ```
 
 <br>
@@ -208,87 +208,8 @@ There are many more details about different options on these websites:
 If you want to get really fancy, there is an interesting package to help you design YAML code here: https://education.rstudio.com/blog/2019/10/tools-for-teaching-yaml-with-ymlthis/
 
 <br>
-
-<div style="margin-bottom:25px;">
-</div>  
-## Tutorial 4f: Code chunks {#Tut4F_chunk}
-
-Read this!  Super short and describes it better than I do.. <https://rmarkdown.rstudio.com/lesson-3.html>
-
-The grey areas on your screen are called "code chunks" (see \@ref(fig:tut4fig6)).  Think of them as mini consoles.  You put code inside, run them, then the result ends up directly below the chunk in 
-
-**To run the code in a code chunk, click on the little green triangle arrow at the top-right of the code chunk itself** this will run all of the commands in that code chunk and put the results underneath**.  
-
-The code inside chunks can be altered.  For example, on line 19, delete `summary(cars)` and type `1+1`.  Now press the green arrow and the new answer should appear directly under your code chunk.  
-
-Click in the white space at the end of the script, press enter a few times (around line 33) and press the green insert button (top right near the Run button).  Insert a new R code chunk.  Inside, type `1+2` and run it. 
-
-
-
-## Code Chunk options {#T3_CodeChunkOptions}
-
-What are they? Essentially, instructions that you tell the computer when you press knit.
-
-### Creating them in Source mode
-
-Click source mode and have a look at a code chunk. You will see it starts with three little back-ticks and the {r} sign. For code chunk options, we will be focusing on the top line with the {r}
-
-![](im_T3CodeChunkOptions.png){width="600"}
-
-At the moment, the code chunk tells us that the code inside is written in R.
-
-We can also add other options, **separated using commas.**
-
-![](im_T3CodeChunkOptionsComplete.png){width="600"}
-
-In fact, you have often seen me add message=FALSE and warning=FALSE to prevent any spurious messages appearing when you press knit. Keep reading to see the many other things you can add.
-
 <br>
 
-### Creating them in View mode
-
-You can also edit code chunk options in view mode. Create a new code chunk, then click on the little (almost invisible) cogwheel near the run triangle
-
-![](im_T3CodeChunkOptionsView.png){width="700"}
-
-This will open a menu where you can choose many of the common options
-
-![](im_T3CodeChunkOptionsViewMenu.png){width="400"}
-
-<br>
-
-### Setting the default for the whole document {#T3_CodeChunkWholeDoc}
-
-Many templates already include this for you to edit.
-
-If not, you can put a code chunk at the top of your document (below the YAML code) containing `knitr::opts_chunk$set(echo=TRUE)` to change the default values of chunk options in a document.
-
-For example, you may put this in the first code chunk of your document to stop it showing messages on knit.
-
-````         
-```{}
-knitr::opts_chunk$set(echo=TRUE, 
-                      warning=FALSE, 
-                      message=FALSE)
+```{r child="pg_Tut4f_CodeChunkOptions.Rmd"}
 ```
-````
 
-<br>
-
-### Common options
-
-Here are the common options we typically need:
-
--   `message = TRUE/FALSE`. Don't show friendly R messages on knitting. I use this so often that I put it in that knitr code chunk at the top of my scripts. <br>
-
--   `warning = TRUE/FALSE` . Don't show R warnings on knitting. It will still show errors, so this is another good one to use. <br>
-
--   `include = TRUE/FALSE.` Show or Hide the code AND output in the final document. Really useful with inline code (next section) <br>
-
--   `echo = TRUE/FALSE.` Show or Hide the code chunk code in the final document. The output will still be shown. <br>
-
--   `eval = TRUE/FALSE`. This option determines whether the code is evaluated or executed. If **`eval = TRUE`**, the code is executed. If **`eval = FALSE`**, the code is not executed, but the code chunk is still displayed. This can be useful for showing example code without actually running it.
-
--   Or for example, if you can't knit because of an error, you can add eval=FALSE to the problem code chunk so I can see what you did but you can still knit.
-
-<br><br>

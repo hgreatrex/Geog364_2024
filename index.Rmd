@@ -49,7 +49,7 @@ knitr::opts_chunk$set(echo = TRUE)
 \
 
 
-Welcome to the GEOG 364 Lab Book!  This website complements the class [Canvas](https://canvas.psu.edu/) site.  The website will update each week.
+**Welcome to the GEOG 364 Lab Book!**  This website complements the class [Canvas](https://canvas.psu.edu/) site.  The website will update each week.
 
 On this website you will find:
 
@@ -75,3 +75,4 @@ The following websites were used in the construction of this course website. My 
 
 
 Website created and maintained by [Helen Greatrex](https://www.geog.psu.edu/directory/helen-greatrex). Website template by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+

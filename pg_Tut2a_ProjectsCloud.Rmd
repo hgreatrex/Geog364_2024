@@ -1,0 +1,39 @@
+<br><br><br>
+
+## Projects using posit Cloud {#T1_ProjectsCloud}
+
+1.  **Visit the Posit Cloud Login Page:**
+
+    -   Go to <https://login.posit.cloud/login> from any web browser. After logging in, you will see a dashboard similar
+        to the image below.
+
+```{r, im_T1_ProjectCloud, echo=FALSE, fig.cap = "*The Cloud dashboard*",out.width='90%s',fig.align='center'}
+knitr::include_graphics('./index_images/im_T1_ProjectCloud.png')
+```
+
+<br>
+
+2.  **Create a New Project:**
+
+    -   Click the button on the top right and select “R-studio project.”
+
+    -   A new R-studio Cloud instance will open. Rename it to match your lab.
+
+<br>
+
+3.  **Access Your Labs Later:**
+
+    -   To return to your labs, visit <https://posit.cloud/content/yours> or click the workspace menu in the top left.
+
+```{r, im_T1_ProjectWorkspaceCloud, echo=FALSE, fig.cap = "*The Cloud dashboard*",out.width='70%s',fig.align='center'}
+knitr::include_graphics('./index_images/im_T1_ProjectWorkspaceCloud.png')
+```
+
+
+
+
+
+
+<br>
+
+

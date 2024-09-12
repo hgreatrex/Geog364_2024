@@ -346,7 +346,7 @@ In that folder, double click on the html file.  This will open it in your browse
 Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 1.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("pg_364Lab1_Basics_2021_fig1.png")
+knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
 ```
 
 <br>

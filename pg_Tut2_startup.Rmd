@@ -80,7 +80,7 @@ Everything in this tutorial is a one-off to get R and R-studio set up.
 **Now everything is installed, open R-studio** (NOT R!).  If you are using R-Studio cloud, you should in your workspace.  Make a new R-Project and call it GEOG364_Lab1_PROJECT (or whatever lab you are working on)
 
 ```{r, tut2afig1, echo=FALSE,out.width="80%",fig.align='center'}
-knitr::include_graphics('pg_Tut2_startup_fig1.png')
+knitr::include_graphics('./index_images/pg_Tut2_startup_fig1.png')
 ```
 <br>
 
@@ -91,7 +91,7 @@ You will be greeted by three panels:
  - Files/Plots/Packages/Help/Viewer (tabbed in lower right)
 
 ```{r, tut2afig2, echo=FALSE}
-knitr::include_graphics('pg_Tut2_startup_fig2.png')
+knitr::include_graphics('./index_images/pg_Tut2_startup_fig2.png')
 ```
 
 <br>
@@ -209,66 +209,6 @@ Note, if you are running R-Studio Cloud, you just need to click "Create Project"
 
 <br>
 
-##### **On your desktop**
-
-```{r, tut2afig1b, echo=FALSE,out.width="60%",fig.align='center'}
-knitr::include_graphics('pg_Tut2_startup_fig1.png')
-```
-
-1. If it's not already open, open **R-Studio** 
-2. Go to the file menu at the very top and click `New Project` 
-3. Select `New Directory`, then `New Project`
-4. Name your project *GEOG364-Lab1-PROJECT* 
-5. Under "create project as a subdirectory of", hit the browse button and go inside your GEOG-364 main folder (you just need to be in the folder, you don't need to have selected anything). Press open
-6. Finally, press `Create Project`
-
-```{r, tut2bfig4, echo=FALSE}
-knitr::include_graphics('pg_Tut2_startup_fig4.png')
-```
-
-
-<br>
-
-### How do I know it has worked? {#Tut2Bc_signsRproj}
-
-R will change slightly.  If you look at the top of the screen in the title bar, it should say *GEOG364-Lab1-Project R Studio*.  
-
-The Files tab should have gone to your project folder.  Essentially, R-Studio is now "looking" inside your Lab 1 folder, making it easier to find your data and output your results.  
-
-```{r, tut2afig5, echo=FALSE}
-knitr::include_graphics('pg_Tut2_startup_fig5.png')
-```
-
-<br>
-
-Essentially, R-Studio is now "looking" inside your Lab 1 folder, making it easier to find your data and output your results.  
-
-If you want one, final check, try typing this into the console (INCLUDING THE EMPTY PARANTHESES/BRACKETS), press enter and see if it prints out the location of Lab 1 on your computer. If not, talk to an instructor.
-
-```{r, eval=FALSE}
-getwd()
-```
-
-<br>
-
-### Returning to your lab project
-
-OK, let's imagine that you get halfway through your lab and your computer dies.  How do you get back to your Lab work?  Try this now.  Close down R-Studio.
-
-To reopen a lab:
-
-1. **DO NOT RE-OPEN R-STUDIO!**
-2. Instead navigate on your computer to your *GEOG-364/GEOG364-Lab1-Project* folder.   
-3. Double click on the GEOG364-Lab1-Project.RProj file.
-
-This will reopen R for that specific lab, so you can continue where you left off.
-
-It means you can also open several versions of R studio for multiple projects, which can be very useful in keeping labs separate and staying sane.
-
-
-```{r, tut2afig6, echo=FALSE}
-knitr::include_graphics('pg_Tut2_startup_fig6.png')
-```
 
 
 <br>

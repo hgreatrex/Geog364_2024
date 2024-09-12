@@ -84,7 +84,7 @@ The easiest way I find to think about R is that it is literally a language, like
 When you install R on your computer, you are essentially instantly teaching your computer to “speak in R” with some very basic Notepad-like software where you can enter commands."*
 
 ```{r, Tut1Fig1, echo=FALSE, fig.cap = "*The basic R console. You write in blue, the computer replies in black. The > means it is waiting for a command*"}
-knitr::include_graphics('pg_Tut1_about_fig1.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig1.png')
 ```
 
 <br>
@@ -97,7 +97,7 @@ It’s Microsoft Word is compared to notepad; many more options and things to cl
 
 
 ```{r, Tut1Fig2, echo=FALSE, fig.cap = "*R-studio is much more sophisticated*"}
-knitr::include_graphics('pg_Tut1_about_fig2.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig2.png')
 ```
 
 To learn more about R studio, see here: https://www.rstudio.com/products/rstudio/ (1 minute video), or a slightly longer one here:
@@ -206,7 +206,7 @@ R-Projects mean you can complete your labs either on your laptops, or on R-Studi
 6. Unzip. Double click the project.RProj file to reopen your lab on your computer
 
 ```{r, Tut1Fig3, echo=FALSE}
-knitr::include_graphics('pg_Tut1_about_fig3.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig3.png')
 ```
 
 
@@ -226,14 +226,14 @@ knitr::include_graphics('pg_Tut1_about_fig3.png')
 
 
 ```{r, Tut1Fig4, echo=FALSE}
-knitr::include_graphics('pg_Tut1_about_fig4.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig4.png')
 ```
 
 <br>
 
 
 ```{r, Tut1Fig5, echo=FALSE,out.width="70%",fig.align='centre'}
-knitr::include_graphics('pg_Tut1_about_fig5.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig5.png')
 ```
 
 
@@ -241,7 +241,7 @@ knitr::include_graphics('pg_Tut1_about_fig5.png')
 
 
 ```{r, Tut1Fig6, echo=FALSE,out.width="70%",fig.align='centre'}
-knitr::include_graphics('pg_Tut1_about_fig6.png')
+knitr::include_graphics('./index_images/pg_Tut1_about_fig6.png')
 ```
 
 <br>

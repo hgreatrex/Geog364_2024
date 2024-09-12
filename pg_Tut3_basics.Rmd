@@ -233,7 +233,7 @@ In R, the computer interprets most words as commands.  But sometimes we need to 
 For example, try typing  `print("Hello World")` into the console and the computer should just repeat it back to you.Forget about the quotes and this happens..
 
 ```{r, tut3fig3, echo=FALSE, fig.cap = "Your screen after running the project"}
-knitr::include_graphics('pg_Tut3_basics_fig3.png')
+knitr::include_graphics('./index_images/pg_Tut3_basics_fig3.png')
 ```
 
 Your first error.  The "unexpected symbol" it's talking about is the computer thinking that 
@@ -410,7 +410,7 @@ Otherwise, I suggest running this command TWICE!  This is because loading packag
 For example, this is what shows up when you install the tidyverse package.  The welcome text is indicating the sub-packages that tidyverse downloaded and also that some commands now have a different meaning.  
 
 ```{r, tut3fig4, echo=FALSE, fig.cap = "Tidyverse install messages",fig.align='center',out.width="80%"}
-knitr::include_graphics('pg_Tut3_basics_fig4.png')
+knitr::include_graphics('./index_images/pg_Tut3_basics_fig4.png')
 ```
 
 <br>
