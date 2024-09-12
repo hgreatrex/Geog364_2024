@@ -1,5 +1,5 @@
 name: "GEOG-364"
-output_dir: "."
+output_dir: "docs"
 navbar:
   title: "GEOG-364"
   left:
@@ -32,5 +32,5 @@ output:
       smooth_scroll: yes
       number_sections: yes
     css: styles.css
-    keep_md: true
+    keep_md: false
     lib_dir: site_libs
