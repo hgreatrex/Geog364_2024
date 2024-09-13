@@ -381,65 +381,6 @@ GEOG-364 - Spatial Analysis<br />
 </div>
 
 
-<style>
-.small-gap {
-margin-bottom: 10px; /* Adjust this value to control the gap size */
-}
-
-details summary {
-cursor: pointer;
-padding: 10px;
-background-color: #95a5a6;
-color: white;
-border: none;
-text-align: left;
-font-size: 15px;
-margin-left: 2em; /* Adjust this value as needed for your indent */
-margin-right: 2em; /* Adjust this value as needed for your indent */
-}
-
-details summary:hover {
-background-color: #18bc9c;
-}
-
-details > *:not(summary){
-margin-left: 5em;
-}
-
-.collapsible-content {
-background-color: #DBDBDB; /* Change the background color */
-border: 1px solid #ddd; /* Optional: add a border for better visibility */
-border-radius: 5px; /* Optional: round the corners of the border */
-margin: 40px; /* Remove default margin */
-}
-
-details[open] summary {
-background-color: #95a5a6; /* Optional: background color for the summary when expanded */
-}
-
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 0px;
-border-radius: 5px;
-font-style: normal;
-}
-
-h1.title {
-font-weight: bold;
-font-family: Arial;  
-}
-
-h2.title {
-font-family: Arial;  
-}
-
-#TOC {
-font-size: 12px;
-font-family: Arial;
-}
-</style>
 <p><br></p>
 <div id="welcome-to-lab-2" class="section level2">
 <h2>Welcome to Lab 2!</h2>
@@ -619,6 +560,7 @@ website.</p>
 <p>Let’s add in more options.</p>
 <p>YAML code is annnoying to edit, because here, <em>spaces really do
 matter</em>. Everything has to be perfect or it won’t knit.</p>
+<p>First, try this - it will break and look at the error code</p>
 <p><strong>Select everything in my code chunk here and replace your YAML
 with this (remember the — on line 1 and at the end).</strong></p>
 <pre class="r"><code>---
@@ -634,6 +576,24 @@ theme: lumen
 df_print: paged
 ---</code></pre>
 <p><br></p>
+<p>THIS IS WHAT HAPPENS WHEN THE SPACING IS OFF. To be honest, I try to
+look online for the right spacing but know that each indent is two
+spaces.</p>
+<p>OK, now try with the correct version, remembering to change the
+author name to your own. If you wonder what Sys.Date() is, don’t touch
+it and you will find out in the next section…</p>
+<pre class="r"><code>---
+title: &quot;GEOG-364 - Lab 2&quot;
+author: &quot;hlg5155&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  html_document:
+    toc: true
+    toc_float: yes
+    number_sections: yes
+    theme: lumen
+    df_print: paged
+---</code></pre>
 </details>
 <div class="small-gap">
 

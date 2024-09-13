@@ -1,114 +1,140 @@
-
-/* Whole document: */
-
-.screenshot {
-  border: 1px solid #ccc;
+/* General Layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+.wrapper {
+    width: 100%;
+    max-width: 1800px;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #CCC;
+}
+
+/* Screenshot borders */
+.screenshot {
+    border: 1px solid #ccc;
+}
+
+/* ================================================
+   Table Styling
+================================================ */
 table.table td a:only-child:link,
 table.table td a:only-child:visited {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 table.table td a:only-child:hover,
 table.table td a:only-child:active {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
-.well{
-  background-color: #F5F5DC;
-  border-radius: 40px 0 40px 0;
+/* ================================================
+   Well (Custom Section Style)
+================================================ */
+.well {
+    background-color: #F5F5DC;
+    border-radius: 40px 0 40px 0;
 }
 
+/* ================================================
+   Comment Boxes (for explanation sections)
+================================================ */
+p.comment {
+    background-color: #DBDBDB;
+    padding: 10px;
+    border: 1px solid black;
+    margin-left: 0;
+    border-radius: 5px;
+    font-style: normal;
+}
 
-/*******  Footer ******/
+/* ================================================
+   Headings (Title Styling)
+================================================ */
+h1.title {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
 
+h2.title {
+    font-family: Arial, sans-serif;
+}
+
+/* ================================================
+   Table of Contents (TOC)
+================================================ */
+#TOC {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+/* ================================================
+   Footer Styling
+================================================ */
 #site-footer {
-height: 50px;
+    height: 50px;
 }
 
-#footer1{
-width: 80%;
-float: left;
-}
-#footer2{
-width: 20%;
-float: right
+#footer1 {
+    width: 80%;
+    float: left;
 }
 
-/*****
-Create class for scaled iframe content
-*****/
-html,body {height:75%;}
-.wrapper{
-  width:100%; 
-  max-width:1800px;
-  height:75%;
-  max-height:1000px;
-  margin:0 auto;
-  background:#CCC}
-.h_iframe{
-  position:relative;
-  padding-top: 100%}
+#footer2 {
+    width: 20%;
+    float: right;
+}
+
+/* ================================================
+   Iframe (Embed Responsive Content)
+================================================ */
+.h_iframe {
+    position: relative;
+    padding-top: 56.25%; /* Aspect ratio 16:9 */
+}
+
 .h_iframe iframe {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  -ms-transform: scale(0.6);
-  -ms-transform-origin: top left;
-  -moz-transform: scale(0.6);
-  -moz-transform-origin: top left;
-  -o-transform: scale(0.6);
-  -o-transform-origin: top left;
-  -webkit-transform: scale(0.6);
-  -webkit-transform-origin: top left;
-  transform: scale(0.6);
-  transform-origin: top left;
-  overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0.6);
+    transform-origin: top left;
+    overflow: hidden;
 }
 
-
-
-/**************************
-  DEFAULT BOOTSTRAP STYLES
-**************************/
-
+/* ================================================
+   Buttons (Primary and Default Styles)
+================================================ */
 .btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
 }
-  
+
+/* Large Button */
 .btn-lg {
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
 }
 
+/* Primary Button */
 .btn-primary {
-  color: #fff;
-  background-color: #428bca;
-  border-color: #357ebd;
-}
-
-.btn-default {
-  font-size: 10px;
-  float: right !important;
+    background-color: #0099cc;
+    color: #fff;
+    border-color: transparent;
 }
 
 .btn-primary:hover,
@@ -116,41 +142,84 @@ html,body {height:75%;}
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #3276b1;
-  border-color: #285e8e;
+    background-color: #33a6cc;
 }
 
-/***********************
-  ROUND BUTTONS
-************************/
-.round {
-  border-radius: 24px;
-}
-
-/***********************
-  CUSTON BTN VALUES from https://bootstrapbay.com/blog/bootstrap-button-styles/
-************************/
-
-.btn {
-    padding: 10px 20px;
-    border: 0 none;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-.btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: 0 none;
-}
-
-.btn-primary {
-    background: #0099cc;
-    color: #ffffff;
-}
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #33a6cc;
-}
-.btn-primary:active, .btn-primary.active {
-    background: #007299;
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #007299;
     box-shadow: none;
+}
+
+/* Default Button */
+.btn-default {
+    font-size: 10px;
+    float: right !important;
+}
+
+/* Round Button */
+.round {
+    border-radius: 24px;
+}
+
+/* ================================================
+   Gap Adjustment (Small Margin)
+================================================ */
+.small-gap {
+    margin-bottom: 10px;
+}
+
+/* ================================================
+   Collapsible Sections (Details and Summary)
+================================================ */
+details summary {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    font-size: 15px;
+    margin: 0 2em;
+}
+
+details summary:hover {
+    background-color: #18bc9c;
+}
+
+details[open] summary {
+    background-color: #95a5a6;
+}
+
+details > *:not(summary) {
+    margin-left: 5em;
+}
+
+/* Collapsible Content Styling */
+.collapsible-content {
+    background-color: #DBDBDB;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 40px;
+}
+
+/* ================================================
+   Additional Classes (Figures, Comments)
+================================================ */
+.figure {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+p.comment {
+    background-color: #DBDBDB;
+    padding: 10px;
+    border: 1px solid black;
+    margin-left: 0;
+    border-radius: 5px;
+    font-style: normal;
+}
+
+#TOC {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
 }
