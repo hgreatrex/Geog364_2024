@@ -244,18 +244,17 @@ You are also going to be using some data from the US government American Communi
 </details>
 <br><br>
 
-#### Step B3. Follow the lab report instructions in VERSION 1 - up to and including "UFO Non Spatial Summary"
-
-<br>
-I will add tutorials here to help you ASAP
-<br>
-
+#### Step B3. Follow the lab report instructions  up to and including "UFO Non Spatial Summary"
 <details>
-<summary>Tutorials to come</summary>
+<summary>Tutorials to come. Instructions also in Lab Report 1</summary>
 <br>
 </details>
 <br><br>
 
+#### Step B4. Now knit. Check it works
+
+
+<br><br>
 
 #### END OF WEEK 1 Work
 
@@ -265,4 +264,19 @@ I will add tutorials here to help you ASAP
 <br><br>
 
 My apologies. I know this is a short lab and that it pushes the hard thinking to next week.   Getting the new materials up which work with the new R map projection has been a real pain, but I'm getting there!
+
+<br><br>
+
+
+#### Do I need to submit this week?
+
+You don't need to submit anything this week.
+
+HOWEVER, I will give one bonus point (within the lab) to anyone who submits their completed .Rmd and .html up until this point in your Lab 3 canvas assignment. 
+
+ - You are getting the bonus point for not leaving it all until the last minute.  I don't think I have the capacity to provide feedback unless you ask questions as a submission comment
+  - You will resubmit with the full report next week
+
+
+
 
