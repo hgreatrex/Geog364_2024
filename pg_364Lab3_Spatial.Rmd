@@ -209,7 +209,7 @@ There is code missing in your reports for you to complete and it will not work.
 
 <br><br>
 
-## B: UFO Analysis.
+## B: UFO Analysis - Week 1
 
 You have each been given some (genuine) about UFOs for a specific US State.  Because you all have unique data, you will all get different results and so you can work together.
 
@@ -244,7 +244,7 @@ You are also going to be using some data from the US government American Communi
 </details>
 <br><br>
 
-#### Step B3. Follow the lab report instructions!
+#### Step B3. Follow the lab report instructions in VERSION 1 - up to and including "UFO Non Spatial Summary"
 
 <br>
 I will add tutorials here to help you ASAP
@@ -257,70 +257,5 @@ I will add tutorials here to help you ASAP
 <br><br>
 
 
-## Step C. Submitting your Lab
+#### Steps B3 onwards will be updated before 11am Tues 24th
 
-Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab folder, complete with a very recent time-stamp.
-
-<br>
-
-### If you are on posit cloud:
-
-You can download each of your .RmD and html files by:
-
- - Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
-
-```{r, LabFigDownload, echo=FALSE,fig.align='center',out.width="90%"}
-knitr::include_graphics('./index_images/im_T2_Download.png')
-```
-
-
- - Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
- 
- - Now go to Canvas and submit BOTH your html and your .Rmd file in Lab .
-
-
-<br>
-
-### Posit desktop
-
- - Go to your Lab  folder,  In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
-
-- Now go to Canvas and submit BOTH your html and your .Rmd file in Lab .<br>
-
-```{r, echo=FALSE}
-knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
-```
-
-<br>
-
-## Lab 3 submission check-list
-
-**HTML FILE SUBMISSION - 15 marks**
-
-**RMD CODE SUBMISSION - 15 marks**
-
-**MARKDOWN/CODE STYLE - 20 MARKS**
-
-Your code and document is neat and easy to read. LOOK AT YOUR HTML FILE IN YOUR WEB-BROWSER BEFORE YOU SUBMIT. There is also a spell check next to the save button. You have written your answers below the relevant code chunk in full sentences in a way that is easy to find and grade. For example, you have written in full sentences, it is clear what your answers are referring to.
-
-**CODE SHOWCASE - 20 MARKS**
-
-**LAST FROST DATE - 40 MARKS**
-
-
-[110 marks total]
-
-Overall, here is what your lab should correspond to:
-
-```{r, echo=FALSE}
-rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
-knitr::kable(rubric) %>%   
-  kable_classic_2() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
-
-
-```
-
-------------------------------------------------------------------------------------------------------------------------
-
-Website created and maintained by [Helen Greatrex](https://www.geog.psu.edu/directory/helen-greatrex). Website template by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
