@@ -257,5 +257,12 @@ I will add tutorials here to help you ASAP
 <br><br>
 
 
-#### Steps B3 onwards will be updated before 11am Tues 24th
+#### END OF WEEK 1 Work
+
+```{=html}
+<p class="comment"><strong>REALLY focus on writing up your data sources well - and getting on top of this week's homework and discussion. <br><br> Also, go to google maps and get to know your assigned US State!  Where are its cities/its roads/anything else relevant?.  Turn on the satellite/terrain layers and look at the landscape.  This will all help you understand the spatial patterns you might see in the UFO data</strong></p>
+```
+<br><br>
+
+My apologies. I know this is a short lab and that it pushes the hard thinking to next week.   Getting the new materials up which work with the new R map projection has been a real pain, but I'm getting there!
 
