@@ -32,6 +32,7 @@ library(readxl)
 library(osmdata)
 
 
+
 ```
 
 <br>
@@ -106,6 +107,9 @@ install.packages("nasapower")
 install.packages("osmdata")
 install.packages("tigris")
 install.packages("rmdformats")
+install.packages("plotly")
+install.packages("ggstatsplot")
+
 
 
 # If you get a weird error it might be that the quote marks have messed up. 
@@ -198,7 +202,9 @@ output:
 </details>
 <br><br>
 
-#### Step A3. Knit and check it looks good.
+#### Step A3. DO NOT KNIT
+
+There is code missing in your reports for you to complete and it will not work.
 
 
 <br><br>
@@ -209,7 +215,7 @@ You have each been given some (genuine) about UFOs for a specific US State.  Bec
 
 <br>
 
-#### Step B1. Summarise the datasets
+#### Step B2. Learn about the datasets
 
 
 <details>
@@ -233,40 +239,25 @@ You are also going to be using some data from the US government American Communi
  
   - Or there are a LOAD of youtube videos and resources out there  <br>
  
-<br>
-**Step iii:** 
-In the appropriate spot in your report - write a paragraph about each dataset. Feel free to include pictures or anything else you like! (visual mode) <br>
-
 
 <br><br>
 </details>
 <br><br>
 
-#### Step B2. Load the data into R
+#### Step B3. Follow the lab report instructions!
+
+<br>
+I will add tutorials here to help you ASAP
+<br>
 
 <details>
-<summary>Instructions</summary>
+<summary>Tutorials to come</summary>
 <br>
-
-**Step i:**<br>
-In the appropriate spot in your report, use the `read_csv` command to load your UFO data into R (remember it needs to be in your project folder).<br><nr> View it and note the variables and object of analysis in your paragraph about the data. 
-
-
-**Step ii:**<br>
-In the appropriate spot in your report, use the `st_read` command to load your ACS data into R (remember it needs to be in your project folder).<br><nr> View it and note the variables and object of analysis in your paragraph about the data. 
-
-<br>
-
-
-
-
-
-
-
-
+</details>
 <br><br>
 
-## Step D. Submitting your Lab
+
+## Step C. Submitting your Lab
 
 Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab folder, complete with a very recent time-stamp.
 
