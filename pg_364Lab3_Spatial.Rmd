@@ -32,7 +32,8 @@ library(kableExtra)
 library(plotly)
 library(readxl)
 library(osmdata)
-
+library(tigris)
+library(elevatr)
 
 
 ```
@@ -371,14 +372,37 @@ Finally, I have provided a template for your work in week 2.
 
 ### D. UFO Analysis Continued
 
+
 <br>
 
-You will again continue to follow through your lab reports.  I will be putting tutorials here to help you. 
+You will again continue to follow through your lab report and the instructions are there.  I will be putting tutorials here to help you. 
 
 <br>
 
 
 #### D1. TIGRIS Tutorial
+
+```{r, include=FALSE, results="hide", message=FALSE,warning=FALSE}
+albers <- 5070
+
+ufo    <- read.csv("./index_Data/Lab3UFO_DR_G_Pennsylvania.csv")
+ufo_sf <- st_as_sf(ufo, coords = c("Longitude", "Latitude"), crs = 4326)
+ufo_sf <-st_transform(ufo_sf,crs=albers)
+
+acs_sf <- read_sf("./index_Data/Lab3_DR_G_ACS_Pennsylvania.gpkg")
+acs_sf <- st_transform(acs_sf,crs=albers)
+ufo_sf <- st_join(ufo_sf, acs_sf %>% dplyr::select(NAME,med_incomeUSD))
+
+border_sf_longlat <- counties(state = "PA", cb=TRUE)
+border_sf_albers  <- st_transform(border_sf_longlat, crs = albers)
+
+myroads_sf <- primary_secondary_roads(state = "PA", class = "sf")
+myroads_sf <- st_geometry(myroads_sf)
+myroads_sf <- st_transform(myroads_sf, crs = albers)
+
+
+```
+
 
 <details>
 <summary>What is TIGRIS in general?</summary>
@@ -443,7 +467,7 @@ Here's an example with EVERYTHING. You don't need any/all of the variables, they
 PLEASE DON'T USE THESE DEFAULTS!  That's what this lab is about, to make better custom ones.
 
 
-```{r, eval=FALSE}
+```{r}
 
 # BASE/INITIAL PLOT   
 # Start with the borders. It could be any of the datasets, 
@@ -534,8 +558,25 @@ These options are used for any plot, whether it is the first plot or an addition
 <summary>Making maps using GGPLOT2</summary>
 <br>
 
+On the surface, ggplot2 is similar to baseR.  For example it uses layers similarly, although instead of putting an add=TRUE at the end of the plot command, you use the + symbol to connect layers  Here's an example of a ggplot2 map with the same layers as the baseR example above.
+
+```{r}
+
+# here "color" means which name is it using for the legend.
+ggplot() + 
+   geom_sf(data = border_sf_albers, color = "grey50") +
+   geom_sf(data = myroads_sf, aes(color = "PA Roads")) + 
+   geom_sf(data =ufo_sf, aes(color = "UFO Points"), 
+           shape = 16, alpha = 0.7, size = 2) +
+   scale_color_manual(values = c("PA Roads" = "#377eb8",
+                                 "UFO Points" ="red")) + 
+   labs(color = "Legend") + 
+   theme_minimal()
+
+```
 
 
+MORE TO COME!  But ChatGPT is really useful here
 
 </details>
 <br>
@@ -545,7 +586,28 @@ These options are used for any plot, whether it is the first plot or an addition
 <summary>Making maps using tmap</summary>
 <br>
 
-There are LOADS of great tutorials out there.  Here are a few to get you started.
+There are LOADS of great tutorials out there.  
+
+tmap is designed to make mapping easier.  It also uses the + symbol to connect layers but it tries to make all the terminology less confusing.
+
+Basically you "load" a layer with tm_shape, then decide how to plot it.  More to come!  But for now, google tmap tutorial point data or ask Chatgpt.
+ 
+
+```{r}
+
+# Here's an example, more to come!
+
+tm_shape(border_sf_albers) +
+  tm_borders(col = "grey50") + 
+tm_shape(myroads_sf) +
+  tm_lines(col = "#377eb8", lwd = 2, title.col = "Legend", legend.lwd.show = FALSE) +
+tm_shape(ufo_sf) +
+  tm_dots(col = "red", size = 0.1, alpha = 0.7, title = "Legend") +
+tm_layout(legend.title.size = 1)
+
+
+```
+
 
 
 </details>
@@ -554,7 +616,7 @@ There are LOADS of great tutorials out there.  Here are a few to get you started
 
 
 
-#### D3. More to come
+#### D3. More tutorials to come
 
 <details>
 <summary>Instructions</summary>
@@ -564,13 +626,64 @@ There are LOADS of great tutorials out there.  Here are a few to get you started
 </details>
 <br>
 
+## SUBMITTING YOUR LAB
+
+Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab2 folder, complete with a very recent time-stamp.
+
+<br>
+
+### If you use the POSIT cloud website 
+
+You can download each of your .RmD and html files by:
+
+ - Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
+
+```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
+knitr::include_graphics('./index_images/im_T2_Download.png')
+```
 
 
+ - Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
+ 
+ - Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
 
 
+<br>
+
+### If you use the RSTudio desktop on your own computer
+
+ - Press knit!
+ 
+ - Go to your Lab 3 folder,  In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
+
+- Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3.<br>
+
+```{r, echo=FALSE}
+knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
+```
+
+<br>
+
+## GRADING CHECK-LIST
+
+to be added
 
 
+[110 marks total]
 
+
+### What does your grade mean?
+
+Overall, here is what your lab should correspond to:
+
+```{r, echo=FALSE}
+rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
+knitr::kable(rubric) %>%   
+  kable_classic_2() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
+
+
+```
 
 
 

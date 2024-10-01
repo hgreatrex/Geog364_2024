@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -731,8 +733,9 @@ paste.</li>
 <div id="d.-ufo-analysis-continued" class="section level3">
 <h3>D. UFO Analysis Continued</h3>
 <p><br></p>
-<p>You will again continue to follow through your lab reports. I will be
-putting tutorials here to help you.</p>
+<p>You will again continue to follow through your lab report and the
+instructions are there. I will be putting tutorials here to help
+you.</p>
 <p><br></p>
 <div id="d1.-tigris-tutorial" class="section level4">
 <h4>D1. TIGRIS Tutorial</h4>
@@ -771,8 +774,8 @@ all.</p>
 </details>
 <p><br></p>
 </div>
-<div id="d2.-making-maps-tutorial" class="section level4">
-<h4>D2. Making maps Tutorial</h4>
+<div id="d2.-making-maps" class="section level4">
+<h4>D2. Making maps</h4>
 <details>
 <summary>
 Making maps using BaseR
@@ -838,6 +841,7 @@ plot(st_geometry(ufo_sf), add = TRUE,
      col = rgb(1, 0, 0, 0.7),
      col.lab = &quot;red&quot;,
      cex.lab = 0.7)</code></pre>
+<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><br></p>
 <p><strong>Options Specific to the First Plot (Base Plot)</strong></p>
 <p>These options are used only for the initial plot (or “first
@@ -917,9 +921,57 @@ see them all.</li>
 </ul>
 </details>
 <p><br></p>
+<details>
+<summary>
+Making maps using GGPLOT2
+</summary>
+<p><br></p>
+<p>On the surface, ggplot2 is similar to baseR. For example it uses
+layers similarly, although instead of putting an add=TRUE at the end of
+the plot command, you use the + symbol to connect layers Here’s an
+example of a ggplot2 map with the same layers as the baseR example
+above.</p>
+<pre class="r"><code># here &quot;color&quot; means which name is it using for the legend.
+ggplot() + 
+   geom_sf(data = border_sf_albers, color = &quot;grey50&quot;) +
+   geom_sf(data = myroads_sf, aes(color = &quot;PA Roads&quot;)) + 
+   geom_sf(data =ufo_sf, aes(color = &quot;UFO Points&quot;), 
+           shape = 16, alpha = 0.7, size = 2) +
+   scale_color_manual(values = c(&quot;PA Roads&quot; = &quot;#377eb8&quot;,
+                                 &quot;UFO Points&quot; =&quot;red&quot;)) + 
+   labs(color = &quot;Legend&quot;) + 
+   theme_minimal()</code></pre>
+<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>MORE TO COME! But ChatGPT is really useful here</p>
+</details>
+<p><br></p>
+<details>
+<summary>
+Making maps using tmap
+</summary>
+<p><br></p>
+<p>There are LOADS of great tutorials out there.</p>
+<p>tmap is designed to make mapping easier. It also uses the + symbol to
+connect layers but it tries to make all the terminology less
+confusing.</p>
+<p>Basically you “load” a layer with tm_shape, then decide how to plot
+it. More to come! But for now, google tmap tutorial point data or ask
+Chatgpt.</p>
+<pre class="r"><code># Here&#39;s an example, more to come!
+
+tm_shape(border_sf_albers) +
+  tm_borders(col = &quot;grey50&quot;) + 
+tm_shape(myroads_sf) +
+  tm_lines(col = &quot;#377eb8&quot;, lwd = 2, title.col = &quot;Legend&quot;, legend.lwd.show = FALSE) +
+tm_shape(ufo_sf) +
+  tm_dots(col = &quot;red&quot;, size = 0.1, alpha = 0.7, title = &quot;Legend&quot;) +
+tm_layout(legend.title.size = 1)</code></pre>
+<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</details>
+<p><br></p>
 </div>
-<div id="d3.-more-to-come" class="section level4">
-<h4>D3. More to come</h4>
+<div id="d3.-more-tutorials-to-come" class="section level4">
+<h4>D3. More tutorials to come</h4>
 <details>
 <summary>
 Instructions
@@ -928,6 +980,200 @@ Instructions
 </details>
 <p><br></p>
 </div>
+</div>
+</div>
+<div id="submitting-your-lab" class="section level2">
+<h2>SUBMITTING YOUR LAB</h2>
+<p>Remember to save your work throughout and to spell check your writing
+(next to the save button). Now, press the knit button again. If you have
+not made any mistakes in the code then R should create a html file in
+your lab2 folder, complete with a very recent time-stamp.</p>
+<p><br></p>
+<div id="if-you-use-the-posit-cloud-website" class="section level3">
+<h3>If you use the POSIT cloud website</h3>
+<p>You can download each of your .RmD and html files by:</p>
+<ul>
+<li>Clicking on the little box next to the Rmd in the Files tab, then
+going to the little blue cogwheel (might need to make your Rstudio full
+screen) and clicking export.<br></li>
+</ul>
+<p><img src="index_images/im_T2_Download.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Repeat the process exactly for the html file underneath it (e,g,
+just have the html clicked.)<br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 3</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="if-you-use-the-rstudio-desktop-on-your-own-computer"
+class="section level3">
+<h3>If you use the RSTudio desktop on your own computer</h3>
+<ul>
+<li><p>Press knit!</p></li>
+<li><p>Go to your Lab 3 folder, In that folder, double click on the html
+file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU
+WANT TO SUBMIT <br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 3.<br></p></li>
+</ul>
+<p><img src="index_images/pg_364Lab1_Basics_2021_fig1.png" width="1673" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="grading-check-list" class="section level2">
+<h2>GRADING CHECK-LIST</h2>
+<p>to be added</p>
+<p>[110 marks total]</p>
+<div id="what-does-your-grade-mean" class="section level3">
+<h3>What does your grade mean?</h3>
+<p>Overall, here is what your lab should correspond to:</p>
+<table class=" lightable-classic-2 table table-striped table-hover table-responsive" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Grade
+</th>
+<th style="text-align:left;">
+% Mark
+</th>
+<th style="text-align:left;">
+Rubric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A*
+</td>
+<td style="text-align:left;">
+98-100
+</td>
+<td style="text-align:left;">
+Exceptional.  Not only was it near perfect, but the graders learned
+something.  THIS IS HARD TO GET.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+96+
+</td>
+<td style="text-align:left;">
+You went above and beyond
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+93+:
+</td>
+<td style="text-align:left;">
+Everything asked for with high quality.   Class example
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A-
+</td>
+<td style="text-align:left;">
+90+
+</td>
+<td style="text-align:left;">
+The odd minor mistake, All code done but not written up in full
+sentences etc. A little less care
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B+
+</td>
+<td style="text-align:left;">
+87+
+</td>
+<td style="text-align:left;">
+More minor mistakes.  Things like missing units, getting the odd
+question wrong, no workings shown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+83+
+</td>
+<td style="text-align:left;">
+Solid work but the odd larger mistake or missing answer.  Completely
+misinterpreted something, that type of thing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B-
+</td>
+<td style="text-align:left;">
+80+
+</td>
+<td style="text-align:left;">
+Starting to miss entire/questions sections, or multiple larger mistakes.
+Still a solid attempt. 
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C+
+</td>
+<td style="text-align:left;">
+77+
+</td>
+<td style="text-align:left;">
+You made a good effort and did some things well, but there were a lot of
+problems. (e.g. you wrote up the text well, but messed up the code)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+70+
+</td>
+<td style="text-align:left;">
+It’s clear you tried and learned something.  Just attending labs will
+get you this much as we can help you get to this stage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+60+
+</td>
+<td style="text-align:left;">
+You attempt the lab and submit something. Not clear you put in much
+effort or you had real issues
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:left;">
+0+
+</td>
+<td style="text-align:left;">
+Didn’t submit, or incredibly limited attempt. 
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
