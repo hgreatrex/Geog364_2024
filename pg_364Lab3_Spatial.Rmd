@@ -418,7 +418,7 @@ And here is  longer video from later in the seminar that explains it all.
 </details>
 <br>
 
-#### D2. Making maps Tutorial
+#### D2. Making maps 
 
 <details>
 <summary>Making maps using BaseR</summary>
@@ -528,6 +528,30 @@ These options are used for any plot, whether it is the first plot or an addition
 
 </details>
 <br>
+
+
+<details>
+<summary>Making maps using GGPLOT2</summary>
+<br>
+
+
+
+
+</details>
+<br>
+
+
+<details>
+<summary>Making maps using tmap</summary>
+<br>
+
+There are LOADS of great tutorials out there.  Here are a few to get you started.
+
+
+</details>
+<br>
+
+
 
 
 #### D3. More to come
