@@ -8,6 +8,8 @@ output:
     toc_float: true
     theme: flatly
     section_numbering: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -70,8 +72,9 @@ The lab is worth 110 points and there is a rubric at the end of this page.
 ```
 <br><br>
 
+## WEEK 1
 
-## A: Set up - DON'T SKIP
+### A: Set up - DON'T SKIP
 
 <br>
 
@@ -209,7 +212,7 @@ There is code missing in your reports for you to complete and it will not work.
 
 <br><br>
 
-## B: UFO Analysis - Week 1
+### B: UFO Analysis - Week 1
 
 You have each been given some (genuine) about UFOs for a specific US State.  Because you all have unique data, you will all get different results and so you can work together.
 
@@ -244,40 +247,194 @@ You are also going to be using some data from the US government American Communi
 </details>
 <br><br>
 
-#### Step B3. Follow the lab report instructions, up to and including "UFO Non Spatial Summary"
+
+### SUBMITTING WEEK 1
+
+You don't _need_ to submit anything this week.
+
+HOWEVER, I will give two bonus points (within the lab) to anyone who submits their completed .Rmd and .html up until this point in your Lab 3 canvas assignment. 
+
+ - You are getting the bonus point for not leaving it all until the last minute.  I don't currently have the capacity to provide individual feedback unless you ask questions as a submission comment.  You will resubmit with the full report next week
+
+
+----------------------------------------------------------------------
+
+
+## WEEK 2: 
+
 <br>
+
+### C. DON'T SKIP (Important!)
+
+<br>
+
+#### C1. Week 2 Introduction
+
+Welcome to the second part of Lab 3. You are going to be looking at the data in more detail, and learn these new skills:
+
+-   Loading these datasets for your UFO data.
+
+    - Elevation data from the `elevatr` package
+
+    - US border and road data from the `tigris` package
+
+    - US military locations from the `osmdata` package, which is linked to Open Street Map.
+
+-   Extracting raster data and polygon data at point locations
+
+-   Summarising point data across polygons
+
+-   Making professional maps
+
+-   Conducting and interpreting hypothesis tests
+
+-   Considering the process & pattern in your UFO data.
+
+Note, By this point you have hopefully realised that your object of analysis is NOT an actual UFO! <br> Instead it's *a reported sighting* of a UFO to NUFORC by an interested person. So bear in mind that this dataset might say more about the spatial patterns of "internet savvy people who are interested in UFOs" than anything else.
+
+<br><br>
+
+#### C2. Getting started
+
+By this point, you must have completed everything in Week 1. Then
+
+1.  Re-Open your project file for Lab 3.
+2.  Open your .RmD Lab 3 report from Week 1.
+3.  Press knit to make sure it works and looks good. Correct any errors/typos that you see.
+4.  If it doesn't knit at this point or you have qustions, ASK FOR HELP IN LAB.
+
+Now, there are few things you MUST tweak in order to make lab 2 work:
+
+#### C3 IMPORTANT Correct my typo!
+
 <details>
-<summary>Tutorials to come. Instructions also in Lab Report Template</summary>
+<summary>Instructions</summary>
 <br>
+
+Some of you who had an early version of the lab 3 template might need to correct a typo in single code chunk.
+
+-   Scroll up to near the top of your report abd look in the "Make Spatial" section. You should see a code chunk about making the ufo_sf variable.
+
+-   In an early version I accidentally left in an old command which sets up your data with the wrong map projection.
+
+**If your Make Spatial code chunk looks DIFFERENT to this, replace the code-chunk with this code.**
+
+```{r, eval=FALSE}
+ufo_sf <- st_as_sf(ufo, coords = c("Longitude", "Latitude"), crs = 4326)
+
+# Transform the map projection
+albers <- 5070
+ufo_sf <-st_transform(ufo_sf,crs=albers)
+acs_sf <-st_transform(acs_sf,crs=albers)
+
+```
+
+</details>
+<br>
+
+#### C4 IMPORTANT Add packages
+
+<details>
+<summary>Instructions</summary>
+<br>
+
+
+
+Scroll up to your library code chunk at the top. Add these two packages to the end and save/knit your report. Then try to run the library code chunk and if needed, download/install the packages from the internet.
+
+```{r}
+library("raster")
+library("rstantools")
+library("exactextractr")
+```
+
+</details>
+<br>
+
+#### C5 IMPORTANT Week 2 lab template
+
+<details>
+<summary>Instructions</summary>
+<br>
+
+Finally, I have provided a template for your work in week 2.
+
+1.  Go to Canvas and the Lab 3 website.
+2.  Download the **WEEK2_Template.RmD** and put it in your Project 3 folder.
+3.  In R-Studio, open WEEK2_Template.RmD, highlight everything (CmD-A if you want a keyboard shortcut) and press copy.
+4.  Go to your main Lab 3 report, scroll to the end and press paste.
+5.  Knit to check it all works.
+
+
 </details>
 <br><br>
 
-#### Step B4. Now knit. Check it works
-
-
-<br><br>
-
-#### END OF WEEK 1 Work
-My apologies. I know this is a short lab and that it pushes the hard thinking to next week.   Getting the new materials up which work with the new R map projection has been a real pain, but I'm getting there!
+### D. UFO Analysis Continued
 
 <br>
 
-```{=html}
-<p class="comment"><strong>REALLY focus on writing up your data sources well - and getting on top of this week's homework and discussion. <br><br> Also, go to google maps and get to know your assigned US State!  Where are its cities/its roads/anything else relevant?.  Turn on the satellite/terrain layers and look at the landscape.  This will all help you understand the spatial patterns you might see in the UFO data</strong></p>
-```
+You will again continue to follow through your lab reports.  I will be putting tutorials here to help you. 
+
+<br>
 
 
-<br><br>
+#### D1. TIGRIS Tutorial
+
+<details>
+<summary>Instructions to be added</summary>
+<br>
 
 
-#### Do I need to submit this week?
 
-You don't need to submit anything this week.
 
-HOWEVER, I will give one bonus point (within the lab) to anyone who submits their completed .Rmd and .html up until this point in your Lab 3 canvas assignment. 
+</details>
+<br>
 
- - You are getting the bonus point for not leaving it all until the last minute.  I don't think I have the capacity to provide feedback unless you ask questions as a submission comment
-  - You will resubmit with the full report next week
+
+#### D2. Making maps Tutorial
+
+<details>
+<summary>Instructions to be added</summary>
+<br>
+
+
+
+
+</details>
+<br>
+
+
+#### D3. More to come
+
+<details>
+<summary>Instructions</summary>
+<br>
+
+
+</details>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

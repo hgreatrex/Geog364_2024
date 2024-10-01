@@ -410,8 +410,10 @@ page.</p>
 <p class="comment"><strong>THIS IS A TWO WEEK LAB. You have two full lab sessions, then, assignment 3 is due the week afterwards.</strong></p>
 <p><br><br></p>
 </div>
-<div id="a-set-up---dont-skip" class="section level2">
-<h2>A: Set up - DON’T SKIP</h2>
+<div id="week-1" class="section level2">
+<h2>WEEK 1</h2>
+<div id="a-set-up---dont-skip" class="section level3">
+<h3>A: Set up - DON’T SKIP</h3>
 <p><br></p>
 <div id="step-a1.-files-projects" class="section level4">
 <h4>Step A1. Files &amp; Projects</h4>
@@ -550,8 +552,8 @@ not work.</p>
 <p><br><br></p>
 </div>
 </div>
-<div id="b-ufo-analysis---week-1" class="section level2">
-<h2>B: UFO Analysis - Week 1</h2>
+<div id="b-ufo-analysis---week-1" class="section level3">
+<h3>B: UFO Analysis - Week 1</h3>
 <p>You have each been given some (genuine) about UFOs for a specific US
 State. Because you all have unique data, you will all get different
 results and so you can work together.</p>
@@ -596,45 +598,172 @@ class="uri">https://www.socialexplorer.com/help/faq/knowledge-base/american-comm
 </details>
 <p><br><br></p>
 </div>
-<div
-id="step-b3.-follow-the-lab-report-instructions-up-to-and-including-ufo-non-spatial-summary"
-class="section level4">
-<h4>Step B3. Follow the lab report instructions, up to and including
-“UFO Non Spatial Summary”</h4>
-<br>
-<details>
-<summary>
-Tutorials to come. Instructions also in Lab Report Template
-</summary>
-<br>
-</details>
-<p><br><br></p>
 </div>
-<div id="step-b4.-now-knit.-check-it-works" class="section level4">
-<h4>Step B4. Now knit. Check it works</h4>
-<p><br><br></p>
-</div>
-<div id="end-of-week-1-work" class="section level4">
-<h4>END OF WEEK 1 Work</h4>
-<p>My apologies. I know this is a short lab and that it pushes the hard
-thinking to next week. Getting the new materials up which work with the
-new R map projection has been a real pain, but I’m getting there!</p>
-<p><br></p>
-<p class="comment"><strong>REALLY focus on writing up your data sources well - and getting on top of this week's homework and discussion. <br><br> Also, go to google maps and get to know your assigned US State!  Where are its cities/its roads/anything else relevant?.  Turn on the satellite/terrain layers and look at the landscape.  This will all help you understand the spatial patterns you might see in the UFO data</strong></p>
-<p><br><br></p>
-</div>
-<div id="do-i-need-to-submit-this-week" class="section level4">
-<h4>Do I need to submit this week?</h4>
-<p>You don’t need to submit anything this week.</p>
-<p>HOWEVER, I will give one bonus point (within the lab) to anyone who
+<div id="submitting-week-1" class="section level3">
+<h3>SUBMITTING WEEK 1</h3>
+<p>You don’t <em>need</em> to submit anything this week.</p>
+<p>HOWEVER, I will give two bonus points (within the lab) to anyone who
 submits their completed .Rmd and .html up until this point in your Lab 3
 canvas assignment.</p>
 <ul>
 <li>You are getting the bonus point for not leaving it all until the
-last minute. I don’t think I have the capacity to provide feedback
-unless you ask questions as a submission comment</li>
-<li>You will resubmit with the full report next week</li>
+last minute. I don’t currently have the capacity to provide individual
+feedback unless you ask questions as a submission comment. You will
+resubmit with the full report next week</li>
 </ul>
+<hr />
+</div>
+</div>
+<div id="week-2" class="section level2">
+<h2>WEEK 2:</h2>
+<p><br></p>
+<div id="c.-dont-skip-important" class="section level3">
+<h3>C. DON’T SKIP (Important!)</h3>
+<p><br></p>
+<div id="c1.-week-2-introduction" class="section level4">
+<h4>C1. Week 2 Introduction</h4>
+<p>Welcome to the second part of Lab 3. You are going to be looking at
+the data in more detail, and learn these new skills:</p>
+<ul>
+<li><p>Loading these datasets for your UFO data.</p>
+<ul>
+<li><p>Elevation data from the <code>elevatr</code> package</p></li>
+<li><p>US border and road data from the <code>tigris</code>
+package</p></li>
+<li><p>US military locations from the <code>osmdata</code> package,
+which is linked to Open Street Map.</p></li>
+</ul></li>
+<li><p>Extracting raster data and polygon data at point
+locations</p></li>
+<li><p>Summarising point data across polygons</p></li>
+<li><p>Making professional maps</p></li>
+<li><p>Conducting and interpreting hypothesis tests</p></li>
+<li><p>Considering the process &amp; pattern in your UFO data.</p></li>
+</ul>
+<p>Note, By this point you have hopefully realised that your object of
+analysis is NOT an actual UFO! <br> Instead it’s <em>a reported
+sighting</em> of a UFO to NUFORC by an interested person. So bear in
+mind that this dataset might say more about the spatial patterns of
+“internet savvy people who are interested in UFOs” than anything
+else.</p>
+<p><br><br></p>
+</div>
+<div id="c2.-getting-started" class="section level4">
+<h4>C2. Getting started</h4>
+<p>By this point, you must have completed everything in Week 1. Then</p>
+<ol style="list-style-type: decimal">
+<li>Re-Open your project file for Lab 3.</li>
+<li>Open your .RmD Lab 3 report from Week 1.</li>
+<li>Press knit to make sure it works and looks good. Correct any
+errors/typos that you see.</li>
+<li>If it doesn’t knit at this point or you have qustions, ASK FOR HELP
+IN LAB.</li>
+</ol>
+<p>Now, there are few things you MUST tweak in order to make lab 2
+work:</p>
+</div>
+<div id="c3-important-correct-my-typo" class="section level4">
+<h4>C3 IMPORTANT Correct my typo!</h4>
+<details>
+<summary>
+Instructions
+</summary>
+<p><br></p>
+<p>Some of you who had an early version of the lab 3 template might need
+to correct a typo in single code chunk.</p>
+<ul>
+<li><p>Scroll up to near the top of your report abd look in the “Make
+Spatial” section. You should see a code chunk about making the ufo_sf
+variable.</p></li>
+<li><p>In an early version I accidentally left in an old command which
+sets up your data with the wrong map projection.</p></li>
+</ul>
+<p><strong>If your Make Spatial code chunk looks DIFFERENT to this,
+replace the code-chunk with this code.</strong></p>
+<pre class="r"><code>ufo_sf &lt;- st_as_sf(ufo, coords = c(&quot;Longitude&quot;, &quot;Latitude&quot;), crs = 4326)
+
+# Transform the map projection
+albers &lt;- 5070
+ufo_sf &lt;-st_transform(ufo_sf,crs=albers)
+acs_sf &lt;-st_transform(acs_sf,crs=albers)</code></pre>
+</details>
+<p><br></p>
+</div>
+<div id="c4-important-add-packages" class="section level4">
+<h4>C4 IMPORTANT Add packages</h4>
+<details>
+<summary>
+Instructions
+</summary>
+<p><br></p>
+<p>Scroll up to your library code chunk at the top. Add these two
+packages to the end and save/knit your report. Then try to run the
+library code chunk and if needed, download/install the packages from the
+internet.</p>
+<pre class="r"><code>library(&quot;raster&quot;)
+library(&quot;rstantools&quot;)
+library(&quot;exactextractr&quot;)</code></pre>
+</details>
+<p><br></p>
+</div>
+<div id="c5-important-week-2-lab-template" class="section level4">
+<h4>C5 IMPORTANT Week 2 lab template</h4>
+<details>
+<summary>
+Instructions
+</summary>
+<p><br></p>
+<p>Finally, I have provided a template for your work in week 2.</p>
+<ol style="list-style-type: decimal">
+<li>Go to Canvas and the Lab 3 website.</li>
+<li>Download the <strong>WEEK2_Template.RmD</strong> and put it in your
+Project 3 folder.</li>
+<li>In R-Studio, open WEEK2_Template.RmD, highlight everything (CmD-A if
+you want a keyboard shortcut) and press copy.</li>
+<li>Go to your main Lab 3 report, scroll to the end and press
+paste.</li>
+<li>Knit to check it all works.</li>
+</ol>
+</details>
+<p><br><br></p>
+</div>
+</div>
+<div id="d.-ufo-analysis-continued" class="section level3">
+<h3>D. UFO Analysis Continued</h3>
+<p><br></p>
+<p>You will again continue to follow through your lab reports. I will be
+putting tutorials here to help you.</p>
+<p><br></p>
+<div id="d1.-tigris-tutorial" class="section level4">
+<h4>D1. TIGRIS Tutorial</h4>
+<details>
+<summary>
+Instructions to be added
+</summary>
+<p><br></p>
+</details>
+<p><br></p>
+</div>
+<div id="d2.-making-maps-tutorial" class="section level4">
+<h4>D2. Making maps Tutorial</h4>
+<details>
+<summary>
+Instructions to be added
+</summary>
+<p><br></p>
+</details>
+<p><br></p>
+</div>
+<div id="d3.-more-to-come" class="section level4">
+<h4>D3. More to come</h4>
+<details>
+<summary>
+Instructions
+</summary>
+<p><br></p>
+</details>
+<p><br></p>
+</div>
 </div>
 </div>
 
