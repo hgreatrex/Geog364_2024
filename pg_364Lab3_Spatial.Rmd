@@ -381,14 +381,20 @@ You will again continue to follow through your lab reports.  I will be putting t
 #### D1. TIGRIS Tutorial
 
 <details>
-<summary>Instructions to be added</summary>
+<summary>What is TIGRIS?</summary>
 <br>
 
+What is TIGRIS?
 
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen></iframe>
 
 </details>
 <br>
+
+
+
 
 
 #### D2. Making maps Tutorial
