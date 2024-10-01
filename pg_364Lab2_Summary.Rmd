@@ -165,7 +165,6 @@ cheatsheet](https://hgreatrex.github.io/Geog364_2024/pg_Tut3_basics.html#Tutoria
 
 ::: collapsible-content
 <iframe src="pindent_Tut2b_ProjectsDesktop.html" style="width: 100%; height: 700px; border: none;">
-
 </iframe>
 :::
 

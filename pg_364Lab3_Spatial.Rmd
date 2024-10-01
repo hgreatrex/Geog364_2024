@@ -244,9 +244,10 @@ You are also going to be using some data from the US government American Communi
 </details>
 <br><br>
 
-#### Step B3. Follow the lab report instructions  up to and including "UFO Non Spatial Summary"
+#### Step B3. Follow the lab report instructions, up to and including "UFO Non Spatial Summary"
+<br>
 <details>
-<summary>Tutorials to come. Instructions also in Lab Report 1</summary>
+<summary>Tutorials to come. Instructions also in Lab Report Template</summary>
 <br>
 </details>
 <br><br>
@@ -257,13 +258,14 @@ You are also going to be using some data from the US government American Communi
 <br><br>
 
 #### END OF WEEK 1 Work
+My apologies. I know this is a short lab and that it pushes the hard thinking to next week.   Getting the new materials up which work with the new R map projection has been a real pain, but I'm getting there!
+
+<br>
 
 ```{=html}
 <p class="comment"><strong>REALLY focus on writing up your data sources well - and getting on top of this week's homework and discussion. <br><br> Also, go to google maps and get to know your assigned US State!  Where are its cities/its roads/anything else relevant?.  Turn on the satellite/terrain layers and look at the landscape.  This will all help you understand the spatial patterns you might see in the UFO data</strong></p>
 ```
-<br><br>
 
-My apologies. I know this is a short lab and that it pushes the hard thinking to next week.   Getting the new materials up which work with the new R map projection has been a real pain, but I'm getting there!
 
 <br><br>
 
