@@ -775,9 +775,146 @@ all.</p>
 <h4>D2. Making maps Tutorial</h4>
 <details>
 <summary>
-Instructions to be added
+Making maps using BaseR
 </summary>
 <p><br></p>
+<p>There are MANY tutorials and videos out there. So if my style of
+explaining doesn’t work for you, try one of these.</p>
+<p>In base R, we use the plot command. To add layers, we put a new plot
+command but put add=TRUE at the end. For example, here’s a plot of the
+UFO locations simply colored blue along with roads and state
+borders.</p>
+<p><strong>First Sub-Plot</strong> - The base plot is where you define
+overall settings such as axis labels, titles, and limits. These options
+apply only when creating the initial plot to set the plot canvas.</p>
+<p><strong>Adding Layers</strong> - We can then add adding additional
+layers by writing a newplot command but putting add=TRUE in the options
+(note, this is only for maps! For normal data the command is lines() ).
+Aspects such as axis labels (xlab, ylab) and main titles (main, sub) are
+not needed again, but you can change things like point size.</p>
+<p><strong>st_geometry</strong> The st_geometry command means don’t look
+at any of the variables, just plot the locations stored under
+geometry.</p>
+<p>Here’s an example with EVERYTHING. You don’t need any/all of the
+variables, they’re here so you can see them and so you can
+copy/paste/edit.</p>
+<p>PLEASE DON’T USE THESE DEFAULTS! That’s what this lab is about, to
+make better custom ones.</p>
+<pre class="r"><code># BASE/INITIAL PLOT   
+# Start with the borders. It could be any of the datasets, 
+# I&#39;m just choosing what gets plotted first, 
+
+plot(st_geometry(border_sf_albers),
+     border = grey(.6),
+     col=NA, #empty polygons
+     xlim = c(1268320,1781848),
+     ylim = c(1962636, 2294525),
+     main = &quot;UFO Sightings&quot;,
+     sub = &quot;Across the United States&quot;,
+     xlab = &quot;Longitude&quot;,
+     ylab = &quot;Latitude&quot;,
+     asp = 1,
+     axes = TRUE,
+     ann = TRUE,
+     lwd = 2,
+     lty = &quot;solid&quot;,
+     col.axis = &quot;darkgray&quot;,
+     col.lab = &quot;darkgreen&quot;,
+     font.main = 2,
+     cex.main = 1.8,
+     cex.lab = 1.2,
+     cex.axis = 0.8)
+
+# Then add in the roads line data.  THIS IS A LAYER I AM ADDING
+plot(st_geometry(myroads_sf), add = TRUE,
+     col = &quot;#377eb8&quot;,
+     lwd = 1.5,
+     lty = &quot;dashed&quot;)
+
+# And finally, add in the UFO point data.  THIS IS A LAYER I AM ADDING
+plot(st_geometry(ufo_sf), add = TRUE,
+     pch = 16,
+     cex = 1.5,
+     col = rgb(1, 0, 0, 0.7),
+     col.lab = &quot;red&quot;,
+     cex.lab = 0.7)</code></pre>
+<p><br></p>
+<p><strong>Options Specific to the First Plot (Base Plot)</strong></p>
+<p>These options are used only for the initial plot (or “first
+sub-plot”) in base R. They set up the overall plot layout, such as axis
+labels, aspect ratio, and titles, and are not repeated for additional
+layers.</p>
+<ul>
+<li><code>ann</code>: Logical value for annotating the plot, such as
+adding main title and axis labels. Setting ann = FALSE removes all
+annotations, useful if you don’t want to clutter the plot.</li>
+<li><code>asp</code>: Sets the aspect ratio of the plot. asp = 1 ensures
+that one unit on the x-axis is equal in length to one unit on the
+y-axis, which is especially important for maintaining geographical
+accuracy.</li>
+<li><code>axes</code>: Logical value indicating whether to draw axes.
+Setting to FALSE omits the axes for a cleaner plot.</li>
+<li><code>bg</code>: Specifies the background color for the entire plot,
+such as “lightblue” or an RGB value, making it suitable for thematic
+maps.</li>
+<li><code>cex.axis</code>: Controls the size of axis tick labels. Values
+typically range from 0.5 to 2, helping to make axis labels more
+readable.</li>
+<li><code>cex.lab</code>: Adjusts the size of axis labels (titles), with
+values ranging from 0.5 to 2. This is particularly useful for making
+labels more prominent or subtle.</li>
+<li><code>cex.main</code>: Size of the main title text. Values greater
+than 1 enlarge the title, whereas values less than 1 reduce it.</li>
+<li><code>col.axis</code>: Specifies the color of the axis labels, such
+as “darkgray” or RGB values.</li>
+<li><code>col.lab</code>: Color of the axis titles (labels), for
+instance, “darkgreen” or an RGB value. Helps in making axis labels stand
+out.</li>
+<li><code>font.main</code>: Font style for the main title. Possible
+values include 1 (plain), 2 (bold), 3 (italic), or 4 (bold italic).</li>
+<li><code>frame.plot</code>: Logical value indicating whether to draw a
+box around the plot. Set to TRUE to add a frame, which can make the plot
+boundaries clearer.</li>
+<li><code>main</code>: Main title of the plot, providing a summary
+description of the visual representation.</li>
+<li><code>sub</code>: Subtitle of the plot, providing additional context
+or information below the main title.</li>
+<li><code>xlab</code>: Label for the x-axis, describing what the
+horizontal axis represents.</li>
+<li><code>xlim</code>: Limits for the x-axis, given as a vector (e.g.,
+c(-130, -60)) to zoom in or out of a particular region.</li>
+<li><code>ylab</code>: Label for the y-axis, describing what the
+vertical axis represents.</li>
+<li><code>ylim</code>: Limits for the y-axis, given as a vector (e.g.,
+c(20, 55)) to focus on a particular latitude range.</li>
+</ul>
+<p><br></p>
+<p><strong>Options Specific to ANY plot</strong></p>
+<p>These options are used for any plot, whether it is the first plot or
+an additional layer. They control the appearance of the data being
+plotted, such as line color, point size, and transparency.</p>
+<ul>
+<li><code>add</code>: Adds a layer to the existing plot. Set to
+<code>TRUE</code> to layer additional data on the map without erasing
+previous layers.</li>
+<li><code>col</code>: COLOR used for points or lines. Can be a named
+color (e.g., <code>"blue"</code>), RGB value INCLUDING TRANSPANCY (e.g.,
+<code>rgb(1, 0, 0, 0.7)</code>), or hexadecimal color code (e.g.,
+<code>"#377eb8"</code>).</li>
+<li><code>lty</code>: LINE type, such as <code>"solid"</code>,
+<code>"dashed"</code>,
+“dotted”<code>, or numeric values from</code>1<code>to</code>6` for
+different styles.</li>
+<li><code>lwd</code>: LINE width. Values greater than <code>1</code>
+make lines thicker. Common values range from <code>1</code> to
+<code>5</code>.</li>
+<li><code>pch</code>: POINT symbol shape. Values range from
+<code>0</code> to <code>25</code>, with <code>16</code> being a common
+filled circle. Try the command <code>plot(1:20,1:20,pch=1:20)</code> to
+see them all.</li>
+<li><code>cex</code>: POINT Size. Typically ranges from <code>0.1</code>
+(very small) to <code>10</code> (very large).</li>
+</ul>
 </details>
 <p><br></p>
 </div>

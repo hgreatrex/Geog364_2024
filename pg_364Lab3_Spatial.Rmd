@@ -421,9 +421,108 @@ And here is  longer video from later in the seminar that explains it all.
 #### D2. Making maps Tutorial
 
 <details>
-<summary>Instructions to be added</summary>
+<summary>Making maps using BaseR</summary>
 <br>
 
+There are MANY tutorials and videos out there. So if my style of explaining doesn't work for you, try one of these.
+
+In base R, we use the plot command.  To add layers, we put a new plot command but put add=TRUE at the end. For example, here's a plot of the UFO locations simply colored blue along with roads and state borders.
+
+**First Sub-Plot** 
+ - The base plot is where you define overall settings such as axis labels, titles, and limits. These options apply only when creating the initial plot to set the plot canvas.
+
+**Adding Layers**
+ - We can then add adding additional layers by writing a newplot command but putting add=TRUE in the options (note, this is only for maps! For normal data the command is lines() ).  Aspects such as axis labels (xlab, ylab) and main titles (main, sub) are not needed again, but you can change things like point size. 
+
+**st_geometry**
+The st_geometry command means don't look at any of the variables, just plot the locations stored under geometry.
+
+
+Here's an example with EVERYTHING. You don't need any/all of the variables, they're here so you can see them and so you can copy/paste/edit. 
+
+PLEASE DON'T USE THESE DEFAULTS!  That's what this lab is about, to make better custom ones.
+
+
+```{r, eval=FALSE}
+
+# BASE/INITIAL PLOT   
+# Start with the borders. It could be any of the datasets, 
+# I'm just choosing what gets plotted first, 
+
+plot(st_geometry(border_sf_albers),
+     border = grey(.6),
+     col=NA, #empty polygons
+     xlim = c(1268320,1781848),
+     ylim = c(1962636, 2294525),
+     main = "UFO Sightings",
+     sub = "Across the United States",
+     xlab = "Longitude",
+     ylab = "Latitude",
+     asp = 1,
+     axes = TRUE,
+     ann = TRUE,
+     lwd = 2,
+     lty = "solid",
+     col.axis = "darkgray",
+     col.lab = "darkgreen",
+     font.main = 2,
+     cex.main = 1.8,
+     cex.lab = 1.2,
+     cex.axis = 0.8)
+
+# Then add in the roads line data.  THIS IS A LAYER I AM ADDING
+plot(st_geometry(myroads_sf), add = TRUE,
+     col = "#377eb8",
+     lwd = 1.5,
+     lty = "dashed")
+
+# And finally, add in the UFO point data.  THIS IS A LAYER I AM ADDING
+plot(st_geometry(ufo_sf), add = TRUE,
+     pch = 16,
+     cex = 1.5,
+     col = rgb(1, 0, 0, 0.7),
+     col.lab = "red",
+     cex.lab = 0.7)
+
+
+```
+
+<br>
+
+**Options Specific to the First Plot (Base Plot)**
+
+These options are used only for the initial plot (or "first sub-plot") in base R. They set up the overall plot layout, such as axis labels, aspect ratio, and titles, and are not repeated for additional layers.
+
+ - `ann`: Logical value for annotating the plot, such as adding main title and axis labels. Setting ann = FALSE removes all annotations, useful if you don’t want to clutter the plot.
+ - `asp`: Sets the aspect ratio of the plot. asp = 1 ensures that one unit on the x-axis is equal in length to one unit on the y-axis, which is especially important for maintaining geographical accuracy.
+ - `axes`: Logical value indicating whether to draw axes. Setting to FALSE omits the axes for a cleaner plot.
+ - `bg`: Specifies the background color for the entire plot, such as "lightblue" or an RGB value, making it suitable for thematic maps.
+ - `cex.axis`: Controls the size of axis tick labels. Values typically range from 0.5 to 2, helping to make axis labels more readable.
+ - `cex.lab`: Adjusts the size of axis labels (titles), with values ranging from 0.5 to 2. This is particularly useful for making labels more prominent or subtle.
+ - `cex.main`: Size of the main title text. Values greater than 1 enlarge the title, whereas values less than 1 reduce it.
+ - `col.axis`: Specifies the color of the axis labels, such as "darkgray" or RGB values.
+ - `col.lab`: Color of the axis titles (labels), for instance, "darkgreen" or an RGB value. Helps in making axis labels stand out.
+ - `font.main`: Font style for the main title. Possible values include 1 (plain), 2 (bold), 3 (italic), or 4 (bold italic).
+ - `frame.plot`: Logical value indicating whether to draw a box around the plot. Set to TRUE to add a frame, which can make the plot boundaries clearer.
+ - `main`: Main title of the plot, providing a summary description of the visual representation.
+ - `sub`: Subtitle of the plot, providing additional context or information below the main title.
+ - `xlab`: Label for the x-axis, describing what the horizontal axis represents.
+ - `xlim`: Limits for the x-axis, given as a vector (e.g., c(-130, -60)) to zoom in or out of a particular region.
+ - `ylab`: Label for the y-axis, describing what the vertical axis represents.
+ - `ylim`: Limits for the y-axis, given as a vector (e.g., c(20, 55)) to focus on a particular latitude range.
+
+<br>
+
+**Options Specific to ANY plot**
+
+These options are used for any plot, whether it is the first plot or an additional layer. They control the appearance of the data being plotted, such as line color, point size, and transparency.
+
+ - `add`: Adds a layer to the existing plot. Set to `TRUE` to layer additional data on the map without erasing previous layers.
+ - `col`: COLOR used for points or lines. Can be a named color (e.g., `"blue"`), RGB value INCLUDING TRANSPANCY (e.g., `rgb(1, 0, 0, 0.7)`), or hexadecimal color code (e.g., `"#377eb8"`).
+ - `lty`: LINE type, such as `"solid"`, `"dashed"`, "dotted"`, or numeric values from `1` to `6` for different styles.
+ - `lwd`: LINE width. Values greater than `1` make lines thicker. Common values range from `1` to `5`.
+ - `pch`: POINT symbol shape. Values range from `0` to `25`, with `16` being a common filled circle. Try the command `plot(1:20,1:20,pch=1:20)` to see them all.
+ - `cex`: POINT Size. Typically ranges from `0.1` (very small) to `10` (very large).
 
 
 
