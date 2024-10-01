@@ -381,21 +381,42 @@ You will again continue to follow through your lab reports.  I will be putting t
 #### D1. TIGRIS Tutorial
 
 <details>
-<summary>What is TIGRIS?</summary>
+<summary>What is TIGRIS in general?</summary>
 <br>
 
-What is TIGRIS?
+I've cut a one minute section of this seminar for you that explains what data is behind TIGRIS
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908"
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908&end=1006"
         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen></iframe>
 
 </details>
 <br>
 
+<details>
+<summary>How to use the TIGRIS package IN R?</summary>
+<br>
+
+Here's a chapter explaining TIGRIS in R 
+
+ - <https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html> . 
+ 
+ 
+You can also see worked examples here:
+
+- <https://walker-data.com/tigris-webinar>
 
 
 
+And here is  longer video from later in the seminar that explains it all. 
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=1274&end=2151"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen></iframe>
+
+</details>
+<br>
 
 #### D2. Making maps Tutorial
 
