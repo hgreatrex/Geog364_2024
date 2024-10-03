@@ -616,11 +616,19 @@ tm_layout(legend.title.size = 1)
 
 
 
-#### D3. More tutorials to come
+#### D3. T-Tests tutorial
+
+::: small-gap
+:::
 
 <details>
-<summary>Instructions</summary>
-<br>
+
+<summary>Expand for instructions AND SCROLL TO END</summary>
+
+::: collapsible-content
+<iframe src="https://psu-spatial.github.io/Stat462-2024/probability-distributions.html#one-sided-t-test" style="width: 100%; height: 700px; border: none;">
+</iframe>
+:::
 
 
 </details>
