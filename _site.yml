@@ -23,6 +23,8 @@ navbar:
           href: pg_364Lab2_Summary.html 
         - text: "Lab 3: Spatial Basics"
           href: pg_364Lab3_Spatial.html 
+        - text: "Lab 4: Neighbourhood"
+          href: pg_364Lab4_Neighbourhood.html 
 output:
   html_document:
     theme: flatly

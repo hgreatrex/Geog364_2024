@@ -11,7 +11,7 @@
 
 
 
-<title>Lab 3: Spatial Basics</title>
+<title>Lab 4: Neighbourhood</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -379,7 +379,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lab 3: Spatial Basics</h1>
+<h1 class="title toc-ignore">Lab 4: Neighbourhood</h1>
 <h3 class="subtitle"><h4 style="font-style:normal"><br />
 GEOG-364 - Spatial Analysis<br />
 </h4></h3>
@@ -388,38 +388,30 @@ GEOG-364 - Spatial Analysis<br />
 
 
 <p><br></p>
-<div id="welcome-to-lab-3" class="section level2">
-<h2>Welcome to Lab 3!</h2>
-<p>The aim of this lab is to start looking at tables of data and to make
-your first maps.</p>
-<p>By the end of this week’s lab, you will be able to:</p>
+<div id="welcome-to-lab-4" class="section level2">
+<h2>Welcome to Lab 4!</h2>
+<div id="aims" class="section level3">
+<h3>Aims</h3>
 <ul>
-<li><ol style="list-style-type: decimal">
-<li>Make a markdown template</li>
-</ol></li>
-<li><ol start="2" style="list-style-type: decimal">
-<li>Read in data from an excel file</li>
-</ol></li>
-<li><ol start="3" style="list-style-type: decimal">
-<li>Conduct exploratory data analysis</li>
-</ol></li>
-<li><ol start="4" style="list-style-type: decimal">
-<li>Wrangle a table of data</li>
-</ol></li>
-<li><ol start="5" style="list-style-type: decimal">
-<li>Make initial plots and maps</li>
-</ol></li>
+<li><p>Today’s lab explores the concepts of <strong>Domain
+(environment)</strong>, <strong>Location</strong>,
+<strong>Distance</strong> and <strong>Neighborhood</strong> and tests
+useful tools.</p></li>
+<li><p>Next week (4B), we pull these tools together to study
+<strong>Connection</strong>, specifically
+<strong>autocorrelation</strong>.</p></li>
+<li><p>In addition, you will learn skills such as downloading data from
+OpenStreetMap and how to use the “sfdep” package.</p></li>
 </ul>
-<p>The lab is worth 110 points and there is a rubric at the end of this
-page.</p>
-<p class="comment"><strong>THIS IS A TWO WEEK LAB. You have two full lab sessions, then, assignment 3 is due the week afterwards.</strong></p>
+<p><br></p>
+<p class="comment"><strong>THIS IS A TWO WEEK LAB. <br>You have two full lab sessions, then, assignment 4 is due the week afterwards.<br>The lab is worth 110 points and there is a rubric at the end of this page.</strong></p>
 <p><br><br></p>
+</div>
 </div>
 <div id="week-1" class="section level2">
 <h2>WEEK 1</h2>
 <div id="a-set-up---dont-skip" class="section level3">
 <h3>A: Set up - DON’T SKIP</h3>
-<p><br></p>
 <div id="step-a1.-files-projects" class="section level4">
 <h4>Step A1. Files &amp; Projects</h4>
 <details>
@@ -441,12 +433,10 @@ the packages you need. <br></p>
 install.packages(&quot;tidyverse&quot;)
 install.packages(&quot;ggplot2&quot;)
 install.packages(&quot;dplyr&quot;)
-
 install.packages(&quot;remotes&quot;)
 
 remotes::install_github(repo = &quot;r-spatial/sf&quot;, 
                         ref = &quot;93a25fd8e2f5c6af7c080f92141cb2b765a04a84&quot;)
-
 install.packages(&quot;terra&quot;)
 install.packages(&quot;tmap&quot;)
 install.packages(&quot;elevatr&quot;)
@@ -456,44 +446,45 @@ install.packages(&quot;tigris&quot;)
 install.packages(&quot;rmdformats&quot;)
 install.packages(&quot;plotly&quot;)
 install.packages(&quot;ggstatsplot&quot;)
-
+install.packages(&quot;spdep&quot;)
+install.packages(&quot;osmdata&quot;)
+install.packages(&quot;units&quot;)
 
 
 # If you get a weird error it might be that the quote marks have messed up. 
 # Replace all of them and ask Dr G for a shortcut.</code></pre>
 <p><br><br></p>
-<p><strong>Step iii: </strong><br>Go to the Lab Canvas page and download
-these 3 files. Upload each one into your project
+<p><strong>Step iii:</strong> <br>Go to the Lab Canvas page and download
+these 4 files. Upload each one into your project
 folder.<br><em>Forgotten how? See Lab 2 Set-Up.</em> <br></p>
 <ol style="list-style-type: decimal">
-<li>Your PERSONAL UFO dataset (look for the csv file with your email
-ID). <br></li>
-<li>Your PERSONAL Spatial State-level dataset. <br></li>
+<li>TWO “mystery datasets”. <br></li>
 <li>The lab report template .RmD file.<br></li>
 </ol>
-<br>
+<p><br></p>
 </details>
-<br>
+<div class="small-gap">
+
+</div>
 <details>
 <summary>
 R-DESKTOP people, expand for set up
 </summary>
 <p><br></p>
 <p><strong>Step i:</strong><br>Create a new project for Lab
-3.<br><em>Forgotten how? See Lab 2 Set-Up.</em><br><br></p>
+4.<br><em>Forgotten how? See Lab 2 Set-Up.</em><br><br></p>
 <p><strong>Step ii:</strong><br>Go to the Lab Canvas page and download
-these 3 files.<br> Put each one in your Lab 3 project folder. <br></p>
+these files. Put them in your project folder for Lab 4<br></p>
 <ol style="list-style-type: decimal">
-<li>Your PERSONAL UFO dataset (look for the csv file with your email
-ID). <br></li>
-<li>Your PERSONAL Spatial State-level dataset. <br></li>
-<li>The lab report template .RmD file.<br><br></li>
+<li>TWO “mystery datasets”. <br></li>
+<li>The lab report template .RmD file.<br></li>
 </ol>
 <p><strong>Step iii:</strong><br>Open the Lab report template and try to
-knit. Install any packages you are missing (either via clicking the
-little yellow bar or by clicking Packages/Install) <br><br></p>
+run the library code chunk file. Install any packages you are missing
+(either via clicking the little yellow bar or by clicking
+Packages/Install) <br><br></p>
 </details>
-<p><br><br></p>
+<p><br></p>
 </div>
 <div id="step-a2.-change-the-theme" class="section level4">
 <h4>Step A2. Change the theme</h4>
@@ -522,7 +513,7 @@ YAML code to a theme of your choice. See the example YAML code below
 change how code chunks look. - see the rmdformats website.</li>
 </ol>
 <pre class="r"><code>---
-title: &quot;Lab 3&quot;
+title: &quot;Lab 4&quot;
 author: &quot;ADD YOUR EMAIL ID&quot;
 date: &quot;`r Sys.Date()`&quot;
 output:
@@ -537,7 +528,7 @@ output:
 downcute_theme line.</li>
 </ol>
 <pre class="r"><code>---
-title: &quot;Lab 3&quot;
+title: &quot;Lab 4&quot;
 author: &quot;ADD YOUR EMAIL ID&quot;
 date: &quot;`r Sys.Date()`&quot;
 output:
@@ -546,450 +537,360 @@ output:
     downcute_theme: &quot;chaos&quot;
     default_style: &quot;dark&quot;
 ---</code></pre>
-<br><br>
-</details>
 <p><br><br></p>
-</div>
-<div id="step-a3.-do-not-knit" class="section level4">
-<h4>Step A3. DO NOT KNIT</h4>
-<p>There is code missing in your reports for you to complete and it will
-not work.</p>
-<p><br><br></p>
-</div>
-</div>
-<div id="b-ufo-analysis---week-1" class="section level3">
-<h3>B: UFO Analysis - Week 1</h3>
-<p>You have each been given some (genuine) about UFOs for a specific US
-State. Because you all have unique data, you will all get different
-results and so you can work together.</p>
-<p><br></p>
-<div id="step-b2.-learn-about-the-datasets" class="section level4">
-<h4>Step B2. Learn about the datasets</h4>
-<details>
-<summary>
-Instructions
-</summary>
-<p><br></p>
-<p><strong>Step i:</strong> First, learn about the UFO data (you will
-write about it in Step 3). Look at these websites and BRIEFLY note down
-to yourself,, how was the data collected? Why? e.g. what were the people
-who collected the data trying to achieve? Also note down any other
-relevant information you can see. E.g. is data stored as points or
-polygons etc. <br></p>
-<ul>
-<li><p>The raw data was collected from here: <a
-href="https://nuforc.org/" class="uri">https://nuforc.org/</a>
-<br></p></li>
-<li><p>The actual data was obtained from here <a
-href="https://github.com/planetsig/ufo-reports"
-class="uri">https://github.com/planetsig/ufo-reports</a> <br></p></li>
-</ul>
-<p><br> <strong>Step ii:</strong> You are also going to be using some
-data from the US government American Community Survey (you will write
-about it in Step 3). Look at these resources and BRIEFLY note down to
-yourself, how was the data collected? Why? e.g. what were the people who
-collected the data trying to achieve? Also note down any other relevant
-information you can see. E.g. is data stored as points or polygons etc.
-<br></p>
-<ul>
-<li><p>You can read about it here: <a
-href="https://www.socialexplorer.com/help/faq/knowledge-base/american-community-survey-basics"
-class="uri">https://www.socialexplorer.com/help/faq/knowledge-base/american-community-survey-basics</a>
-<br></p></li>
-<li><p>Or there are a LOAD of youtube videos and resources out there
-<br></p></li>
-</ul>
-<br><br>
 </details>
 <p><br><br></p>
 </div>
 </div>
-<div id="submitting-week-1" class="section level3">
-<h3>SUBMITTING WEEK 1</h3>
-<p>You don’t <em>need</em> to submit anything this week.</p>
-<p>HOWEVER, I will give two bonus points (within the lab) to anyone who
-submits their completed .Rmd and .html up until this point in your Lab 3
-canvas assignment.</p>
-<ul>
-<li>You are getting the bonus point for not leaving it all until the
-last minute. I don’t currently have the capacity to provide individual
-feedback unless you ask questions as a submission comment. You will
-resubmit with the full report next week</li>
-</ul>
-<hr />
-</div>
-</div>
-<div id="week-2" class="section level2">
-<h2>WEEK 2:</h2>
-<p><br></p>
-<div id="c.-dont-skip-important" class="section level3">
-<h3>C. DON’T SKIP (Important!)</h3>
-<p><br></p>
-<div id="c1.-week-2-introduction" class="section level4">
-<h4>C1. Week 2 Introduction</h4>
-<p>Welcome to the second part of Lab 3. You are going to be looking at
-the data in more detail, and learn these new skills:</p>
-<ul>
-<li><p>Loading these datasets for your UFO data.</p>
-<ul>
-<li><p>Elevation data from the <code>elevatr</code> package</p></li>
-<li><p>US border and road data from the <code>tigris</code>
-package</p></li>
-<li><p>US military locations from the <code>osmdata</code> package,
-which is linked to Open Street Map.</p></li>
-</ul></li>
-<li><p>Extracting raster data and polygon data at point
-locations</p></li>
-<li><p>Summarising point data across polygons</p></li>
-<li><p>Making professional maps</p></li>
-<li><p>Conducting and interpreting hypothesis tests</p></li>
-<li><p>Considering the process &amp; pattern in your UFO data.</p></li>
-</ul>
-<p>Note, By this point you have hopefully realised that your object of
-analysis is NOT an actual UFO! <br> Instead it’s <em>a reported
-sighting</em> of a UFO to NUFORC by an interested person. So bear in
-mind that this dataset might say more about the spatial patterns of
-“internet savvy people who are interested in UFOs” than anything
-else.</p>
-<p><br><br></p>
-</div>
-<div id="c2.-getting-started" class="section level4">
-<h4>C2. Getting started</h4>
-<p>By this point, you must have completed everything in Week 1. Then</p>
-<ol style="list-style-type: decimal">
-<li>Re-Open your project file for Lab 3.</li>
-<li>Open your .RmD Lab 3 report from Week 1.</li>
-<li>Press knit to make sure it works and looks good. Correct any
-errors/typos that you see.</li>
-<li>If it doesn’t knit at this point or you have qustions, ASK FOR HELP
-IN LAB.</li>
-</ol>
-<p>Now, there are few things you MUST tweak in order to make lab 2
-work:</p>
-</div>
-<div id="c3-important-correct-my-typo" class="section level4">
-<h4>C3 IMPORTANT Correct my typo!</h4>
+<div id="b-core-spatial-attributes" class="section level3">
+<h3>B: Core spatial attributes</h3>
+<p>In spatial statistics, <strong>Domain (environment)</strong>,
+<strong>Location</strong>, <strong>Distance</strong>,
+<strong>Neighborhood</strong>, and <strong>Connection</strong> form the
+foundation of understanding spatial relationships and patterns in
+data.</p>
+<p>Expand to read the collected summaries of why each is important. They
+are short and it will put the lab into context of the lectures/exams.
+There is nothing to write/submit here, but it will save you time
+later.</p>
 <details>
 <summary>
-Instructions
+<strong>READ THESE SUMMARIES</strong>
 </summary>
 <p><br></p>
-<p>Some of you who had an early version of the lab 3 template might need
-to correct a typo in single code chunk.</p>
-<ul>
-<li><p>Scroll up to near the top of your report abd look in the “Make
-Spatial” section. You should see a code chunk about making the ufo_sf
-variable.</p></li>
-<li><p>In an early version I accidentally left in an old command which
-sets up your data with the wrong map projection.</p></li>
-</ul>
-<p><strong>If your Make Spatial code chunk looks DIFFERENT to this,
-replace the code-chunk with this code.</strong></p>
-<pre class="r"><code>ufo_sf &lt;- st_as_sf(ufo, coords = c(&quot;Longitude&quot;, &quot;Latitude&quot;), crs = 4326)
+<p class="comment"><strong>DOMAIN:</strong><br> In traditional statistics, we assume that our sample is randomly selected, independent and completely representative of the underlying population. Spatial data however, is tied to physical space and all its complexity. The spatial domain describes both the environment or area within which your data exists and defines the spatial boundaries of your analysis.</p>
+<div class="small-gap">
 
-# Transform the map projection
-albers &lt;- 5070
-ufo_sf &lt;-st_transform(ufo_sf,crs=albers)
-acs_sf &lt;-st_transform(acs_sf,crs=albers)</code></pre>
-</details>
-<p><br></p>
 </div>
-<div id="c4-important-add-packages" class="section level4">
-<h4>C4 IMPORTANT Add packages</h4>
-<details>
-<summary>
-Instructions
-</summary>
-<p><br></p>
-<p>Scroll up to your library code chunk at the top. Add these two
-packages to the end and save/knit your report. Then try to run the
-library code chunk and if needed, download/install the packages from the
-internet.</p>
-<pre class="r"><code>library(&quot;raster&quot;)
-library(&quot;rstantools&quot;)
-library(&quot;exactextractr&quot;)</code></pre>
-</details>
-<p><br></p>
+<p class="comment"><strong>LOCATION:</strong><br> Every spatial analysis starts with the location of an object or event. By knowing where something happens, we can begin to ask spatial questions—such as, "What is near it?" or "How do other events relate to this one?".</p>
+<div class="small-gap">
+
 </div>
-<div id="c5-important-week-2-lab-template" class="section level4">
-<h4>C5 IMPORTANT Week 2 lab template</h4>
-<details>
-<summary>
-Instructions
-</summary>
-<p><br></p>
-<p>Finally, I have provided a template for your work in week 2.</p>
-<ol style="list-style-type: decimal">
-<li>Go to Canvas and the Lab 3 website.</li>
-<li>Download the <strong>WEEK2_Template.RmD</strong> and put it in your
-Project 3 folder.</li>
-<li>In R-Studio, open WEEK2_Template.RmD, highlight everything (CmD-A if
-you want a keyboard shortcut) and press copy.</li>
-<li>Go to your main Lab 3 report, scroll to the end and press
-paste.</li>
-<li>Knit to check it all works.</li>
-</ol>
+<p class="comment"><strong>DISTANCE:</strong><br> The distance between locations tells us how spatially separated objects are, which helps us understand potential interactions. For instance, nearby points may share common factors, while distant points may behave independently. Spatial analysis often explores whether proximity leads to similarity or differences.</p>
+<div class="small-gap">
+
+</div>
+<p class="comment"><strong>NEIGHBOURHOOD:</strong><br> A neighborhood defines the spatial context around a location. By determining what qualifies as a 'neighbor' (whether based on distance or shared boundaries), we can study patterns of clustering or dispersion, and how events influence each other across space.</p>
+<div class="small-gap">
+
+</div>
+<p class="comment"><strong>CONNECTION:</strong><br> Connection examines the relationships between locations, such as movement or interactions (e.g., trade routes, traffic, or social interactions). Understanding these connections helps in analyzing spatial networks and interaction patterns, such as how diseases spread or how resources are accessed.<br><br> For example, in lab 4B, we explore Spatial Autocorrelation refers to the idea that objects close to each other in space may be more similar (positive autocorrelation) or more different (negative autocorrelation) than those farther apart. This relies heavily on the concepts of neighborhood and distance, as these define which locations are considered "close" enough to be related and influence one another.</p>
+<p><br><br></p>
 </details>
 <p><br><br></p>
 </div>
-</div>
-<div id="d.-ufo-analysis-continued" class="section level3">
-<h3>D. UFO Analysis Continued</h3>
-<p><br></p>
-<p>You will again continue to follow through your lab report and the
-instructions are there. I will be putting tutorials here to help
-you.</p>
-<p><br></p>
-<div id="d1.-tigris-tutorial" class="section level4">
-<h4>D1. TIGRIS Tutorial</h4>
+<div id="c-domain" class="section level3">
+<h3>C: Domain</h3>
+<p>The spatial domain describes both the environment or area within
+which your data exists and defines the spatial boundaries of your
+analysis. If this domain is misrepresented—either by including
+irrelevant areas or excluding critical regions—it can distort the
+results and lead to incorrect inferences about spatial patterns.</p>
+<p>There is no perfect domain for two reasons:</p>
 <details>
 <summary>
-What is TIGRIS in general?
+<strong>1. It depends on your needs</strong>
 </summary>
 <p><br></p>
-<p>I’ve cut a one minute section of this seminar for you that explains
-what data is behind TIGRIS</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908&amp;end=1006" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-</details>
-<p><br></p>
-<details>
-<summary>
-How to use the TIGRIS package IN R?
-</summary>
-<p><br></p>
-<p>Here’s a chapter explaining TIGRIS in R</p>
+<p>In part your choice of domain is going to depend on WHY you are
+looking at the data. As we have seen in class, patterns such as
+clustering are scale dependent - and so are the processes that cause
+them. So you might choose a certain domain depending on your needs.</p>
+<p>For example, consider the figure below, where I have plotted the same
+data at two different scales:</p>
 <ul>
-<li><a
-href="https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html"
-class="uri">https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html</a>
-.</li>
+<li><p>For example, a CDC representative for Pennsylvania might be
+interested in considering the entire area as their ‘domain’ if they want
+to understand the progression of a disease outbreak. At the moment it’s
+clearly clustered in State College - useful information that can lead
+directly to action.</p></li>
+<li><p>They might ALSO be interested in analyzing the data across a
+smaller domain to see if they can identify locations where the disease
+is being spread (say one hall-of-residence). In this case, it’s clear we
+don’t see a single easy cluster of cases. In fact they seem to be rather
+uniformly spread out ( maybe that the locational fallacy is at
+play?)</p></li>
 </ul>
-<p>You can also see worked examples here:</p>
-<ul>
-<li><a href="https://walker-data.com/tigris-webinar"
-class="uri">https://walker-data.com/tigris-webinar</a></li>
-</ul>
-<p>And here is longer video from later in the seminar that explains it
-all.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=1274&amp;end=2151" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+<p><img src="index_images/pg_Lab4_Domain1.png"
+style="width:100.0%" /></p>
+<p><br><br></p>
 </details>
-<p><br></p>
-</div>
-<div id="d2.-making-maps" class="section level4">
-<h4>D2. Making maps</h4>
-<details>
-<summary>
-Making maps using BaseR
-</summary>
-<p><br></p>
-<p>There are MANY tutorials and videos out there. So if my style of
-explaining doesn’t work for you, try one of these.</p>
-<p>In base R, we use the plot command. To add layers, we put a new plot
-command but put add=TRUE at the end. For example, here’s a plot of the
-UFO locations simply colored blue along with roads and state
-borders.</p>
-<p><strong>First Sub-Plot</strong> - The base plot is where you define
-overall settings such as axis labels, titles, and limits. These options
-apply only when creating the initial plot to set the plot canvas.</p>
-<p><strong>Adding Layers</strong> - We can then add adding additional
-layers by writing a newplot command but putting add=TRUE in the options
-(note, this is only for maps! For normal data the command is lines() ).
-Aspects such as axis labels (xlab, ylab) and main titles (main, sub) are
-not needed again, but you can change things like point size.</p>
-<p><strong>st_geometry</strong> The st_geometry command means don’t look
-at any of the variables, just plot the locations stored under
-geometry.</p>
-<p>Here’s an example with EVERYTHING. You don’t need any/all of the
-variables, they’re here so you can see them and so you can
-copy/paste/edit.</p>
-<p>PLEASE DON’T USE THESE DEFAULTS! That’s what this lab is about, to
-make better custom ones.</p>
-<pre class="r"><code># BASE/INITIAL PLOT   
-# Start with the borders. It could be any of the datasets, 
-# I&#39;m just choosing what gets plotted first, 
-
-plot(st_geometry(border_sf_albers),
-     border = grey(.6),
-     col=NA, #empty polygons
-     xlim = c(1268320,1781848),
-     ylim = c(1962636, 2294525),
-     main = &quot;UFO Sightings&quot;,
-     sub = &quot;Across the United States&quot;,
-     xlab = &quot;Longitude&quot;,
-     ylab = &quot;Latitude&quot;,
-     asp = 1,
-     axes = TRUE,
-     ann = TRUE,
-     lwd = 2,
-     lty = &quot;solid&quot;,
-     col.axis = &quot;darkgray&quot;,
-     col.lab = &quot;darkgreen&quot;,
-     font.main = 2,
-     cex.main = 1.8,
-     cex.lab = 1.2,
-     cex.axis = 0.8)
-
-# Then add in the roads line data.  THIS IS A LAYER I AM ADDING
-plot(st_geometry(myroads_sf), add = TRUE,
-     col = &quot;#377eb8&quot;,
-     lwd = 1.5,
-     lty = &quot;dashed&quot;)
-
-# And finally, add in the UFO point data.  THIS IS A LAYER I AM ADDING
-plot(st_geometry(ufo_sf), add = TRUE,
-     pch = 16,
-     cex = 1.5,
-     col = rgb(1, 0, 0, 0.7),
-     col.lab = &quot;red&quot;,
-     cex.lab = 0.7)</code></pre>
-<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p><br></p>
-<p><strong>Options Specific to the First Plot (Base Plot)</strong></p>
-<p>These options are used only for the initial plot (or “first
-sub-plot”) in base R. They set up the overall plot layout, such as axis
-labels, aspect ratio, and titles, and are not repeated for additional
-layers.</p>
-<ul>
-<li><code>ann</code>: Logical value for annotating the plot, such as
-adding main title and axis labels. Setting ann = FALSE removes all
-annotations, useful if you don’t want to clutter the plot.</li>
-<li><code>asp</code>: Sets the aspect ratio of the plot. asp = 1 ensures
-that one unit on the x-axis is equal in length to one unit on the
-y-axis, which is especially important for maintaining geographical
-accuracy.</li>
-<li><code>axes</code>: Logical value indicating whether to draw axes.
-Setting to FALSE omits the axes for a cleaner plot.</li>
-<li><code>bg</code>: Specifies the background color for the entire plot,
-such as “lightblue” or an RGB value, making it suitable for thematic
-maps.</li>
-<li><code>cex.axis</code>: Controls the size of axis tick labels. Values
-typically range from 0.5 to 2, helping to make axis labels more
-readable.</li>
-<li><code>cex.lab</code>: Adjusts the size of axis labels (titles), with
-values ranging from 0.5 to 2. This is particularly useful for making
-labels more prominent or subtle.</li>
-<li><code>cex.main</code>: Size of the main title text. Values greater
-than 1 enlarge the title, whereas values less than 1 reduce it.</li>
-<li><code>col.axis</code>: Specifies the color of the axis labels, such
-as “darkgray” or RGB values.</li>
-<li><code>col.lab</code>: Color of the axis titles (labels), for
-instance, “darkgreen” or an RGB value. Helps in making axis labels stand
-out.</li>
-<li><code>font.main</code>: Font style for the main title. Possible
-values include 1 (plain), 2 (bold), 3 (italic), or 4 (bold italic).</li>
-<li><code>frame.plot</code>: Logical value indicating whether to draw a
-box around the plot. Set to TRUE to add a frame, which can make the plot
-boundaries clearer.</li>
-<li><code>main</code>: Main title of the plot, providing a summary
-description of the visual representation.</li>
-<li><code>sub</code>: Subtitle of the plot, providing additional context
-or information below the main title.</li>
-<li><code>xlab</code>: Label for the x-axis, describing what the
-horizontal axis represents.</li>
-<li><code>xlim</code>: Limits for the x-axis, given as a vector (e.g.,
-c(-130, -60)) to zoom in or out of a particular region.</li>
-<li><code>ylab</code>: Label for the y-axis, describing what the
-vertical axis represents.</li>
-<li><code>ylim</code>: Limits for the y-axis, given as a vector (e.g.,
-c(20, 55)) to focus on a particular latitude range.</li>
-</ul>
-<p><br></p>
-<p><strong>Options Specific to ANY plot</strong></p>
-<p>These options are used for any plot, whether it is the first plot or
-an additional layer. They control the appearance of the data being
-plotted, such as line color, point size, and transparency.</p>
-<ul>
-<li><code>add</code>: Adds a layer to the existing plot. Set to
-<code>TRUE</code> to layer additional data on the map without erasing
-previous layers.</li>
-<li><code>col</code>: COLOR used for points or lines. Can be a named
-color (e.g., <code>"blue"</code>), RGB value INCLUDING TRANSPANCY (e.g.,
-<code>rgb(1, 0, 0, 0.7)</code>), or hexadecimal color code (e.g.,
-<code>"#377eb8"</code>).</li>
-<li><code>lty</code>: LINE type, such as <code>"solid"</code>,
-<code>"dashed"</code>,
-“dotted”<code>, or numeric values from</code>1<code>to</code>6` for
-different styles.</li>
-<li><code>lwd</code>: LINE width. Values greater than <code>1</code>
-make lines thicker. Common values range from <code>1</code> to
-<code>5</code>.</li>
-<li><code>pch</code>: POINT symbol shape. Values range from
-<code>0</code> to <code>25</code>, with <code>16</code> being a common
-filled circle. Try the command <code>plot(1:20,1:20,pch=1:20)</code> to
-see them all.</li>
-<li><code>cex</code>: POINT Size. Typically ranges from <code>0.1</code>
-(very small) to <code>10</code> (very large).</li>
-</ul>
-</details>
-<p><br></p>
-<details>
-<summary>
-Making maps using GGPLOT2
-</summary>
-<p><br></p>
-<p>On the surface, ggplot2 is similar to baseR. For example it uses
-layers similarly, although instead of putting an add=TRUE at the end of
-the plot command, you use the + symbol to connect layers Here’s an
-example of a ggplot2 map with the same layers as the baseR example
-above.</p>
-<pre class="r"><code># here &quot;color&quot; means which name is it using for the legend.
-ggplot() + 
-   geom_sf(data = border_sf_albers, color = &quot;grey50&quot;) +
-   geom_sf(data = myroads_sf, aes(color = &quot;PA Roads&quot;)) + 
-   geom_sf(data =ufo_sf, aes(color = &quot;UFO Points&quot;), 
-           shape = 16, alpha = 0.7, size = 2) +
-   scale_color_manual(values = c(&quot;PA Roads&quot; = &quot;#377eb8&quot;,
-                                 &quot;UFO Points&quot; =&quot;red&quot;)) + 
-   labs(color = &quot;Legend&quot;) + 
-   theme_minimal()</code></pre>
-<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>MORE TO COME! But ChatGPT is really useful here</p>
-</details>
-<p><br></p>
-<details>
-<summary>
-Making maps using tmap
-</summary>
-<p><br></p>
-<p>There are LOADS of great tutorials out there.</p>
-<p>tmap is designed to make mapping easier. It also uses the + symbol to
-connect layers but it tries to make all the terminology less
-confusing.</p>
-<p>Basically you “load” a layer with tm_shape, then decide how to plot
-it. More to come! But for now, google tmap tutorial point data or ask
-Chatgpt.</p>
-<pre class="r"><code># Here&#39;s an example, more to come!
-
-tm_shape(border_sf_albers) +
-  tm_borders(col = &quot;grey50&quot;) + 
-tm_shape(myroads_sf) +
-  tm_lines(col = &quot;#377eb8&quot;, lwd = 2, title.col = &quot;Legend&quot;, legend.lwd.show = FALSE) +
-tm_shape(ufo_sf) +
-  tm_dots(col = &quot;red&quot;, size = 0.1, alpha = 0.7, title = &quot;Legend&quot;) +
-tm_layout(legend.title.size = 1)</code></pre>
-<p><img src="pg_364Lab3_Spatial_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-</details>
-<p><br></p>
-</div>
-<div id="d3.-t-tests-tutorial" class="section level4">
-<h4>D3. T-Tests tutorial</h4>
 <div class="small-gap">
 
 </div>
 <details>
 <summary>
-Expand for instructions AND SCROLL TO END
+<strong>Your data must have an equal chance of appearing anywhere in
+your domain, or all your statistical tests won’t work</strong>
 </summary>
-<div class="collapsible-content">
-<iframe src="https://psu-spatial.github.io/Stat462-2024/probability-distributions.html#one-sided-t-test" style="width: 100%; height: 700px; border: none;">
-</iframe>
+<p><br></p>
+<p>Your sample is must be representative of your population, so ALL THE
+STATISTICS TESTS assume that there is an equal chance that any location
+within your domain could contain data.</p>
+<ul>
+<li>If you make your domain too big, your data will appear to be is
+clustered, but in fact you just didn’t collect data in part of the
+domain.</li>
+</ul>
+<p>For example, if you were asked to assess if the dots in case A and B
+below were arranged uniformly or were clustered together, you would have
+very different outcomes, despite the dots themselves being
+identical.</p>
+<p><img src="index_images/pg_Lab4_Domain2.png"
+style="width:100.0%" /></p>
+<p><br><br></p>
+</details>
+<div class="small-gap">
+
 </div>
+<details>
+<summary>
+<strong>Its also CRUCIAL to consider the “non-uniformity of
+space</strong>
+</summary>
+<p><br></p>
+<p>As we discussed above, there should be an equal chance of seeing your
+data anywhere in your domain. BUT.. Unlike traditional statistics, where
+sampling is assumed to be random and uniform, spatial data is more
+nuanced—landscape features, political borders, and human activity vary
+greatly across space. Knowing these features can greatly change your
+interpretation.</p>
+<p>This effect is called the ‘non uniformity of space’ – when we know
+more information about the background map than we can see in our actual
+data.</p>
+<p>For example:</p>
+<ul>
+<li><p>Is an area with low population density in a city linked to ‘a
+lack of data collection’, ‘a lake/park’ or some sociopolitical reason?
+Just looking at population density won’t tell you the answer, we also
+need to look at the background map.</p></li>
+<li><p>Equally, data might look clustered, but in fact there are just
+areas where it’s not possible to have points. For example, without the
+nuance of the background map you might get very different conclusions
+from an analysis of bike parking in Helsinki:</p></li>
+</ul>
+<p><img src="index_images/pg_Lab4_Domain3NonUnif.png"
+style="width:100.0%" /></p>
+<p><br></p>
+<p><strong>So consider the non uniformity of space when designing your
+domain</strong></p>
+<p>Your domain doesn’t have to be square! So we are balancing the need
+for our domain to only contain landscapes that have an ‘equal chance’ of
+seeing our data (e.g. we can’t get bike parking in the ocean’, vs the
+complexity of making your domain so complex that you can’t get anything
+done. This also links to the spatial fallacy of “fuzzy borders”</p>
+<p><br><br></p>
 </details>
 <p><br></p>
+<div id="exercise.-data-detective" class="section level4">
+<h4>Exercise. Data detective</h4>
+<details>
+<summary>
+<strong>Expand and complete!</strong>
+</summary>
+<p><br></p>
+<p>I recently found two ‘mystery files’ on her desktop that I had
+forgotton to name correctly.</p>
+<p>I know they must be from two of these four experiments:</p>
+<ol style="list-style-type: decimal">
+<li><p>A cluster analysis of COVID cases in central PA</p></li>
+<li><p>A cluster analysis of Mediterranean vineyards</p></li>
+<li><p>A cluster analysis of Smooth-Hound Sharks</p></li>
+<li><p>A cluster analysis of polar bears.</p></li>
+</ol>
+<p>To work out which experiments the data was from, I read them both
+into R and made these maps… which didn’t help much!</p>
+<p><img src="index_images/pg_Lab4_Domain4Mystery.png"
+style="width:100.0%" /></p>
+<p><br></p>
+<div id="step-c1" class="section level5">
+<h5>Step C1</h5>
+<ul>
+<li>If you haven’t already, GO AND DO THE SET-UP SECTION. You should now
+have your project running, your libraries installed and your Lab 4
+report open.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-c3" class="section level5">
+<h5>Step C3</h5>
+<ul>
+<li>In the appropriate place in your lab report, explain (in at least
+100 words), how knowledge of the “the non-uniformity of space” can help
+solve my problem above.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-c3-1" class="section level5">
+<h5>Step C3</h5>
+<ul>
+<li>Then, IN YOUR LAB REPORT, read each of the mystery datasets into R
+using the `st_read()` command. <br> <em>Hint: If you can’t remember how
+to do this, refer to your Lab 3 report where you read your state level
+acs data into R..</em></li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-c4" class="section level5">
+<h5>Step C4</h5>
+<ul>
+<li><p>In your lab report, explore and map the data. Remember that there
+are mapping tutorials in Lav 3 and Lab 2 - or here, <a
+href="https://r-tmap.github.io/tmap-book/layers.html"
+class="uri">https://r-tmap.github.io/tmap-book/layers.html</a><br />
+</p></li>
+<li><p>In your report, work out which experiment each dataset matches
+(see the exercise intro). Explain your reasoning, providing common-sense
+evidence linking to your explanation of the non uniformity of space <br>
+<em>Hint this isn’t meant to be a trick, it should be pretty
+simple.</em> <br> <em>Hint 2, If you’re stuck, remember interactive mode
+tm_mode(“view”).</em></p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-c5" class="section level5">
+<h5>Step C5</h5>
+<ul>
+<li>In your lab report, for EACH of the two datasets and given my
+experiment aims, describe what would be an appropriate spatial domain
+and whether you consider the objects to be clustered or uniformly
+distributed. Explain your reasoning.</li>
+</ul>
+<p>Note, no code is needed; your answer can be in words (50 words at
+least per dataset).</p>
+<p><br><br></p>
+</details>
+<p><br><br></p>
 </div>
 </div>
+</div>
+<div id="d-describing-location-and-distance" class="section level3">
+<h3>D: Describing location and distance</h3>
+<p>Here, we are going to practice downloading data from Open Street Map
+and to look at some of the different ways to assess distance and
+location. Specifically we’re going to explore at the locations of
+firestations.</p>
+<div id="exercise.-getting-vector-data-from-open-street-map"
+class="section level4">
+<h4>Exercise. Getting vector data from Open Street map</h4>
+<details>
+<summary>
+<strong>Expand and complete!</strong>
+</summary>
+<p><br></p>
+<p>R connects easily with the website OpenStreetMap. This is becoming a
+crucial resource in spatial statistics, although the data can be messy
+(it’s being entered by volunteers).</p>
+<div id="step-d1" class="section level5">
+<h5>Step D1</h5>
+<ul>
+<li><p>Watch the 2 minute video below about open street map and go and
+explore it here <a href="https://www.openstreetmap.org/"
+class="uri">https://www.openstreetmap.org/</a>. You can also read more
+about its background and get help here: <a
+href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap"
+class="uri">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</a></p></li>
+<li><p>In the appropriate spot in your report, write at least 100 words
+describing Open Street Map and explaining why its useful.</p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Phwrgb16oEM?si=xwWWBkKSr4MpLAiA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+<p><br></p>
+</div>
+<div id="step-d2" class="section level5">
+<h5>Step D2</h5>
+<ul>
+<li>This code will load the locations of all the Fire-Stations in
+Chicago into R. Copy carefully into your report and run.</li>
+</ul>
+<pre class="r"><code># Get a RECTANGULAR bounding box for Chicago
+bbox_city_rectangle &lt;- getbb(&quot;Chicago, USA&quot;) 
+
+# Now query OpenStreetMap 
+fire_stationdata &lt;- opq(bbox = bbox_city_rectangle) %&gt;%
+     add_osm_feature(key = &quot;amenity&quot;, value = &quot;fire_station&quot;) %&gt;%
+     osmdata_sf()
+
+# Look at the data
+fire_stationdata</code></pre>
+<p><br></p>
+<ul>
+<li><p>You should see a list of the data you have just downloaded. This
+command returns EVERYTHING related to fire stations in the area and you
+can see that there is space for every type of vector data, in our case
+1586 points and 165 polygons. From a quick glance, I think the polygons
+refer to firestation buildings and the points are ANYTHING fire-service
+related.</p></li>
+<li><p>Click here to understand what you just did: <a
+href="https://www.youtube.com/watch?v=kcpiH6dDWLE"
+class="uri">https://www.youtube.com/watch?v=kcpiH6dDWLE</a></p></li>
+<li><p>To read more about how OSM stores fire-station data, see here -
+<a
+href="https://wiki.openstreetmap.org/wiki/Emergency_facilities_and_amenities"
+class="uri">https://wiki.openstreetmap.org/wiki/Emergency_facilities_and_amenities</a></p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-d3" class="section level5">
+<h5>Step D3</h5>
+<ul>
+<li>The point data is often messy (people adding fire-hoses etc). So we
+are going to focus on the polygon fire station buildings.</li>
+<li>Add this command into your lab script and run. This will turn
+fire-stations into the type of spatial file you are used to.</li>
+</ul>
+<pre class="r"><code>fire_station_buildings &lt;- fire_stationdata$osm_polygons</code></pre>
+<p><br></p>
+</div>
+<div id="step-d4" class="section level5">
+<h5>Step D4</h5>
+<ul>
+<li>Make a map of the fire stations in Chicago, remembering if you are
+using tmap that you are using tm_polygons() NOT tm_dots().</li>
+</ul>
+<p><br></p>
+</div>
+<div id="step-d5" class="section level5">
+<h5>Step D5</h5>
+<ul>
+<li><p>It’s clear our polygons are VERY small compared to the overall
+area. And in terms of the topic, I don’t really care how big the
+firestation buildings are, just that they exist. So let’s choose the
+MEAN CENTRE and convert it into points.<br />
+<br />
+As we discussed in class, there are a few ways to do this. Given that we
+don’t really care about the shape of our buildings, lets use
+st_centroid, which will find the “centre of mass” of each building.</p>
+<p><br />
+<br />
+<img src="index_images/pg_lab4_MeanCentre.png" /></p></li>
+<li><p>Add this command into your lab script and run. This will convert
+the fire station data into points. It might give you a warning about
+geometries, ignore it!</p></li>
+</ul>
+<pre class="r"><code>fire_stations &lt;- st_centroid(fire_station_buildings)</code></pre>
+<p><br></p>
+</div>
+<div id="step-d6" class="section level5">
+<h5>Step D6</h5>
+<p>In your report, Make a map of the fire station locations (points) -
+it will be easier to make out a pattern. Describe the features of the
+pattern you see and what you think might be causing it.</p>
+<p>You should see something like this:</p>
+<p><img src="index_images/pg_lab4_firestations.png"
+style="width:90.0%" /></p>
+<p><br><br></p>
+</div>
+</div>
+</div>
+</div>
+<div id="yifei-final-bit-of-week-1-to-come" class="section level2">
+<h2>YIFEI, FINAL BIT OF WEEK 1 TO COME</h2>
+<p><br><br></p>
+</div>
+<div id="week-2-to-come" class="section level2">
+<h2>WEEK 2 TO COME</h2>
+<p><br><br></p>
 </div>
 <div id="submitting-your-lab" class="section level2">
 <h2>SUBMITTING YOUR LAB</h2>
