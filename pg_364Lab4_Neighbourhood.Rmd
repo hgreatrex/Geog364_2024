@@ -390,7 +390,6 @@ Here, we are going to practice downloading data from Open Street Map and to look
 #### Exercise. Getting vector data from Open Street map
 
 <details>
-
 <summary>**Expand and complete!**</summary>
 
 <br>
@@ -479,9 +478,14 @@ You should see something like this:
 
 ![](index_images/pg_lab4_firestations.png){width="90%"}
 
-<br><br>
+</details>
+<br>
+<details>
+<summary>** Next step**</summary>
+</details>
+<br>
 
-## YIFEI, FINAL BIT OF WEEK 1 TO COME
+### YIFEI, FINAL BIT OF WEEK 1 TO COME
 
 <br><br>
 
