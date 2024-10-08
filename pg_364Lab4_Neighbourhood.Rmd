@@ -327,7 +327,7 @@ Your domain doesn’t have to be square! So we are balancing the need for our do
 
 <br>
 
-I recently found two ‘mystery files’ on her desktop that I had forgotton to name correctly.
+I recently found two ‘mystery files’ on her desktop that I had forgotten to name correctly.
 
 I know they must be from two of these four experiments:
 
@@ -383,9 +383,9 @@ Note, no code is needed; your answer can be in words (50 words at least per data
 
 <br><br>
 
-### D: Describing location and distance
+### D: Distance & "closeness"
 
-Here, we are going to practice downloading data from Open Street Map and to look at some of the different ways to assess distance and location. Specifically we're going to explore at the locations of firestations.
+Here, we are going to practice downloading data from Open Street Map and to look at some of the different ways to assess distance and location. Specifically we're going to explore at the locations of fire stations.
 
 #### Exercise. Getting vector data from Open Street map
 
@@ -427,7 +427,7 @@ fire_stationdata
 
 <br>
 
--   You should see a list of the data you have just downloaded. This command returns EVERYTHING related to fire stations in the area and you can see that there is space for every type of vector data, in our case 1586 points and 165 polygons. From a quick glance, I think the polygons refer to firestation buildings and the points are ANYTHING fire-service related.
+-   You should see a list of the data you have just downloaded. This command returns EVERYTHING related to fire stations in the area and you can see that there is space for every type of vector data, in our case 1586 points and 165 polygons. From a quick glance, I think the polygons refer to fire station buildings and the points are ANYTHING fire-service related.
 
 -   Click here to understand what you just did: <https://www.youtube.com/watch?v=kcpiH6dDWLE>
 
@@ -454,7 +454,7 @@ fire_station_buildings <- fire_stationdata$osm_polygons
 
 ##### Step D5
 
--   It's clear our polygons are VERY small compared to the overall area. And in terms of the topic, I don't really care how big the firestation buildings are, just that they exist. So let's choose the MEAN CENTRE and convert it into points.\
+-   It's clear our polygons are VERY small compared to the overall area. And in terms of the topic, I don't really care how big the fire station buildings are, just that they exist. So let's choose the MEAN CENTRE and convert it into points.\
     \
     As we discussed in class, there are a few ways to do this. Given that we don't really care about the shape of our buildings, lets use st_centroid, which will find the "centre of mass" of each building.
 
@@ -480,70 +480,42 @@ You should see something like this:
 
 </details>
 <br>
+
+#### Exercise. Closest stations
+
 <details>
-<summary>** Next step**</summary>
-</details>
+<summary>**Expand for instructions**</summary>
 <br>
 
-### YIFEI, FINAL BIT OF WEEK 1 TO COME
+Now we have the fire station locations, we want to consider "neighbourhood".  Which fire-stations are *closest* to one another and what does "closest" even mean?
+
+This is a genuine issue faced by emergency authorities. For example, it is needed when considering which stations deserve new vehicles, or where to put new stations.
+
+Have a look at this report, which explores the issue for Columbus Ohio - and which gets to use several billion pieces of data.. <https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da>
+
+<br>
+
+##### Step D7
+
+In your report, come up with AT LEAST three different ways that you could measure the 'closeness' or 'distance' between fire-stations. Use the reading above to justify your answers. We will also talk about this in class.
 
 <br><br>
+</details>
+<br><br>
+
+
 
 ## WEEK 2 TO COME
 
+Because of the big shifts with the R spatial code, it's proving tricky to make sure your lab actually works.  So if you finish this quickly, here is the direction next week is going...
+
+ - https://mgimond.github.io/Spatial/spatial-autocorrelation.html
+ -https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html 
+
+Reading these examples now will make week 2 MUCH easier.
+
+
+
 <br><br>
 
-## SUBMITTING YOUR LAB
-
-Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab2 folder, complete with a very recent time-stamp.
-
-<br>
-
-### If you use the POSIT cloud website
-
-You can download each of your .RmD and html files by:
-
--   Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
-
-```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
-knitr::include_graphics('./index_images/im_T2_Download.png')
-```
-
--   Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
-
--   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
-
-<br>
-
-### If you use the RSTudio desktop on your own computer
-
--   Press knit!
-
--   Go to your Lab 3 folder, In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
-
--   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3.<br>
-
-```{r, echo=FALSE}
-knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
-```
-
-<br>
-
-## GRADING CHECK-LIST
-
-to be added
-
-[110 marks total]
-
-### What does your grade mean?
-
-Overall, here is what your lab should correspond to:
-
-```{r, echo=FALSE}
-rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
-knitr::kable(rubric) %>%   
-  kable_classic_2() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
-
-
-```
+## YOU DO NOT NEED TO SUBMIT WEEK 1

@@ -35,8 +35,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -690,7 +688,7 @@ done. This also links to the spatial fallacy of “fuzzy borders”</p>
 </summary>
 <p><br></p>
 <p>I recently found two ‘mystery files’ on her desktop that I had
-forgotton to name correctly.</p>
+forgotten to name correctly.</p>
 <p>I know they must be from two of these four experiments:</p>
 <ol style="list-style-type: decimal">
 <li><p>A cluster analysis of COVID cases in central PA</p></li>
@@ -764,12 +762,12 @@ least per dataset).</p>
 </div>
 </div>
 </div>
-<div id="d-describing-location-and-distance" class="section level3">
-<h3>D: Describing location and distance</h3>
+<div id="d-distance-closeness" class="section level3">
+<h3>D: Distance &amp; “closeness”</h3>
 <p>Here, we are going to practice downloading data from Open Street Map
 and to look at some of the different ways to assess distance and
-location. Specifically we’re going to explore at the locations of
-firestations.</p>
+location. Specifically we’re going to explore at the locations of fire
+stations.</p>
 <div id="exercise.-getting-vector-data-from-open-street-map"
 class="section level4">
 <h4>Exercise. Getting vector data from Open Street map</h4>
@@ -819,7 +817,7 @@ fire_stationdata</code></pre>
 command returns EVERYTHING related to fire stations in the area and you
 can see that there is space for every type of vector data, in our case
 1586 points and 165 polygons. From a quick glance, I think the polygons
-refer to firestation buildings and the points are ANYTHING fire-service
+refer to fire station buildings and the points are ANYTHING fire-service
 related.</p></li>
 <li><p>Click here to understand what you just did: <a
 href="https://www.youtube.com/watch?v=kcpiH6dDWLE"
@@ -854,9 +852,9 @@ using tmap that you are using tm_polygons() NOT tm_dots().</li>
 <h5>Step D5</h5>
 <ul>
 <li><p>It’s clear our polygons are VERY small compared to the overall
-area. And in terms of the topic, I don’t really care how big the
-firestation buildings are, just that they exist. So let’s choose the
-MEAN CENTRE and convert it into points.<br />
+area. And in terms of the topic, I don’t really care how big the fire
+station buildings are, just that they exist. So let’s choose the MEAN
+CENTRE and convert it into points.<br />
 <br />
 As we discussed in class, there are a few ways to do this. Given that we
 don’t really care about the shape of our buildings, lets use
@@ -880,218 +878,58 @@ pattern you see and what you think might be causing it.</p>
 <p><img src="index_images/pg_lab4_firestations.png"
 style="width:90.0%" /></p>
 </details>
-<br>
-<details>
-<summary>
-** Next step**
-</summary>
-</details>
 <p><br></p>
 </div>
 </div>
-</div>
-<div id="yifei-final-bit-of-week-1-to-come" class="section level3">
-<h3>YIFEI, FINAL BIT OF WEEK 1 TO COME</h3>
+<div id="exercise.-closest-stations" class="section level4">
+<h4>Exercise. Closest stations</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>Now we have the fire station locations, we want to consider
+“neighbourhood”. Which fire-stations are <em>closest</em> to one another
+and what does “closest” even mean?</p>
+<p>This is a genuine issue faced by emergency authorities. For example,
+it is needed when considering which stations deserve new vehicles, or
+where to put new stations.</p>
+<p>Have a look at this report, which explores the issue for Columbus
+Ohio - and which gets to use several billion pieces of data.. <a
+href="https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da"
+class="uri">https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da</a></p>
+<p><br></p>
+<div id="step-d7" class="section level5">
+<h5>Step D7</h5>
+<p>In your report, come up with AT LEAST three different ways that you
+could measure the ‘closeness’ or ‘distance’ between fire-stations. Use
+the reading above to justify your answers. We will also talk about this
+in class.</p>
+<br><br>
+</details>
 <p><br><br></p>
+</div>
+</div>
 </div>
 </div>
 <div id="week-2-to-come" class="section level2">
 <h2>WEEK 2 TO COME</h2>
+<p>Because of the big shifts with the R spatial code, it’s proving
+tricky to make sure your lab actually works. So if you finish this
+quickly, here is the direction next week is going…</p>
+<ul>
+<li><a
+href="https://mgimond.github.io/Spatial/spatial-autocorrelation.html"
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation.html</a>
+-<a
+href="https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html"
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html</a></li>
+</ul>
+<p>Reading these examples now will make week 2 MUCH easier.</p>
 <p><br><br></p>
 </div>
-<div id="submitting-your-lab" class="section level2">
-<h2>SUBMITTING YOUR LAB</h2>
-<p>Remember to save your work throughout and to spell check your writing
-(next to the save button). Now, press the knit button again. If you have
-not made any mistakes in the code then R should create a html file in
-your lab2 folder, complete with a very recent time-stamp.</p>
-<p><br></p>
-<div id="if-you-use-the-posit-cloud-website" class="section level3">
-<h3>If you use the POSIT cloud website</h3>
-<p>You can download each of your .RmD and html files by:</p>
-<ul>
-<li>Clicking on the little box next to the Rmd in the Files tab, then
-going to the little blue cogwheel (might need to make your Rstudio full
-screen) and clicking export.<br></li>
-</ul>
-<p><img src="index_images/im_T2_Download.png" width="90%" style="display: block; margin: auto;" /></p>
-<ul>
-<li><p>Repeat the process exactly for the html file underneath it (e,g,
-just have the html clicked.)<br></p></li>
-<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
-Lab 3</p></li>
-</ul>
-<p><br></p>
-</div>
-<div id="if-you-use-the-rstudio-desktop-on-your-own-computer"
-class="section level3">
-<h3>If you use the RSTudio desktop on your own computer</h3>
-<ul>
-<li><p>Press knit!</p></li>
-<li><p>Go to your Lab 3 folder, In that folder, double click on the html
-file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU
-WANT TO SUBMIT <br></p></li>
-<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
-Lab 3.<br></p></li>
-</ul>
-<p><img src="index_images/pg_364Lab1_Basics_2021_fig1.png" width="1673" /></p>
-<p><br></p>
-</div>
-</div>
-<div id="grading-check-list" class="section level2">
-<h2>GRADING CHECK-LIST</h2>
-<p>to be added</p>
-<p>[110 marks total]</p>
-<div id="what-does-your-grade-mean" class="section level3">
-<h3>What does your grade mean?</h3>
-<p>Overall, here is what your lab should correspond to:</p>
-<table class=" lightable-classic-2 table table-striped table-hover table-responsive" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Grade
-</th>
-<th style="text-align:left;">
-% Mark
-</th>
-<th style="text-align:left;">
-Rubric
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-A*
-</td>
-<td style="text-align:left;">
-98-100
-</td>
-<td style="text-align:left;">
-Exceptional.  Not only was it near perfect, but the graders learned
-something.  THIS IS HARD TO GET.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-96+
-</td>
-<td style="text-align:left;">
-You went above and beyond
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-93+:
-</td>
-<td style="text-align:left;">
-Everything asked for with high quality.   Class example
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-A-
-</td>
-<td style="text-align:left;">
-90+
-</td>
-<td style="text-align:left;">
-The odd minor mistake, All code done but not written up in full
-sentences etc. A little less care
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-B+
-</td>
-<td style="text-align:left;">
-87+
-</td>
-<td style="text-align:left;">
-More minor mistakes.  Things like missing units, getting the odd
-question wrong, no workings shown
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-83+
-</td>
-<td style="text-align:left;">
-Solid work but the odd larger mistake or missing answer.  Completely
-misinterpreted something, that type of thing
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-B-
-</td>
-<td style="text-align:left;">
-80+
-</td>
-<td style="text-align:left;">
-Starting to miss entire/questions sections, or multiple larger mistakes.
-Still a solid attempt. 
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-C+
-</td>
-<td style="text-align:left;">
-77+
-</td>
-<td style="text-align:left;">
-You made a good effort and did some things well, but there were a lot of
-problems. (e.g. you wrote up the text well, but messed up the code)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-C
-</td>
-<td style="text-align:left;">
-70+
-</td>
-<td style="text-align:left;">
-It’s clear you tried and learned something.  Just attending labs will
-get you this much as we can help you get to this stage
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D
-</td>
-<td style="text-align:left;">
-60+
-</td>
-<td style="text-align:left;">
-You attempt the lab and submit something. Not clear you put in much
-effort or you had real issues
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-F
-</td>
-<td style="text-align:left;">
-0+
-</td>
-<td style="text-align:left;">
-Didn’t submit, or incredibly limited attempt. 
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div id="you-do-not-need-to-submit-week-1" class="section level2">
+<h2>YOU DO NOT NEED TO SUBMIT WEEK 1</h2>
 </div>
 
 
