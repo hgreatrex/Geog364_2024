@@ -914,6 +914,12 @@ Now we have "distance" we can decide which fire-stations are "neighbours" of eac
 <summary>**Expand for instructions**</summary>
 <br>
 
+<br> 
+ 
+**YOU NEED A NEW PACKAGE! <br> GO TO THE PACKAGES TAB INSTALL/DOWNLOAD THE `sfdep` package. <br>THEN SCROLL UP TO YOUR LIBRARY CODE CHUNK IN YOUR REPORT. ADD `library(sfdep)` AND RUN THE CODE CHUNK. THEN SCROLL BACK DOWN TO THE END OF YOUR REPORT**  
+
+
+
 The `st_knn()` command will automatically work out the nearest neighbours for straight-line distances. Copy/run the code below.   To change the number of nearest neighbours, just change k and re-run.
 
 
@@ -926,16 +932,22 @@ knn_cartesian
 # It's old fashioned in that it can only be plotted in a certain way, 
 # Just copy/paste this.
 # Spatial weights are a special type of data that tmap hates.
-# 
+
+# Closest neighbour 
+knn_cartesian <- st_knn(st_geometry(fire_station_local), k = 1)
+knn_cartesian
+
+# It's old fashioned in that it can only be plotted in a certain way, 
+# Just copy/paste this.
+# Spatial weights are a special type of data that tmap hates.
 # Get coordinates 
 fire_station_coords <- st_coordinates(fire_station_local)
 # And plot.
-plot(st_geometry(fire_stations),
+plot(st_geometry(fire_station_local),
      col = "blue", pch = 16,cex=.6,
      main = "Fire Stations and Their Neighbors")
 plot(knn_cartesian, coords = fire_station_coords, col = "red")
 plot(st_geometry(CommunityAreas_SE),add=TRUE)
-
 
 
 ```
@@ -960,12 +972,14 @@ The `dnearneigh()` command will automatically work out the nearest neighbours fo
 
 
 ```{r, eval=FALSE}
+# Get the coordinates
+coords <- st_coordinates(fire_station_local)
+
 # This suggests a "neighbour" is any object less than 3000m away.
 dnn <- dnearneigh(coords, d1 = 0, d2 = 3000)
 
 # Assuming distance band
-coords <- st_coordinates(fire_station_local)
-plot(st_geometry(fire_stations),
+plot(st_geometry(fire_station_local),
      col = "blue", pch = 19,
      main = "Fire Stations and Their Neighbors")
 plot(dnn, coords, add=TRUE, col = "red")

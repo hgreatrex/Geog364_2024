@@ -1324,6 +1324,12 @@ cartesian distances for the rest of the lab</strong></p>
 <strong>Expand for instructions</strong>
 </summary>
 <p><br></p>
+<p><br></p>
+<p><strong>YOU NEED A NEW PACKAGE! <br> GO TO THE PACKAGES TAB
+INSTALL/DOWNLOAD THE <code>sfdep</code> package. <br>THEN SCROLL UP TO
+YOUR LIBRARY CODE CHUNK IN YOUR REPORT. ADD <code>library(sfdep)</code>
+AND RUN THE CODE CHUNK. THEN SCROLL BACK DOWN TO THE END OF YOUR
+REPORT</strong></p>
 <p>The <code>st_knn()</code> command will automatically work out the
 nearest neighbours for straight-line distances. Copy/run the code below.
 To change the number of nearest neighbours, just change k and
@@ -1335,11 +1341,18 @@ knn_cartesian
 # It&#39;s old fashioned in that it can only be plotted in a certain way, 
 # Just copy/paste this.
 # Spatial weights are a special type of data that tmap hates.
-# 
+
+# Closest neighbour 
+knn_cartesian &lt;- st_knn(st_geometry(fire_station_local), k = 1)
+knn_cartesian
+
+# It&#39;s old fashioned in that it can only be plotted in a certain way, 
+# Just copy/paste this.
+# Spatial weights are a special type of data that tmap hates.
 # Get coordinates 
 fire_station_coords &lt;- st_coordinates(fire_station_local)
 # And plot.
-plot(st_geometry(fire_stations),
+plot(st_geometry(fire_station_local),
      col = &quot;blue&quot;, pch = 16,cex=.6,
      main = &quot;Fire Stations and Their Neighbors&quot;)
 plot(knn_cartesian, coords = fire_station_coords, col = &quot;red&quot;)
@@ -1366,12 +1379,14 @@ lab report.</li>
 nearest neighbours for straight-line distances. Copy/run the code below.
 To change the number of nearest neighbours, just change k and
 re-run.</p>
-<pre class="r"><code># This suggests a &quot;neighbour&quot; is any object less than 3000m away.
+<pre class="r"><code># Get the coordinates
+coords &lt;- st_coordinates(fire_station_local)
+
+# This suggests a &quot;neighbour&quot; is any object less than 3000m away.
 dnn &lt;- dnearneigh(coords, d1 = 0, d2 = 3000)
 
 # Assuming distance band
-coords &lt;- st_coordinates(fire_station_local)
-plot(st_geometry(fire_stations),
+plot(st_geometry(fire_station_local),
      col = &quot;blue&quot;, pch = 19,
      main = &quot;Fire Stations and Their Neighbors&quot;)
 plot(dnn, coords, add=TRUE, col = &quot;red&quot;)
