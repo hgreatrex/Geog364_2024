@@ -780,16 +780,6 @@ Distance_Driving
 <br>
 
 ```{r, eval=FALSE}
-# And driving distance 
-Distance_Driving <- osrmRoute(src = location1,dst = location2,
-                              overview = "full",osrm.profile="car")
-Distance_Driving
-
-```
-
-<br>
-
-```{r, eval=FALSE}
 
 # To plot the straight line distance we need to manually
 # create a straight line between our locations

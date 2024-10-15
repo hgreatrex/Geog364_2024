@@ -1196,11 +1196,6 @@ Distance_Driving &lt;- osrmRoute(src = location1,dst = location2,
                               overview = &quot;full&quot;,osrm.profile=&quot;car&quot;)
 Distance_Driving</code></pre>
 <p><br></p>
-<pre class="r"><code># And driving distance 
-Distance_Driving &lt;- osrmRoute(src = location1,dst = location2,
-                              overview = &quot;full&quot;,osrm.profile=&quot;car&quot;)
-Distance_Driving</code></pre>
-<p><br></p>
 <pre class="r"><code># To plot the straight line distance we need to manually
 # create a straight line between our locations
 line_between &lt;- st_cast(st_union(location1, location2), &quot;LINESTRING&quot;)
