@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -682,10 +684,6 @@ done. This also links to the spatial fallacy of “fuzzy borders”</p>
 <p><br></p>
 <div id="exercise.-data-detective" class="section level4">
 <h4>Exercise. Data detective</h4>
-<details>
-<summary>
-<strong>Expand and complete!</strong>
-</summary>
 <p><br></p>
 <p>I recently found two ‘mystery files’ on her desktop that I had
 forgotten to name correctly.</p>
@@ -757,30 +755,32 @@ distributed. Explain your reasoning.</li>
 <p>Note, no code is needed; your answer can be in words (50 words at
 least per dataset).</p>
 <p><br><br></p>
-</details>
-<p><br><br></p>
 </div>
 </div>
 </div>
 <div id="d-distance-closeness" class="section level3">
-<h3>D: Distance &amp; “closeness”</h3>
-<p>Here, we are going to practice downloading data from Open Street Map
+<h3>D: Distance &amp; closeness</h3>
+<p>Now we are going to practice downloading data from Open Street Map
 and to look at some of the different ways to assess distance and
 location. Specifically we’re going to explore at the locations of fire
-stations.</p>
+stations in Chicago.</p>
+<p><br></p>
 <div id="exercise.-getting-vector-data-from-open-street-map"
 class="section level4">
 <h4>Exercise. Getting vector data from Open Street map</h4>
+<p>R connects easily with the website OpenStreetMap. This is becoming a
+crucial resource in spatial statistics, although the data can be messy
+(it’s being entered by volunteers).</p>
+<div class="small-gap">
+
+</div>
+<div id="step-d1---learn-about-open-street-map" class="section level5">
+<h5>Step D1 - Learn about Open Street Map</h5>
 <details>
 <summary>
 <strong>Expand and complete!</strong>
 </summary>
 <p><br></p>
-<p>R connects easily with the website OpenStreetMap. This is becoming a
-crucial resource in spatial statistics, although the data can be messy
-(it’s being entered by volunteers).</p>
-<div id="step-d1" class="section level5">
-<h5>Step D1</h5>
 <ul>
 <li><p>Watch the 2 minute video below about open street map and go and
 explore it here <a href="https://www.openstreetmap.org/"
@@ -793,10 +793,19 @@ describing Open Street Map and explaining why its useful.</p></li>
 </ul>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Phwrgb16oEM?si=xwWWBkKSr4MpLAiA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 </iframe>
-<p><br></p>
+<br><br>
+</details>
+<div class="small-gap">
+
 </div>
-<div id="step-d2" class="section level5">
-<h5>Step D2</h5>
+</div>
+<div id="step-d2---get-the-data" class="section level5">
+<h5>Step D2 - Get the data</h5>
+<details>
+<summary>
+<strong>Expand and complete!</strong>
+</summary>
+<p><br></p>
 <ul>
 <li>This code will load the locations of all the Fire-Stations in
 Chicago into R. Copy carefully into your report and run.</li>
@@ -827,10 +836,19 @@ class="uri">https://www.youtube.com/watch?v=kcpiH6dDWLE</a></p></li>
 href="https://wiki.openstreetmap.org/wiki/Emergency_facilities_and_amenities"
 class="uri">https://wiki.openstreetmap.org/wiki/Emergency_facilities_and_amenities</a></p></li>
 </ul>
-<p><br></p>
+<br><br>
+</details>
+<div class="small-gap">
+
 </div>
-<div id="step-d3" class="section level5">
-<h5>Step D3</h5>
+</div>
+<div id="step-d3---extract-polygons-map" class="section level5">
+<h5>Step D3 - Extract polygons &amp; map</h5>
+<details>
+<summary>
+<strong>Expand and complete!</strong>
+</summary>
+<p><br></p>
 <ul>
 <li>The point data is often messy (people adding fire-hoses etc). So we
 are going to focus on the polygon fire station buildings.</li>
@@ -838,18 +856,23 @@ are going to focus on the polygon fire station buildings.</li>
 fire-stations into the type of spatial file you are used to.</li>
 </ul>
 <pre class="r"><code>fire_station_buildings &lt;- fire_stationdata$osm_polygons</code></pre>
-<p><br></p>
-</div>
-<div id="step-d4" class="section level5">
-<h5>Step D4</h5>
 <ul>
-<li>Make a map of the fire stations in Chicago, remembering if you are
-using tmap that you are using tm_polygons() NOT tm_dots().</li>
+<li>Now, Make a map of the fire stations in Chicago, remembering if you
+are using tmap that you are using tm_polygons() NOT tm_dots().</li>
 </ul>
-<p><br></p>
+<br><br>
+</details>
+<div class="small-gap">
+
 </div>
-<div id="step-d5" class="section level5">
-<h5>Step D5</h5>
+</div>
+<div id="step-d4---find-centroids-map" class="section level5">
+<h5>Step D4 - Find centroids &amp; map</h5>
+<details>
+<summary>
+<strong>Expand and complete!</strong>
+</summary>
+<p><br></p>
 <ul>
 <li><p>It’s clear our polygons are VERY small compared to the overall
 area. And in terms of the topic, I don’t really care how big the fire
@@ -867,27 +890,22 @@ the fire station data into points. It might give you a warning about
 geometries, ignore it!</p></li>
 </ul>
 <pre class="r"><code>fire_stations &lt;- st_centroid(fire_station_buildings)</code></pre>
-<p><br></p>
-</div>
-<div id="step-d6" class="section level5">
-<h5>Step D6</h5>
-<p>In your report, Make a map of the fire station locations (points) -
-it will be easier to make out a pattern. Describe the features of the
-pattern you see and what you think might be causing it.</p>
+<p><br><br></p>
+<ul>
+<li>In your report, Make a map of the fire station locations (points
+e.g. tm_dots) - it will be easier to make out a pattern. Describe the
+features of the pattern you see and what you think might be causing
+it.</li>
+</ul>
 <p>You should see something like this:</p>
-<p><img src="index_images/pg_lab4_firestations.png"
-style="width:90.0%" /></p>
+<img src="index_images/pg_lab4_firestations.png" style="width:90.0%" />
+<br><br>
 </details>
-<p><br></p>
+<p><br><br></p>
 </div>
 </div>
 <div id="exercise.-closest-stations" class="section level4">
 <h4>Exercise. Closest stations</h4>
-<details>
-<summary>
-<strong>Expand for instructions</strong>
-</summary>
-<p><br></p>
 <p>Now we have the fire station locations, we want to consider
 “neighbourhood”. Which fire-stations are <em>closest</em> to one another
 and what does “closest” even mean?</p>
@@ -897,39 +915,734 @@ where to put new stations.</p>
 <p>Have a look at this report, which explores the issue for Columbus
 Ohio - and which gets to use several billion pieces of data.. <a
 href="https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da"
-class="uri">https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da</a></p>
+class="uri">https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da</a>.
+It was completed by one of our MGIS alumni, Rob Ford.</p>
 <p><br></p>
-<div id="step-d7" class="section level5">
-<h5>Step D7</h5>
+<div id="step-d5---measuing-distance" class="section level5">
+<h5>Step D5 - Measuing distance</h5>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
 <p>In your report, come up with AT LEAST three different ways that you
 could measure the ‘closeness’ or ‘distance’ between fire-stations. Use
 the reading above to justify your answers. We will also talk about this
 in class.</p>
+<p><br><br></p>
+</details>
+<p><br><br><br></p>
+</div>
+</div>
+</div>
+</div>
+<div id="week-2" class="section level2">
+<h2>WEEK 2</h2>
+<p><br></p>
+<p>Re-open your project, re-open your .RmD lab report and run all the
+code chunks. Your report &amp; R-Studio should look something like the
+screenshot below (it might not be <em>identical</em> but it should be
+similar).</p>
+<p><img src="index_images/pg_lab4_week2.png" style="width:100.0%" /></p>
+<p><br><br></p>
+<div id="e.-removing-variables" class="section level3">
+<h3>E. Removing variables</h3>
+<p>Especially for people using POSIT-Cloud, it’s good practice to remove
+large datasets and variables that you’re not planning to use. In our
+case, we are ONLY planning to use the fire_station point locations, so
+we can remove the other data using the <code>rm()</code> command</p>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>This is by no means essential, but it gives your computer a
+<em>tiny</em> bit more energy to run code, alongside keeping everything
+neat.</p>
+<p>This command will remove your Chicago bounding box and your large
+fire_stationdata variables.</p>
+<pre class="r"><code>rm(bbox_city_rectangle)
+rm(fire_stationdata)</code></pre>
+<ul>
+<li>Go to the end of your lab report. <br><br></li>
+<li>Make a new section heading called Week 2. <br><br></li>
+<li>Inside, make a new code chunk and copy the code above into it. Add a
+third line to remove the fire_station_buildings variable.<br><br></li>
+<li>Run the code chunk. You should see the variables disappear in the
+environment tab. Nothing else should happen.</li>
+</ul>
+<br><br>
+</details>
+<p><br><br></p>
+</div>
+<div id="f.-subsetting-to-the-south-east-side" class="section level3">
+<h3>F. Subsetting to the South-East Side</h3>
+<p><br></p>
+<table>
+<colgroup>
+<col width="37%" />
+<col width="62%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><br><br> <em>Chicago has a set internal neighbourhoods, arranged
+informally into “sides” e.g. “Northside”, “SouthSide”… These
+neighbourhood are not federally recognized, but they are used by the
+city and by local people. So.. we can access this data via downloading
+it from Chicago’s City Data Portal.</em> <br><br>Let’s subset to a
+smaller dataset, because I know that the people on POSIT-Cloud have been
+struggling. Specifically, we are going to focus on South East
+Chicago.</td>
+<td><a
+href="https://commons.wikimedia.org/wiki/File:Chicago_community_areas_map.svg"><img
+src="index_images/pg_lab4_ChicagoSides.png" width="800"
+alt="Chicago’s neighbourhoods" /></a></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div id="step-f1.-get-the-boundary-data-read-into-r"
+class="section level4">
+<h4>Step F1. Get the boundary data &amp; read into R</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br><br></p>
+<ul>
+<li><p>Go to this website. <a
+href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6"
+class="uri">https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6</a></p></li>
+<li><p>On the top right, click Export, then choose the GeoJSON format.
+Move/upload the file into your project folder.</p></li>
+</ul>
+<p><img src="index_images/pg_lab4_ChicagoData.png"
+style="width:80.0%" /></p>
+<p><br><br></p>
+<ul>
+<li>In your lab report, read the data into R using the
+<code>st_read()</code> command - e.g. copy/paste the code-chunk
+below:</li>
+</ul>
+<pre class="r"><code>CommunityAreas &lt;- st_read(&quot;Boundaries - Community Areas (current).geojson&quot;)
+CommunityAreas
+
+# make a quick map
+qtm(CommunityAreas)</code></pre>
+<ul>
+<li>Your map should look like Chicago boundaries.</li>
+</ul>
+<br><br>
+</details>
+<div class="small-gap">
+
+</div>
+</div>
+<div id="step-f2.-select-our-area-of-interest." class="section level4">
+<h4>Step F2. Select our area of interest.</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<ul>
+<li><p>We are going to focus on the following community areas in the far
+South East of the city:</p>
+<ul>
+<li>“ROSELAND”</li>
+<li>“PULLMAN”</li>
+<li>“SOUTH DEERING”</li>
+<li>“EAST SIDE”</li>
+<li>“WEST PULLMAN”</li>
+<li>“RIVERDALE”</li>
+<li>“HEGEWISCH”</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>In your lab report, make a new code chunk and copy this code across
+to filter to these communities. If you get a weird error, try re-typing
+the quote marks.</li>
+</ul>
+<pre class="r"><code>CommunityAreas_SE &lt;- CommunityAreas  %&gt;%
+   filter(community %in% c(&quot;ROSELAND&quot;,
+                           &quot;PULLMAN&quot;,
+                           &quot;SOUTH DEERING&quot;,
+                           &quot;EAST SIDE&quot;,
+                           &quot;WEST PULLMAN&quot;,
+                           &quot;RIVERDALE&quot;,
+                           &quot;HEGEWISCH&quot;))
+
+# make a quick map
+qtm(CommunityAreas_SE)</code></pre>
+<br><br>
+</details>
+<div class="small-gap">
+
+</div>
+</div>
+<div id="step-f3.-subset-the-fire-stations-to-this-area."
+class="section level4">
+<h4>Step F3. Subset the fire-stations to this area.</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<ul>
+<li><p>Finally, we’re going to use the <code>st_intersection()</code>
+command to select only the fire stations within our chosen
+communities.</p></li>
+<li><p>In your lab report, make a new code chunk and copy/run this code
+to filter to these communities.</p></li>
+</ul>
+<pre class="r"><code># Subset the firestations
+ fire_station_local &lt;- st_intersection(fire_stations, 
+                                       CommunityAreas_SE)
+
+
+# Make a quick plot
+ tm_shape(CommunityAreas_SE) +
+   tm_borders() +
+   tm_shape(fire_station_local) +
+   tm_dots(col = &quot;red&quot;, size = 0.5)+
+   tmap_mode(&quot;view&quot;)</code></pre>
+<br><br>
+</details>
+<div class="small-gap">
+
+</div>
+</div>
+<div id="step-f4.-questions" class="section level4">
+<h4>Step F4. Questions</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>I want to check your understanding of what we have just done. So
+after the code, please answer the following questions in your lab
+report. Remember you can look at the data by clicking its name in the
+environment tab, or by using summary(), head(), table() etc.</p>
+<ol style="list-style-type: decimal">
+<li>How many fire stations are inside CommunityAreas_SE? <br><br></li>
+<li>How many unique zip-codes/post-codes are there in the
+fire_station_local data? <br> <em>(hint, table command. <br>hint2. there
+is a useful column inside fire_station_local called addr.postcode)</em>
+<br><br></li>
+<li>Are there any fire-stations in Riverdale? If so, how many? <br>
+<em>(hint, look at the community column in fire_station_local
+data…)</em></li>
+</ol>
 <br><br>
 </details>
 <p><br><br></p>
 </div>
 </div>
+<div id="g.-measuring-distance-in-r" class="section level3">
+<h3>G. Measuring distance in R</h3>
+<p>As discussed in class, there are several ways we can measure distance
+using R-Studio. Here, we are going to explore cartesian distance
+(e.g. “as the crow flies” or straight line distance) and driving
+distance using Open Street map.</p>
+<p><br></p>
+<div id="step-g1.-calculating-distance-code" class="section level4">
+<h4>Step G1. Calculating distance code</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>The code below will calculate the straight-line and driving distance
+between two locations in our dataset.</p>
+<ul>
+<li><p>We can calculate the straight-line distance between two objects
+using the st_distance() command. This defaults to calculating distances
+in metres, so I often change it to km.</p></li>
+<li><p>We can calculate driving distances (and routes) between two
+objects using the osrmRoute() command. You can also choose walking or
+cycling.</p></li>
+</ul>
+<p><br></p>
+<p><strong>YOU NEED A NEW PACKAGE! <br> GO TO THE PACKAGES TAB
+INSTALL/DOWNLOAD THE <code>osrm</code> package. <br>THEN SCROLL UP TO
+YOUR LIBRARY CODE CHUNK IN YOUR REPORT. ADD <code>library(osrm)</code>
+AND RUN THE CODE CHUNK. THEN SCROLL BACK DOWN TO THE END OF YOUR
+REPORT</strong></p>
+<ul>
+<li>Copy these code chunks into your report, understand what they are
+doing and run them. You should see that the cartesian distance is
+~2.19km and the driving distance ~3.04km, alongside a map.</li>
+</ul>
+<pre class="r"><code># Choose which locations you want to look at the distance between
+# In our case, we are choosing objects/rows from our firestation data.
+# They could be row numbers you type manually or some sort of filter
+# I am showing you both examples
+ 
+location1 &lt;- fire_station_local[1,]
+location2 &lt;- dplyr::filter(fire_station_local,osm_id == &quot;210429692&quot;)</code></pre>
+<p><br></p>
+<pre class="r"><code># Calculate the straight line distance
+Distance_Cartesian_m  &lt;- st_distance(location1,location2)
+Distance_Cartesian_km &lt;- as.numeric(Distance_Cartesian_m/1000)
+Distance_Cartesian_km</code></pre>
+<p><br></p>
+<pre class="r"><code># And driving distance 
+Distance_Driving &lt;- osrmRoute(src = location1,dst = location2,
+                              overview = &quot;full&quot;,osrm.profile=&quot;car&quot;)
+Distance_Driving</code></pre>
+<p><br></p>
+<pre class="r"><code># And driving distance 
+Distance_Driving &lt;- osrmRoute(src = location1,dst = location2,
+                              overview = &quot;full&quot;,osrm.profile=&quot;car&quot;)
+Distance_Driving</code></pre>
+<p><br></p>
+<pre class="r"><code># To plot the straight line distance we need to manually
+# create a straight line between our locations
+line_between &lt;- st_cast(st_union(location1, location2), &quot;LINESTRING&quot;)
+
+# Step 4: Plot both lines and annotate them
+tm_shape(line_between) +
+   tm_lines(col = &quot;red&quot;, lwd = 2, title.col = &quot;Euclidean Line&quot;) +
+   tm_shape(Distance_Driving) +
+   tm_lines(col = &quot;blue&quot;, lwd = 2, title.col = &quot;Driving Line&quot;) +
+   tm_shape(fire_station_local) +
+   tm_dots() + tm_legend()+
+   tmap_mode(&quot;view&quot;)</code></pre>
+<br><br>
+</details>
+<p><br></p>
+</div>
+<div id="step-g2.-challenge" class="section level4">
+<h4>Step G2. Challenge</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<ul>
+<li><p>Choose two fire-stations that are “close” in terms of
+straight-line distance, but “far apart” in terms of driving
+distance.</p></li>
+<li><p>Hint, try running
+<code>qtm(fire_station_local) + tm_text("osm_id")</code> to help you
+work out which station is which.</p></li>
+<li><p>In your report, edit the code (above) that you just ran to
+calculate the distance between your chosen stations. Run the code and
+make a map of the two distances. <br> <em>Hint You ONLY need to edit the
+row numbers in the first code chunk then run</em></p></li>
+<li><p>Justify why you chose those two stations in your lab report. (You
+don’t have to be right, you just have to have some reasoning why you
+chose those two points).</p></li>
+</ul>
+<br><br>
+</details>
+<p><br><br></p>
 </div>
 </div>
-<div id="week-2-to-come" class="section level2">
-<h2>WEEK 2 TO COME</h2>
+<div id="h.-spatial-weights-matrix---points" class="section level3">
+<h3>H. Spatial weights matrix - POINTS</h3>
+<p>As discussed in class this week, a spatial matrix is a way of
+recording the distances between objects - and we can use them to make a
+spatial weights matrix defining the neighbourhood.</p>
+<p><br></p>
+<div id="step-h1.-distance-matrices" class="section level4">
+<h4>Step H1. Distance matrices</h4>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>Cartesian distance matrices</p>
+<ul>
+<li><p>These are VERY easy. This is all the code you need.
+<br><br></p></li>
+<li><p>Copy/run this code chunk, <br><br></p></li>
+</ul>
+<pre class="r"><code># you just run the st_distance command with a table of 
+# data rather than two points. I divided by 1000 to put it in km.
+Distmatrix_cartesian &lt;- round(st_distance(fire_station_local)/1000,3)
+Distmatrix_cartesian</code></pre>
+<p><br><br></p>
+<p>Driving distance matrices</p>
+<ul>
+<li><p>Driving distance matrices are much harder and rely on Dr G’s
+custom code. If you want to see how to scale this up, come to an office
+hr with Dr G. <br><br></p></li>
+<li><p>Copy/run this code chunk <br><br></p></li>
+</ul>
+<pre class="r"><code>#---------------------------------------------------------
+# Calculate the DRIVING distance between each pair of fire stations
+# Copy/paste this code chunk EXACTLY
+#---------------------------------------------------------
+# Extract coordinates
+fire_station_coords &lt;- st_coordinates(st_geometry(fire_station_local))
+
+# Create a matrix to store driving distances
+num_stations     &lt;- nrow(fire_station_coords)
+Distmatrix_drive &lt;- matrix(NA, nrow = num_stations, ncol = num_stations)
+
+# Generate unique station pairs for the upper triangle
+pairs &lt;- expand.grid(1:num_stations, 1:num_stations)
+pairs &lt;- pairs[pairs$Var1 &lt; pairs$Var2, ]
+
+for(n in 1:nrow(pairs)){
+   drivedist &lt;- osrmRoute(src = fire_station_coords[pairs[n,1], ],
+                      dst = fire_station_coords[pairs[n,2], ],
+                      overview = FALSE,osrm.profile=&quot;car&quot;)[2]
+
+   Distmatrix_drive[pairs[n,1], pairs[n,2]] &lt;- as.numeric(drivedist)
+   Distmatrix_drive[pairs[n,2], pairs[n,1]] &lt;- as.numeric(drivedist)
+}
+
+Distmatrix_drive</code></pre>
+<p>CHALLENGE</p>
+<p>Look up your two points in the two matrices and confirm that they
+match your first calculation and what you expect from Lecture 8A.
+Visusalising these matrices is hard because they have units assigned (Dr
+G is working on it). So you don’t need to do anything here if the code
+is running.</p>
+<br><br>
+</details>
+<p><br><br></p>
+</div>
+</div>
+<div id="i.-neighbourhood" class="section level3">
+<h3>I. Neighbourhood</h3>
+<p><br></p>
+<p>Now we have “distance” we can decide which fire-stations are
+“neighbours” of each other. This will lead to a “spatial weights matrix”
+where 1 = DEFINITELY a neighbour and 0 = DEFINITELY not a neighbour.
+Sometimes we can choose to have a sliding scale between the two.</p>
+<p><strong>NOTE: No-one has written a package (yet!) that calculates the
+neighbourhood for driving distances, so we are going to focus on the
+cartesian distances for the rest of the lab</strong></p>
+<p><br></p>
+<div id="step-i1.-nearest-neighbours" class="section level5">
+<h5>Step I1. Nearest Neighbours</h5>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>The <code>st_knn()</code> command will automatically work out the
+nearest neighbours for straight-line distances. Copy/run the code below.
+To change the number of nearest neighbours, just change k and
+re-run.</p>
+<pre class="r"><code># Closest neighbour 
+knn_cartesian &lt;- st_knn(st_geometry(fire_station_local), k = 1)
+knn_cartesian
+
+# It&#39;s old fashioned in that it can only be plotted in a certain way, 
+# Just copy/paste this.
+# Spatial weights are a special type of data that tmap hates.
+# 
+# Get coordinates 
+fire_station_coords &lt;- st_coordinates(fire_station_local)
+# And plot.
+plot(st_geometry(fire_stations),
+     col = &quot;blue&quot;, pch = 16,cex=.6,
+     main = &quot;Fire Stations and Their Neighbors&quot;)
+plot(knn_cartesian, coords = fire_station_coords, col = &quot;red&quot;)
+plot(st_geometry(CommunityAreas_SE),add=TRUE)</code></pre>
+<ul>
+<li>CHALLENGE. In your lab report, change k from 1,2,3,4,5… and re-run
+the code. Describe what you see and explain what is happening in your
+lab report.</li>
+</ul>
+<br><br>
+</details>
+<div class="small-gap">
+
+</div>
+</div>
+<div id="step-i2.-distance-bands" class="section level5">
+<h5>Step I2. Distance bands</h5>
+<details>
+<summary>
+<strong>Expand for instructions</strong>
+</summary>
+<p><br></p>
+<p>The <code>dnearneigh()</code> command will automatically work out the
+nearest neighbours for straight-line distances. Copy/run the code below.
+To change the number of nearest neighbours, just change k and
+re-run.</p>
+<pre class="r"><code># This suggests a &quot;neighbour&quot; is any object less than 3000m away.
+dnn &lt;- dnearneigh(coords, d1 = 0, d2 = 3000)
+
+# Assuming distance band
+coords &lt;- st_coordinates(fire_station_local)
+plot(st_geometry(fire_stations),
+     col = &quot;blue&quot;, pch = 19,
+     main = &quot;Fire Stations and Their Neighbors&quot;)
+plot(dnn, coords, add=TRUE, col = &quot;red&quot;)
+print(dnn)</code></pre>
+<ul>
+<li>CHALLENGE. In your lab report, change d2 from 3000 to 1000, 2000,
+4000… and re-run the code. Describe what is happening and explain what
+is happening in your lab report.</li>
+</ul>
+<br><br>
+</details>
+<div class="small-gap">
+
+</div>
+<p><br></p>
+</div>
+<div id="step-i3.-summary" class="section level5">
+<h5>Step I3. Summary</h5>
+<p>Imagine you are working with Chicago authorities to work out how
+fire-stations should share resources and territory. Which type/order of
+spatial weights matrix would you choose and why? Explain your answer in
+your lab report.</p>
+<p><br><br></p>
+</div>
+</div>
+<div id="j.-spatial-weights-matrix---polygons" class="section level3">
+<h3>J. Spatial weights matrix - POLYGONS</h3>
+<p>Finally, I want you to see the code for assessing the spatial weights
+matrices of polygons.</p>
+<ul>
+<li>Here are two examples that should run. Copy/run the code in your
+report</li>
+</ul>
+<pre class="r"><code>coords &lt;- st_coordinates(st_centroid(CommunityAreas_SE))
+
+rook_neighbors &lt;- st_contiguity(CommunityAreas_SE, queen=FALSE)
+queen_neighbors &lt;- st_contiguity(CommunityAreas_SE, queen=TRUE)
+
+
+# and plot - they might come out small. not sure why
+plot(st_geometry(CommunityAreas_SE))
+plot(rook_neighbors, coords, add=TRUE, col = &quot;red&quot;, main=&quot;Rook&#39;s 1st order&quot;)
+
+
+plot(st_geometry(CommunityAreas_SE))
+plot(queen_neighbors, coords, add=TRUE, col = &quot;blue&quot;,main=&quot;Queen&#39;s 1st order&quot;)</code></pre>
+<ul>
+<li>In your report, please explain what each one is doing and how they
+define “neighbour”. Hint, see Lecture 8A…</li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="k.-tidy-your-report" class="section level3">
+<h3>K. TIDY YOUR REPORT!</h3>
+<p>A lot of this week’s lab was showcasing some of the commands that
+we’ve spoken about in the lectures. So go back and make your report
+neat, with headings and subheadings so its easy to find the answers,
+answers are written up in full sentences, you’ve removed any unneeded
+code or text.</p>
+<p><br><br></p>
+</div>
+<div id="where-were-going" class="section level3">
+<h3>WHERE WE’RE GOING</h3>
 <p>Because of the big shifts with the R spatial code, it’s proving
 tricky to make sure your lab actually works. So if you finish this
 quickly, here is the direction next week is going…</p>
 <ul>
 <li><a
 href="https://mgimond.github.io/Spatial/spatial-autocorrelation.html"
-class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation.html</a>
--<a
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation.html</a></li>
+<li><a
 href="https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html"
 class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html</a></li>
 </ul>
 <p>Reading these examples now will make week 2 MUCH easier.</p>
 <p><br><br></p>
 </div>
-<div id="you-do-not-need-to-submit-week-1" class="section level2">
-<h2>YOU DO NOT NEED TO SUBMIT WEEK 1</h2>
+</div>
+<div id="submitting-your-lab" class="section level2">
+<h2>SUBMITTING YOUR LAB</h2>
+<p>Remember to save your work throughout and to spell check your writing
+(next to the save button). Now, press the knit button again. If you have
+not made any mistakes in the code then R should create a html file in
+your lab2 folder, complete with a very recent time-stamp.</p>
+<p><br></p>
+<div id="if-you-use-the-posit-cloud-website" class="section level3">
+<h3>If you use the POSIT cloud website</h3>
+<p>You can download each of your .RmD and html files by:</p>
+<ul>
+<li>Clicking on the little box next to the Rmd in the Files tab, then
+going to the little blue cogwheel (might need to make your Rstudio full
+screen) and clicking export.<br></li>
+</ul>
+<p><img src="index_images/im_T2_Download.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Repeat the process exactly for the html file underneath it (e,g,
+just have the html clicked.)<br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 3</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="if-you-use-the-rstudio-desktop-on-your-own-computer"
+class="section level3">
+<h3>If you use the RSTudio desktop on your own computer</h3>
+<ul>
+<li><p>Press knit!</p></li>
+<li><p>Go to your Lab 4 folder, In that folder, double click on the html
+file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU
+WANT TO SUBMIT <br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 4.<br></p></li>
+</ul>
+<p><img src="index_images/pg_364Lab1_Basics_2021_fig1.png" width="1673" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="grading-check-list" class="section level2">
+<h2>GRADING CHECK-LIST</h2>
+<p>[110 marks total]</p>
+<div id="what-does-your-grade-mean" class="section level3">
+<h3>What does your grade mean?</h3>
+<p>Overall, here is what your lab should correspond to:</p>
+<table class=" lightable-classic-2 table table-striped table-hover table-responsive" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Grade
+</th>
+<th style="text-align:left;">
+% Mark
+</th>
+<th style="text-align:left;">
+Rubric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A*
+</td>
+<td style="text-align:left;">
+98-100
+</td>
+<td style="text-align:left;">
+Exceptional.  Not only was it near perfect, but the graders learned
+something.  THIS IS HARD TO GET.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+96+
+</td>
+<td style="text-align:left;">
+You went above and beyond
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+93+:
+</td>
+<td style="text-align:left;">
+Everything asked for with high quality.   Class example
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A-
+</td>
+<td style="text-align:left;">
+90+
+</td>
+<td style="text-align:left;">
+The odd minor mistake, All code done but not written up in full
+sentences etc. A little less care
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B+
+</td>
+<td style="text-align:left;">
+87+
+</td>
+<td style="text-align:left;">
+More minor mistakes.  Things like missing units, getting the odd
+question wrong, no workings shown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+83+
+</td>
+<td style="text-align:left;">
+Solid work but the odd larger mistake or missing answer.  Completely
+misinterpreted something, that type of thing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B-
+</td>
+<td style="text-align:left;">
+80+
+</td>
+<td style="text-align:left;">
+Starting to miss entire/questions sections, or multiple larger mistakes.
+Still a solid attempt. 
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C+
+</td>
+<td style="text-align:left;">
+77+
+</td>
+<td style="text-align:left;">
+You made a good effort and did some things well, but there were a lot of
+problems. (e.g. you wrote up the text well, but messed up the code)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+70+
+</td>
+<td style="text-align:left;">
+It’s clear you tried and learned something.  Just attending labs will
+get you this much as we can help you get to this stage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+60+
+</td>
+<td style="text-align:left;">
+You attempt the lab and submit something. Not clear you put in much
+effort or you had real issues
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:left;">
+0+
+</td>
+<td style="text-align:left;">
+Didn’t submit, or incredibly limited attempt. 
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 

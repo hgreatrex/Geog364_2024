@@ -321,10 +321,6 @@ Your domain doesn’t have to be square! So we are balancing the need for our do
 
 #### Exercise. Data detective
 
-<details>
-
-<summary>**Expand and complete!**</summary>
-
 <br>
 
 I recently found two ‘mystery files’ on her desktop that I had forgotten to name correctly.
@@ -379,24 +375,27 @@ Note, no code is needed; your answer can be in words (50 words at least per data
 
 <br><br>
 
-</details>
 
-<br><br>
 
-### D: Distance & "closeness"
+### D: Distance & closeness
 
-Here, we are going to practice downloading data from Open Street Map and to look at some of the different ways to assess distance and location. Specifically we're going to explore at the locations of fire stations.
-
-#### Exercise. Getting vector data from Open Street map
-
-<details>
-<summary>**Expand and complete!**</summary>
+Now we are going to practice downloading data from Open Street Map and to look at some of the different ways to assess distance and location. Specifically we're going to explore at the locations of fire stations in Chicago.
 
 <br>
 
+#### Exercise. Getting vector data from Open Street map
+
+
 R connects easily with the website OpenStreetMap. This is becoming a crucial resource in spatial statistics, although the data can be messy (it's being entered by volunteers).
 
-##### Step D1
+::: small-gap
+:::
+
+##### Step D1 - Learn about Open Street Map
+
+<details>
+<summary>**Expand and complete!**</summary>
+<br>
 
 -   Watch the 2 minute video below about open street map and go and explore it here <https://www.openstreetmap.org/>. You can also read more about its background and get help here: <https://wiki.openstreetmap.org/wiki/About_OpenStreetMap>
 
@@ -406,9 +405,18 @@ R connects easily with the website OpenStreetMap. This is becoming a crucial res
 
 </iframe>
 
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+##### Step D2 - Get the data
+
+<details>
+<summary>**Expand and complete!**</summary>
 <br>
 
-##### Step D2
 
 -   This code will load the locations of all the Fire-Stations in Chicago into R. Copy carefully into your report and run.
 
@@ -433,9 +441,17 @@ fire_stationdata
 
 -   To read more about how OSM stores fire-station data, see here - <https://wiki.openstreetmap.org/wiki/Emergency_facilities_and_amenities>
 
-<br>
+<br><br>
+</details>
+::: small-gap
+:::
 
-##### Step D3
+
+##### Step D3 - Extract polygons & map
+
+<details>
+<summary>**Expand and complete!**</summary>
+<br>
 
 -   The point data is often messy (people adding fire-hoses etc). So we are going to focus on the polygon fire station buildings.
 -   Add this command into your lab script and run. This will turn fire-stations into the type of spatial file you are used to.
@@ -444,15 +460,20 @@ fire_stationdata
 fire_station_buildings <- fire_stationdata$osm_polygons
 ```
 
+
+- Now, Make a map of the fire stations in Chicago, remembering if you are using tmap that you are using tm_polygons() NOT tm_dots().
+
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+##### Step D4 - Find centroids & map
+
+<details>
+<summary>**Expand and complete!**</summary>
 <br>
-
-##### Step D4
-
--   Make a map of the fire stations in Chicago, remembering if you are using tmap that you are using tm_polygons() NOT tm_dots().
-
-<br>
-
-##### Step D5
 
 -   It's clear our polygons are VERY small compared to the overall area. And in terms of the topic, I don't really care how big the fire station buildings are, just that they exist. So let's choose the MEAN CENTRE and convert it into points.\
     \
@@ -468,36 +489,79 @@ fire_station_buildings <- fire_stationdata$osm_polygons
 fire_stations <- st_centroid(fire_station_buildings)
 ```
 
-<br>
+<br><br>
 
-##### Step D6
-
-In your report, Make a map of the fire station locations (points) - it will be easier to make out a pattern. Describe the features of the pattern you see and what you think might be causing it.
+ - In your report, Make a map of the fire station locations (points e.g. tm_dots) - it will be easier to make out a pattern. Describe the features of the pattern you see and what you think might be causing it.
 
 You should see something like this:
 
 ![](index_images/pg_lab4_firestations.png){width="90%"}
-
+<br><br>
 </details>
-<br>
+<br><br>
 
 #### Exercise. Closest stations
-
-<details>
-<summary>**Expand for instructions**</summary>
-<br>
 
 Now we have the fire station locations, we want to consider "neighbourhood".  Which fire-stations are *closest* to one another and what does "closest" even mean?
 
 This is a genuine issue faced by emergency authorities. For example, it is needed when considering which stations deserve new vehicles, or where to put new stations.
 
-Have a look at this report, which explores the issue for Columbus Ohio - and which gets to use several billion pieces of data.. <https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da>
+Have a look at this report, which explores the issue for Columbus Ohio - and which gets to use several billion pieces of data.. <https://storymaps.arcgis.com/stories/0037b3eb93904ed6aa00cbba424af0da>.  It was completed by one of our MGIS alumni, Rob Ford.
 
 <br>
 
-##### Step D7
+##### Step D5 - Measuing distance
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
 
 In your report, come up with AT LEAST three different ways that you could measure the 'closeness' or 'distance' between fire-stations. Use the reading above to justify your answers. We will also talk about this in class.
+
+<br><br>
+
+</details>
+
+<br><br><br>
+
+
+## WEEK 2
+
+<br>
+
+Re-open your project, re-open your .RmD lab report and run all the code chunks. Your report & R-Studio should look something like the screenshot below (it might not be _identical_ but it should be similar).  
+
+
+![](index_images/pg_lab4_week2.png){width="100%"}
+
+
+<br><br>
+
+### E. Removing variables
+
+Especially for people using POSIT-Cloud, it's good practice to remove large datasets and variables that you're not planning to use.   In our case, we are ONLY planning to use the fire_station point locations, so we can remove the other data using the `rm()` command
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
+
+This is by no means essential, but it gives your computer a _tiny_ bit more energy to run code, alongside keeping everything neat. 
+
+This command will remove your Chicago bounding box and your large fire_stationdata variables. 
+
+```{r,eval=FALSE}
+rm(bbox_city_rectangle)
+rm(fire_stationdata)
+```
+ 
+ 
+
+
+ - Go to the end of your lab report. <br><br>
+ - Make a new section heading called Week 2. <br><br>
+ - Inside, make a new code chunk and copy the code above into it.  Add a third line to remove the fire_station_buildings variable.<br><br>
+ - Run the code chunk.  You should see the variables disappear in the environment tab.  Nothing else should happen. 
+ 
 
 <br><br>
 </details>
@@ -505,17 +569,541 @@ In your report, come up with AT LEAST three different ways that you could measur
 
 
 
-## WEEK 2 TO COME
+### F. Subsetting to the South-East Side
 
-Because of the big shifts with the R spatial code, it's proving tricky to make sure your lab actually works.  So if you finish this quickly, here is the direction next week is going...
+<br>
 
- - https://mgimond.github.io/Spatial/spatial-autocorrelation.html
- -https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html 
+|                                                                                                                                                                                                                   |                                                      |
+|------------------------|----------------------------------------|
+| <br><br> _Chicago has a set internal neighbourhoods, arranged informally into "sides" e.g. "Northside", "SouthSide"... These neighbourhood are not federally recognized, but they are used by the city and by local people.  So.. we can access this data via downloading it from Chicago's City Data Portal._ <br><br>Let's subset to a smaller dataset, because I know that the people on POSIT-Cloud have been struggling.  Specifically, we are going to focus on South East Chicago. | [![Chicago's neighbourhoods](index_images/pg_lab4_ChicagoSides.png){width="800"}](https://commons.wikimedia.org/wiki/File:Chicago_community_areas_map.svg) |
 
-Reading these examples now will make week 2 MUCH easier.
+
+
+<br>
+
+
+#### Step F1. Get the boundary data & read into R
+
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br><br>
+
+
+ - Go to this website. <https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6>
+
+ - On the top right, click Export, then choose the GeoJSON format. Move/upload the file into your project folder.
+ 
+ ![](index_images/pg_lab4_ChicagoData.png){width="80%"}
+
+<br><br>
+
+ 
+ - In your lab report, read the data into R using the `st_read()` command - e.g. copy/paste the code-chunk below:
+ 
+```{r, eval=FALSE}
+CommunityAreas <- st_read("Boundaries - Community Areas (current).geojson")
+CommunityAreas
+
+# make a quick map
+qtm(CommunityAreas)
+```
+ 
+ - Your map should look like Chicago boundaries.
+ 
+ 
+
+<br><br>
+</details>
+
+::: small-gap
+:::
+
+
+#### Step F2. Select our area of interest.
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br> 
+ 
+ 
+ - We are going to focus on the following community areas in the far South East of the city:
+ 
+    - "ROSELAND"
+    - "PULLMAN"
+    - "SOUTH DEERING"
+    - "EAST SIDE"
+    - "WEST PULLMAN"
+    - "RIVERDALE"
+    - "HEGEWISCH"
+ 
+ <br>
+ 
+ - In your lab report, make a new code chunk and copy this code across to filter to these communities. If you get a weird error, try re-typing the quote marks.
+
+```{r, eval=FALSE}
+CommunityAreas_SE <- CommunityAreas  %>%
+   filter(community %in% c("ROSELAND",
+                           "PULLMAN",
+                           "SOUTH DEERING",
+                           "EAST SIDE",
+                           "WEST PULLMAN",
+                           "RIVERDALE",
+                           "HEGEWISCH"))
+
+# make a quick map
+qtm(CommunityAreas_SE)
+
+```
+
+
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+#### Step F3. Subset the fire-stations to this area.
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br> 
+ 
+
+
+ - Finally, we're going to use the `st_intersection()` command to select only the fire stations within our chosen communities.
+ 
+  - In your lab report, make a new code chunk and copy/run this code to filter to these communities. 
+  
+```{r, eval=FALSE}
+
+# Subset the firestations
+ fire_station_local <- st_intersection(fire_stations, 
+                                       CommunityAreas_SE)
+
+
+# Make a quick plot
+ tm_shape(CommunityAreas_SE) +
+   tm_borders() +
+   tm_shape(fire_station_local) +
+   tm_dots(col = "red", size = 0.5)+
+   tmap_mode("view")
+```
+ 
+ 
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+#### Step F4. Questions
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>  
+
+I want to check your understanding of what we have just done.  So after the code, please answer the following questions in your lab report.  Remember you can look at the data by clicking its name in the environment tab, or by using summary(), head(), table() etc.
+
+1. How many fire stations are inside CommunityAreas_SE? <br><br>
+2. How many unique zip-codes/post-codes are there in the fire_station_local data? <br> _(hint, table command.  <br>hint2. there is a useful column inside fire_station_local called addr.postcode)_ <br><br>
+3. Are there any fire-stations in Riverdale?  If so, how many? <br>  _(hint, look at the community column in fire_station_local data...)_ 
+
+<br><br>
+</details>
+<br><br>
+
+
+ 
+### G. Measuring distance in R
+
+As discussed in class, there are several ways we can measure distance using R-Studio.  Here, we are going to explore cartesian distance (e.g. "as the crow flies" or straight line distance) and driving distance using Open Street map.
+
+<br>
+
+#### Step G1. Calculating distance code
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>  
+
+The code below will calculate the straight-line and driving distance between two locations in our dataset.
+
+ - We can calculate the straight-line distance between two objects using the st_distance() command.  This defaults to calculating distances in metres, so I often change it to km.
+
+ - We can calculate driving distances (and routes) between two objects using the osrmRoute() command. You can also choose walking or cycling.
+ 
+<br> 
+ 
+**YOU NEED A NEW PACKAGE! <br> GO TO THE PACKAGES TAB INSTALL/DOWNLOAD THE `osrm` package. <br>THEN SCROLL UP TO YOUR LIBRARY CODE CHUNK IN YOUR REPORT. ADD `library(osrm)` AND RUN THE CODE CHUNK. THEN SCROLL BACK DOWN TO THE END OF YOUR REPORT**  
+
+ - Copy these code chunks into your report, understand what they are doing and run them. You should see that the cartesian distance is ~2.19km and the driving distance ~3.04km, alongside a map.
+ 
+
+```{r, eval=FALSE}
+# Choose which locations you want to look at the distance between
+# In our case, we are choosing objects/rows from our firestation data.
+# They could be row numbers you type manually or some sort of filter
+# I am showing you both examples
+ 
+location1 <- fire_station_local[1,]
+location2 <- dplyr::filter(fire_station_local,osm_id == "210429692")
+```
+
+<br>
+
+```{r, eval=FALSE}
+# Calculate the straight line distance
+Distance_Cartesian_m  <- st_distance(location1,location2)
+Distance_Cartesian_km <- as.numeric(Distance_Cartesian_m/1000)
+Distance_Cartesian_km
+```
+
+<br>
+
+```{r, eval=FALSE}
+# And driving distance 
+Distance_Driving <- osrmRoute(src = location1,dst = location2,
+                              overview = "full",osrm.profile="car")
+Distance_Driving
+
+```
+
+<br>
+
+```{r, eval=FALSE}
+# And driving distance 
+Distance_Driving <- osrmRoute(src = location1,dst = location2,
+                              overview = "full",osrm.profile="car")
+Distance_Driving
+
+```
+
+<br>
+
+```{r, eval=FALSE}
+
+# To plot the straight line distance we need to manually
+# create a straight line between our locations
+line_between <- st_cast(st_union(location1, location2), "LINESTRING")
+
+# Step 4: Plot both lines and annotate them
+tm_shape(line_between) +
+   tm_lines(col = "red", lwd = 2, title.col = "Euclidean Line") +
+   tm_shape(Distance_Driving) +
+   tm_lines(col = "blue", lwd = 2, title.col = "Driving Line") +
+   tm_shape(fire_station_local) +
+   tm_dots() + tm_legend()+
+   tmap_mode("view")
+
+```
+
+
+<br><br>
+</details>
+
+<br>
+
+#### Step G2. Challenge
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
+
+ - Choose two fire-stations that are "close" in terms of straight-line distance, but "far apart" in terms of driving distance.
+
+ - Hint, try running `qtm(fire_station_local) + tm_text("osm_id")` to help you work out which station is which.
+
+ - In your report, edit the code (above) that you just ran to calculate the distance between your chosen stations. Run the code and make a map of the two distances. <br>
+ _Hint You ONLY need to edit the row numbers in the first code chunk then run_
+
+ - Justify why you chose those two stations in your lab report. (You don't have to be right, you just have to have some reasoning why you chose those two points).
+
+
+<br><br>
+</details>
+
+<br><br>
+
+### H. Spatial weights matrix - POINTS
+
+As discussed in class this week, a spatial matrix is a way of recording the distances between objects - and we can use them to make a spatial weights matrix defining the neighbourhood.
+
+<br>
+
+#### Step H1. Distance matrices
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
+
+Cartesian distance matrices 
+
+ - These are VERY easy.  This is all the code you need. <br><br>
+ 
+ - Copy/run this code chunk,  <br><br>
+
+```{r, eval=FALSE}
+# you just run the st_distance command with a table of 
+# data rather than two points. I divided by 1000 to put it in km.
+Distmatrix_cartesian <- round(st_distance(fire_station_local)/1000,3)
+Distmatrix_cartesian
+
+```
+
+<br><br>
+
+Driving distance matrices
+
+ - Driving distance matrices are much harder and rely on Dr G's custom code. If you want to see how to scale this up, come to an office hr with Dr G.   <br><br>
+
+ - Copy/run this code chunk  <br><br>
+
+
+```{r, eval=FALSE}
+#---------------------------------------------------------
+# Calculate the DRIVING distance between each pair of fire stations
+# Copy/paste this code chunk EXACTLY
+#---------------------------------------------------------
+# Extract coordinates
+fire_station_coords <- st_coordinates(st_geometry(fire_station_local))
+
+# Create a matrix to store driving distances
+num_stations     <- nrow(fire_station_coords)
+Distmatrix_drive <- matrix(NA, nrow = num_stations, ncol = num_stations)
+
+# Generate unique station pairs for the upper triangle
+pairs <- expand.grid(1:num_stations, 1:num_stations)
+pairs <- pairs[pairs$Var1 < pairs$Var2, ]
+
+for(n in 1:nrow(pairs)){
+   drivedist <- osrmRoute(src = fire_station_coords[pairs[n,1], ],
+                      dst = fire_station_coords[pairs[n,2], ],
+                      overview = FALSE,osrm.profile="car")[2]
+
+   Distmatrix_drive[pairs[n,1], pairs[n,2]] <- as.numeric(drivedist)
+   Distmatrix_drive[pairs[n,2], pairs[n,1]] <- as.numeric(drivedist)
+}
+
+Distmatrix_drive
+
+```
+
+
+CHALLENGE
+
+Look up your two points in the two matrices and confirm that they match your first calculation and what you expect from Lecture 8A.  Visusalising these matrices is hard because they have units assigned (Dr G is working on it).  So you don't need to do anything here if the code is running.
+
+
+<br><br>
+</details>
+<br><br>
+
+ 
+### I. Neighbourhood
+
+<br>
+
+Now we have "distance" we can decide which fire-stations are "neighbours" of each other.  This will lead to a "spatial weights matrix" where  1 = DEFINITELY a neighbour and 0 = DEFINITELY not a neighbour.  Sometimes we can choose to have a sliding scale between the two.
+
+**NOTE:  No-one has written a package (yet!) that calculates the neighbourhood for driving distances, so we are going to focus on the cartesian distances for the rest of the lab**
+
+<br>
+
+##### Step I1. Nearest Neighbours
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
+
+The `st_knn()` command will automatically work out the nearest neighbours for straight-line distances. Copy/run the code below.   To change the number of nearest neighbours, just change k and re-run.
+
+
+```{r, eval=FALSE}
+
+# Closest neighbour 
+knn_cartesian <- st_knn(st_geometry(fire_station_local), k = 1)
+knn_cartesian
+
+# It's old fashioned in that it can only be plotted in a certain way, 
+# Just copy/paste this.
+# Spatial weights are a special type of data that tmap hates.
+# 
+# Get coordinates 
+fire_station_coords <- st_coordinates(fire_station_local)
+# And plot.
+plot(st_geometry(fire_stations),
+     col = "blue", pch = 16,cex=.6,
+     main = "Fire Stations and Their Neighbors")
+plot(knn_cartesian, coords = fire_station_coords, col = "red")
+plot(st_geometry(CommunityAreas_SE),add=TRUE)
+
+
+
+```
+
+ - CHALLENGE.  In your lab report, change k from 1,2,3,4,5... and re-run the code.  Describe what you see and explain what is happening in your lab report. 
+ 
+ 
+
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+##### Step I2. Distance bands
+
+<details>
+<summary>**Expand for instructions**</summary>
+<br>
+
+The `dnearneigh()` command will automatically work out the nearest neighbours for straight-line distances. Copy/run the code below.   To change the number of nearest neighbours, just change k and re-run.
+
+
+```{r, eval=FALSE}
+# This suggests a "neighbour" is any object less than 3000m away.
+dnn <- dnearneigh(coords, d1 = 0, d2 = 3000)
+
+# Assuming distance band
+coords <- st_coordinates(fire_station_local)
+plot(st_geometry(fire_stations),
+     col = "blue", pch = 19,
+     main = "Fire Stations and Their Neighbors")
+plot(dnn, coords, add=TRUE, col = "red")
+print(dnn)
+
+```
+
+ - CHALLENGE.  In your lab report, change d2 from 3000 to 1000, 2000, 4000... and re-run the code.  Describe what is happening and explain what is happening in your lab report.
+
+
+
+
+<br><br>
+</details>
+::: small-gap
+:::
+
+
+<br>
+
+##### Step I3. Summary
+
+Imagine you are working with Chicago authorities to work out how fire-stations should share resources and territory.  Which type/order of spatial weights matrix would you choose and why?  Explain your answer in your lab report.
+
+<br><br>
+
+
+### J. Spatial weights matrix - POLYGONS
+
+
+Finally, I want you to see the code for assessing the spatial weights matrices of polygons.  
+
+ - Here are two examples that should run.   Copy/run the code in your report
+
+
+```{r, eval=FALSE}
+coords <- st_coordinates(st_centroid(CommunityAreas_SE))
+
+rook_neighbors <- st_contiguity(CommunityAreas_SE, queen=FALSE)
+queen_neighbors <- st_contiguity(CommunityAreas_SE, queen=TRUE)
+
+
+# and plot - they might come out small. not sure why
+plot(st_geometry(CommunityAreas_SE))
+plot(rook_neighbors, coords, add=TRUE, col = "red", main="Rook's 1st order")
+
+
+plot(st_geometry(CommunityAreas_SE))
+plot(queen_neighbors, coords, add=TRUE, col = "blue",main="Queen's 1st order")
+
+
+```
+
+
+ - In your report, please explain what each one is doing and how they define "neighbour".   Hint, see Lecture 8A...
+
+<br><br>
+
+### K. TIDY YOUR REPORT! 
+
+A lot of this week's lab was showcasing some of the commands that we've spoken about in the lectures. So go back and make your report neat, with headings and subheadings so its easy to find the answers, answers are written up in full sentences, you've removed any unneeded code or text.  
 
 
 
 <br><br>
 
-## YOU DO NOT NEED TO SUBMIT WEEK 1
+### WHERE WE'RE GOING
+
+Because of the big shifts with the R spatial code, it's proving tricky to make sure your lab actually works.  So if you finish this quickly, here is the direction next week is going...
+
+ - https://mgimond.github.io/Spatial/spatial-autocorrelation.html
+ - https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html 
+
+Reading these examples now will make week 2 MUCH easier.
+
+<br><br>
+
+## SUBMITTING YOUR LAB
+
+
+Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab2 folder, complete with a very recent time-stamp.
+
+<br>
+
+### If you use the POSIT cloud website 
+
+You can download each of your .RmD and html files by:
+
+ - Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
+
+```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
+knitr::include_graphics('./index_images/im_T2_Download.png')
+```
+
+
+ - Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
+ 
+ - Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
+
+
+<br>
+
+### If you use the RSTudio desktop on your own computer
+
+ - Press knit!
+ 
+ - Go to your Lab 4 folder,  In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
+
+- Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 4.<br>
+
+```{r, echo=FALSE}
+knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
+```
+
+<br>
+
+## GRADING CHECK-LIST
+
+
+[110 marks total]
+
+
+### What does your grade mean?
+
+Overall, here is what your lab should correspond to:
+
+```{r, echo=FALSE}
+rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
+knitr::kable(rubric) %>%   
+  kable_classic_2() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
+
+
+```
+
+
+
+
+
