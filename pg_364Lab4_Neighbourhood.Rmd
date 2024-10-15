@@ -527,6 +527,14 @@ In your report, come up with AT LEAST three different ways that you could measur
 
 ## WEEK 2
 
+
+```{=html}
+<p class="comment"><strong>DOMAIN:</strong><br> I AM NOW LETTING YOU SORT OUT YOUR OWN STRUCTURE/HEADINGS/SUB-HEADINGS ETC.  Please make it easy to grade and to find your answers (20% of your grade is on style..).  For example, write in full sentences, make sure all the plots etc make sense and that your code is neat, using headings/sub-headings/bullets etc.  </p>
+```
+::: small-gap
+:::
+
+
 <br>
 
 Re-open your project, re-open your .RmD lab report and run all the code chunks. Your report & R-Studio should look something like the screenshot below (it might not be _identical_ but it should be similar).  
