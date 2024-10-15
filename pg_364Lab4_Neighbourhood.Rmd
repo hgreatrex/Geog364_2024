@@ -988,7 +988,7 @@ print(dnn)
 
 <br>
 
-##### Step I3. Summary
+##### Step I3. Summary.
 
 Imagine you are working with Chicago authorities to work out how fire-stations should share resources and territory.  Which type/order of spatial weights matrix would you choose and why?  Explain your answer in your lab report.
 
