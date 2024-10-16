@@ -171,7 +171,7 @@ output:
 
 <br>
 
-2.  Example YAML code if you want `downcute` or `downcute chaos`. For white standard downcute, remove the downcute_theme line.
+2.  Example YAML code if you want `downcute` or `downcute chaos`. For white standard downcute, remove the downcute_theme line..
 
 ```{r,eval=FALSE}
 
