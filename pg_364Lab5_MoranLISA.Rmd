@@ -50,7 +50,7 @@ So let's start Lab 5 next week (week starting Nov-4) and I'll make it shorter.
 
 -   **IF YOU GET AN ERROR TRYING TO GET YOUR OWN CENSUS KEY, CLICK "TAKE A HINT/RUN SOLUTION" for exercise 2 and it will provide one. [https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2.](https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2)**
 
--   You will get 5 points for each chapter you complete
+-   You will get 5 points for each chapter you complete - and you can submit your progress here - <https://psu.instructure.com/courses/2328607/quizzes/5181434>
 
 -   It goes through a lot of the code that we will be using next week AND how to make great maps,
 
