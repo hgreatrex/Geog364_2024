@@ -11,7 +11,7 @@
 
 
 
-<title>pindent_Tut2b_ProjectsDesktop.knit</title>
+<title>Lab 5: Moran’s I &amp; LISA</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -221,6 +224,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +294,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -304,63 +380,45 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Lab 5: Moran’s I &amp; LISA</h1>
+<h3 class="subtitle"><h4 style="font-style:normal"><br />
+GEOG-364 - Spatial Analysis<br />
+</h4></h3>
 
 </div>
 
 
-
-<style>
-  header, .site-header, .footer, .site-footer {
-    display: none !important;
-  }
-</style>
-  
-<p><br><br><br></p>
-<div id="T2_ProjectsDesktop" class="section level2">
-<h2>Projects using Rstudio Desktop</h2>
-<p><img src="index_images/pg_Tut2_startup_fig1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><br></p>
-<ol style="list-style-type: decimal">
-<li>If it’s not already open, open <strong>R-Studio</strong> <br></li>
-<li>Go to the File menu at the very top and click
-<code>New Project</code>. <br></li>
-<li>Select <code>New Directory</code>, then <code>New Project</code>.
-<br></li>
-<li>Name your project after your lab . <br></li>
-<li>Under “create project as a subdirectory of”, hit the browse button
-and go inside your GEOG-364 main folder (you just need to be in the
-folder, you don’t need to have selected anything). Press open. <br></li>
-<li>Finally, press <code>Create Project</code>, <br></li>
-</ol>
-<p><img src="index_images/pg_Tut2_startup_fig4.png" width="554" /></p>
-<p><br></p>
-<div id="Tut2Bc_signsRproj" class="section level4">
-<h4>How do I know it’s worked?</h4>
-<p>R will change slightly.<br />
-- If you look at the top of the screen in the title bar, it should say
-<em>Lab1-Project R Studio</em>.<br />
-- The Files tab should have gone to your project folder. Essentially,
-R-Studio is now “looking” inside your Lab 1 folder, making it easier to
-find your data and output your results.</p>
-<p><img src="index_images/pg_Tut2_startup_fig5.png" width="845" /></p>
-<p><br></p>
-</div>
-<div id="returning-to-your-lab-project" class="section level3">
-<h3>Returning to your lab project</h3>
-<p><img src="index_images/pg_Tut2_startup_fig6.png" width="961" /></p>
-<ol style="list-style-type: decimal">
-<li>On your computer, find your <em>GEOG-364</em> folder and go to the
-lab you want.<br />
-</li>
-<li>Double click on the file with the extension
-<code>.RProj</code>.</li>
-</ol>
-<p><br></p>
-</div>
+<div id="welcome-to-lab-5" class="section level2">
+<h2>Welcome to Lab 5!</h2>
+<p>Unfortunately I need to take today off sick (I had long COVID &amp;
+mono last year and occasionally they still wipe me out),;</p>
+<p>So let’s start Lab 5 next week (week starting Nov-4) and I’ll make it
+shorter.</p>
+<p><strong>This week - in exchange for a huge 20 participation points,
+please complete this course on data camp: <a
+href="https://app.datacamp.com/learn/courses/analyzing-us-census-data-in-r"
+class="uri">https://app.datacamp.com/learn/courses/analyzing-us-census-data-in-r</a></strong>.</p>
+<ul>
+<li><p><strong>IF YOU GET AN ERROR TRYING TO GET YOUR OWN CENSUS KEY,
+CLICK “TAKE A HINT/RUN SOLUTION” for exercise 2 and it will provide one.
+<a
+href="https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2">https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2.</a></strong></p></li>
+<li><p>You will get 5 points for each chapter you complete</p></li>
+<li><p>It goes through a lot of the code that we will be using next week
+AND how to make great maps,</p></li>
+</ul>
+<p>You are still welcome to do this during lab. <strong>If you are late
+on lab 3 or 4 and still plan to submit, come to lab this week and Yifei
+can help you finish.</strong></p>
+<p>Warmest wishes</p>
+<p>Dr H</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -393,6 +451,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 
 </body>

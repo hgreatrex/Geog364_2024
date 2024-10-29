@@ -1,0 +1,61 @@
+---
+title: "Lab 5: Moran's I & LISA"
+subtitle: <h4 style="font-style:normal">GEOG-364 - Spatial Analysis</h4>
+output: 
+  html_document: 
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    section_numbering: false
+editor_options: 
+  chunk_output_type: console
+  markdown:
+    wrap: none
+---
+
+```{r, include=FALSE, echo=FALSE,results='hide',warning=FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+
+# THE FORMAT YOU LIKE IS LAB 3 INSIDE 2022
+
+# invisible data read
+library(tidyverse)
+library(sp)
+library(sf)
+library(readxl)
+library(skimr)
+library(ggplot2)
+library(tmap)
+library(viridis)
+library(kableExtra)
+library(plotly)
+library(readxl)
+library(osmdata)
+library(tigris)
+library(elevatr)
+
+
+```
+
+<br>
+
+## Welcome to Lab 5!
+
+Unfortunately I need to take today off sick (I had long COVID & mono last year and occasionally they still wipe me out),;
+
+So let's start Lab 5 next week (week starting Nov-4) and I'll make it shorter.
+
+**This week - in exchange for a huge 20 participation points, please complete this course on data camp: <https://app.datacamp.com/learn/courses/analyzing-us-census-data-in-r>**.
+
+-   **IF YOU GET AN ERROR TRYING TO GET YOUR OWN CENSUS KEY, CLICK "TAKE A HINT/RUN SOLUTION" for exercise 2 and it will provide one. [https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2.](https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2)**
+
+-   You will get 5 points for each chapter you complete
+
+-   It goes through a lot of the code that we will be using next week AND how to make great maps,
+
+You are still welcome to do this during lab. **If you are late on lab 3 or 4 and still plan to submit, come to lab this week and Yifei can help you finish.**
+
+Warmest wishes
+
+Dr H
