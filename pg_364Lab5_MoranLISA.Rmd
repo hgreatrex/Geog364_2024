@@ -533,7 +533,7 @@ and from the viridis package
 
 <br><br>
 
-### D3. Explain the maps
+### D3. Explain the maps.
 
 -   **[100 words min]** Discuss the spatial autocorrelation, pattern and process you see in each map. e.g. Two sentences for each map. <br><br>
 
