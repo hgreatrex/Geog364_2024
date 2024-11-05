@@ -560,7 +560,6 @@ In this lab, we’ll first adopt a contiguous neighbor definition where we’ll 
 ```{r, eval=FALSE}
 QueenNeighbours <- poly2nb(PennACS_sf, queen=TRUE)
 
-
 ```
 
 <br><br>
@@ -582,7 +581,11 @@ QueenNeighbours[[1]]
 
 ```
 
-Run this code. You should see that Polygon `1,`Clearfield County has 8 neighbors. The numbers represent the row number in PennACS_sf. So Clearfield County is associated with these neighbours:
+**YOUR TASK**
+
+-   **Get this running in your lab report**
+
+You should see that Polygon `1,`Clearfield County has 8 neighbors. The numbers represent the row number in PennACS_sf. So Clearfield County is associated with these neighbours:
 
 ```{r, eval=FALSE}
 #
@@ -591,15 +594,21 @@ PennACS_sf[QueenNeighbours[[1]] , "NAME" ]
 
 Here instead of printing just row 1, I'm printing the rows contained in QueenNeighbours[[1]] e.g. rows 13 14 22 25 35 55 56 61. I find that the neighbours are
 
--   11 Dauphin County, Pennsylvania
+-   13 Blair County, Pennsylvania
 
--   24 York County, Pennsylvania
+-   14 Clinton County, Pennsylvania
 
--   26 Chester County, Pennsylvania
+-   22 Centre County, Pennsylvania
 
--   39 Lebanon County, Pennsylvania
+-   25 Indiana County, Pennsylvania
 
--   51 Berks County, Pennsylvania
+-   35 Jefferson County, Pennsylvania
+
+-   55 Elk County, Pennsylvania
+
+-   56 Cambria County, Pennsylvania
+
+-   61 Cameron County, Pennsylvania
 
 <br>
 
@@ -607,22 +616,77 @@ Here instead of printing just row 1, I'm printing the rows contained in QueenNei
 
 -   **Use the example above to write code and tell me in the report which counties are bordering Lancaster County according to Queens 1st order (HINT, it's row 12)**
 
+### E2. Spatial neighbours map
+
+We can also see a map of the spatial weights matrix. To do this we edit the plot command
+
+```{r, eval=FALSE}
+
+coords <- st_coordinates(st_centroid(PennACS_sf))
+
+plot(st_geometry(PennACS_sf),main="Queen's 1st order neighbours")
+
+plot(QueenNeighbours, coords, 
+     col = "blue", pch=16,cex=.6,
+     add=TRUE)
+
+```
+
+**YOUR TASK**
+
+-   **[50 words min] Using the code above plot the weights then explain what you see**
+
 <br><br>
 
-### E2. Spatial weights
+### E3. Spatial weights matrix
 
-Here we will continue with our example, focusing on spatial autocorrelation.
+Now we need to turn these neighbours into a spatial weights matrix. We do this using the nb2listw command.
 
--   Create a spatial weights matrix to decide nearest neighbours
+**YOUR TASK**
 
--   Create and interpret a moran's scatterplot.
+-   **Get this running in your lab report**
 
--   Run a Moran's I hypothesis test against a H0 of complete spatial randomness.
+```{r, eval=FALSE}
+QueenWeights <- nb2listw(QueenNeighbours, 
+                         style="W", zero.policy=TRUE)
 
--   Next week, we will look at Local Moran's I.
+QueenWeights
+```
 
-<br><br>
+The `zero.policy=TRUE` option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset. Setting `zero.policy` to `FALSE` will return an `error` if at least one polygon has no neighbor.
 
-# **TUESDAY LAB,** 
+<br>
 
-**CODE IS BEING UPDATED IN JUST A SECOND - I'm getting this online now**
+To see the normalised weight of the first polygon’s eight neighbors type:
+
+```{r, eval=FALSE}
+QueenWeights$weights[1]
+```
+
+You should see they have an equal weight of 1/8th .For polygon `1`, each neighbor is assigned an eigth of the total weight. This means that when R computes the neighboring income values, each neighbor’s income will be multiplied by `0.125` before being summed thus giving us the arithmetic mean of polygon `1`’s neighbors.
+
+**YOUR TASK**
+
+-   **Using the code above, print the spatial weights matrix for Lancaster County**
+
+-   **From the summary of QueenWeights ( the print out when you typed its name), write in your report how many counties there are and what the average number of neighbours each county has (hint, another word for a neighbour is a link).**
+
+<br><br>\
+
+## F. Moran's Scatterplot
+
+To come
+
+## G. Moran's Hypothesis test
+
+To come
+
+## H. LISA
+
+To come
+
+## I. Advanced
+
+To come
+
+# **YOU DO NOT NEED TO SUBMIT THIS WEEK. I WILL CONTINUE FILLING IN THE EMPTY SECTIONS IF YOU WANT TO WORK AHEAD**

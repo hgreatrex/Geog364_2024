@@ -956,21 +956,27 @@ in our dataset (row 1, which turns out to be Clearfield County)</p>
 
 # neighbours
 QueenNeighbours[[1]]</code></pre>
-<p>Run this code. You should see that Polygon <code>1,</code>Clearfield
-County has 8 neighbors. The numbers represent the row number in
-PennACS_sf. So Clearfield County is associated with these
-neighbours:</p>
+<p><strong>YOUR TASK</strong></p>
+<ul>
+<li><strong>Get this running in your lab report</strong></li>
+</ul>
+<p>You should see that Polygon <code>1,</code>Clearfield County has 8
+neighbors. The numbers represent the row number in PennACS_sf. So
+Clearfield County is associated with these neighbours:</p>
 <pre class="r"><code>#
 PennACS_sf[QueenNeighbours[[1]] , &quot;NAME&quot; ]</code></pre>
 <p>Here instead of printing just row 1, I’m printing the rows contained
 in QueenNeighbours[[1]] e.g. rows 13 14 22 25 35 55 56 61. I find that
 the neighbours are</p>
 <ul>
-<li><p>11 Dauphin County, Pennsylvania</p></li>
-<li><p>24 York County, Pennsylvania</p></li>
-<li><p>26 Chester County, Pennsylvania</p></li>
-<li><p>39 Lebanon County, Pennsylvania</p></li>
-<li><p>51 Berks County, Pennsylvania</p></li>
+<li><p>13 Blair County, Pennsylvania</p></li>
+<li><p>14 Clinton County, Pennsylvania</p></li>
+<li><p>22 Centre County, Pennsylvania</p></li>
+<li><p>25 Indiana County, Pennsylvania</p></li>
+<li><p>35 Jefferson County, Pennsylvania</p></li>
+<li><p>55 Elk County, Pennsylvania</p></li>
+<li><p>56 Cambria County, Pennsylvania</p></li>
+<li><p>61 Cameron County, Pennsylvania</p></li>
 </ul>
 <p><br></p>
 <p><strong>YOUR TASK</strong></p>
@@ -979,24 +985,86 @@ the neighbours are</p>
 report which counties are bordering Lancaster County according to Queens
 1st order (HINT, it’s row 12)</strong></li>
 </ul>
-<p><br><br></p>
 </div>
-<div id="e2.-spatial-weights" class="section level3">
-<h3>E2. Spatial weights</h3>
-<p>Here we will continue with our example, focusing on spatial
-autocorrelation.</p>
+<div id="e2.-spatial-neighbours-map" class="section level3">
+<h3>E2. Spatial neighbours map</h3>
+<p>We can also see a map of the spatial weights matrix. To do this we
+edit the plot command</p>
+<pre class="r"><code>coords &lt;- st_coordinates(st_centroid(PennACS_sf))
+
+plot(st_geometry(PennACS_sf),main=&quot;Queen&#39;s 1st order neighbours&quot;)
+
+plot(QueenNeighbours, coords, 
+     col = &quot;blue&quot;, pch=16,cex=.6,
+     add=TRUE)</code></pre>
+<p><strong>YOUR TASK</strong></p>
 <ul>
-<li><p>Create a spatial weights matrix to decide nearest
-neighbours</p></li>
-<li><p>Create and interpret a moran’s scatterplot.</p></li>
-<li><p>Run a Moran’s I hypothesis test against a H0 of complete spatial
-randomness.</p></li>
-<li><p>Next week, we will look at Local Moran’s I.</p></li>
+<li><strong>[50 words min] Using the code above plot the weights then
+explain what you see</strong></li>
 </ul>
 <p><br><br></p>
-<p><strong>TUESDAY LAB, CODE IS BEING UPDATED IN JUST A SECOND - I’m
-getting this online now for people who arrive early.</strong></p>
 </div>
+<div id="e3.-spatial-weights-matrix" class="section level3">
+<h3>E3. Spatial weights matrix</h3>
+<p>Now we need to turn these neighbours into a spatial weights matrix.
+We do this using the nb2listw command.</p>
+<p><strong>YOUR TASK</strong></p>
+<ul>
+<li><strong>Get this running in your lab report</strong></li>
+</ul>
+<pre class="r"><code>QueenWeights &lt;- nb2listw(QueenNeighbours, 
+                         style=&quot;W&quot;, zero.policy=TRUE)
+
+QueenWeights</code></pre>
+<p>The <code>zero.policy=TRUE</code> option allows for lists of
+non-neighbors. This should be used with caution since the user may not
+be aware of missing neighbors in their dataset. Setting
+<code>zero.policy</code> to <code>FALSE</code> will return an
+<code>error</code> if at least one polygon has no neighbor.</p>
+<p><br></p>
+<p>To see the normalised weight of the first polygon’s eight neighbors
+type:</p>
+<pre class="r"><code>QueenWeights$weights[1]</code></pre>
+<p>You should see they have an equal weight of 1/8th .For polygon
+<code>1</code>, each neighbor is assigned an eigth of the total weight.
+This means that when R computes the neighboring income values, each
+neighbor’s income will be multiplied by <code>0.125</code> before being
+summed thus giving us the arithmetic mean of polygon <code>1</code>’s
+neighbors.</p>
+<p><strong>YOUR TASK</strong></p>
+<ul>
+<li><p><strong>Using the code above, print the spatial weights matrix
+for Lancaster County</strong></p></li>
+<li><p><strong>From the summary of QueenWeights ( the print out when you
+typed its name), write in your report how many counties there are and
+what the average number of neighbours each county has (hint, another
+word for a neighbour is a link).</strong></p></li>
+</ul>
+<p><br><br><br />
+</p>
+</div>
+</div>
+<div id="f.-morans-scatterplot" class="section level2">
+<h2>F. Moran’s Scatterplot</h2>
+<p>To come</p>
+</div>
+<div id="g.-morans-hypothesis-test" class="section level2">
+<h2>G. Moran’s Hypothesis test</h2>
+<p>To come</p>
+</div>
+<div id="h.-lisa" class="section level2">
+<h2>H. LISA</h2>
+<p>To come</p>
+</div>
+<div id="i.-advanced" class="section level2">
+<h2>I. Advanced</h2>
+<p>To come</p>
+</div>
+<div
+id="you-do-not-need-to-submit-this-week.-i-will-continue-filling-in-the-empty-sections-if-you-want-to-work-ahead"
+class="section level1">
+<h1><strong>YOU DO NOT NEED TO SUBMIT THIS WEEK. I WILL CONTINUE FILLING
+IN THE EMPTY SECTIONS IF YOU WANT TO WORK AHEAD</strong></h1>
 </div>
 
 
