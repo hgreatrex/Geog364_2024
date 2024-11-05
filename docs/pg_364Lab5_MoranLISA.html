@@ -389,33 +389,554 @@ GEOG-364 - Spatial Analysis<br />
 
 
 <p><br></p>
-<div id="welcome-to-lab-5" class="section level2">
-<h2>Welcome to Lab 5!</h2>
-<p>Unfortunately I need to take today off sick (I had long COVID &amp;
-mono last year and occasionally they still wipe me out),;</p>
-<p>So let’s start Lab 5 next week (week starting Nov-4) and I’ll make it
-shorter.</p>
-<p><strong>This week - in exchange for a huge 20 participation points,
-please complete this course on data camp: <a
-href="https://app.datacamp.com/learn/courses/analyzing-us-census-data-in-r"
-class="uri">https://app.datacamp.com/learn/courses/analyzing-us-census-data-in-r</a></strong>.</p>
+<div id="welcome-to-lab-5-week-1" class="section level2">
+<h2>Welcome to Lab 5 Week 1 !</h2>
+<p><br></p>
+<div id="aims" class="section level3">
+<h3>Aims</h3>
+<p>Today’s lab explores autocorrelation and Moran’s I, covering
+scatterplots hypothesis tests, and next week, Local Moran’s I, LISA. In
+addition, you will build on last week’s datacamp to use tidycensus data.
+<br></p>
+<p class="comment"><strong>THIS IS A TWO WEEK LAB. <br>You have two full lab sessions, then, Lab 5 is due the week afterwards.<br>The lab is worth 110 points and there is a rubric at the end of this page.</strong></p>
+<p><br><br></p>
+</div>
+</div>
+<div id="a.-set-up" class="section level2">
+<h2>A. Set-up</h2>
+<p>Seriously, please don’t skip this. It’s the biggest cause of lab
+issues.</p>
+<p><br></p>
+<div id="a1.-create-a-lab-5-project" class="section level3">
+<h3>A1. Create a Lab 5 project</h3>
+<p>First, you need to set up your project folder for lab 5, and install
+packages if you are on the cloud.</p>
+<details>
+<summary>
+POSIT CLOUD people, click here to install packages..
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong><br>Go to <a
+href="https://posit.cloud/content/"
+class="uri">https://posit.cloud/content/</a> and make a new project for
+Lab 5 <br><br></p>
+<p><strong>Step ii:</strong><br>Run this code IN THE CONSOLE to install
+the packages you need. <br></p>
 <ul>
-<li><p><strong>IF YOU GET AN ERROR TRYING TO GET YOUR OWN CENSUS KEY,
-CLICK “TAKE A HINT/RUN SOLUTION” for exercise 2 and it will provide one.
-<a
-href="https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2">https://campus.datacamp.com/courses/analyzing-us-census-data-in-r/census-data-in-r-with-tidycensus?ex=2.</a></strong></p></li>
-<li><p>You will get 5 points for each chapter you complete - and you can
-submit your progress here - <a
-href="https://psu.instructure.com/courses/2328607/quizzes/5181434"
-class="uri">https://psu.instructure.com/courses/2328607/quizzes/5181434</a></p></li>
-<li><p>It goes through a lot of the code that we will be using next week
-AND how to make great maps,</p></li>
+<li>This is going to take 5-10 minutes, so let it run and carry on.
+<br><br></li>
 </ul>
-<p>You are still welcome to do this during lab. <strong>If you are late
-on lab 3 or 4 and still plan to submit, come to lab this week and Yifei
-can help you finish.</strong></p>
-<p>Warmest wishes</p>
-<p>Dr H</p>
+<pre class="r"><code># COPY/PASTE THIS IN THE CONSOLE QUADRANT, 
+# DON&#39;T PUT IT IN A CODE CHUNK 
+
+install.packages(&quot;readxl&quot;)
+install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;ggstatsplot&quot;)
+install.packages(&quot;plotly&quot;)
+install.packages(&quot;dplyr&quot;)
+install.packages(&quot;skimr&quot;)
+install.packages(&quot;rmdformats&quot;)
+
+install.packages(&quot;remotes&quot;)
+remotes::install_github(repo = &quot;r-spatial/sf&quot;, 
+                        ref = &quot;93a25fd8e2f5c6af7c080f92141cb2b765a04a84&quot;)
+
+install.packages(&quot;terra&quot;)
+install.packages(&quot;tidycensus&quot;)
+install.packages(&quot;tigris&quot;)
+install.packages(&quot;tmap&quot;)
+install.packages(&quot;units&quot;)
+install.packages(&quot;spdep&quot;)
+install.packages(&quot;sfdep&quot;)
+
+# If you get a weird error it might be that the quote marks have messed up. 
+# Replace all of them and ask Dr G for a shortcut.</code></pre>
+<p><br><br></p>
+<p><strong>Step iii:</strong> <br>Go to the Lab Canvas page and download
+the data AND the lab report. Upload each one into your project
+folder.<br><em>Forgotten how? See Lab 2 Set-Up.</em> <br></p>
+<p><br></p>
+</details>
+<div class="small-gap">
+
+</div>
+<details>
+<summary>
+R-DESKTOP people, click here to create your lab project.
+</summary>
+<p><br></p>
+<div class="collapsible-content">
+<iframe src="pindent_Tut2b_ProjectsDesktop.html" style="width: 100%; height: 700px; border: none;">
+</iframe>
+</div>
+</details>
+<p><br><br></p>
+</div>
+<div id="a2.-add-your-data-lab-template" class="section level3">
+<h3>A2. Add your data &amp; lab template</h3>
+<p>Go to Canvas and download the lab template and datasets for this
+week’s lab. Should be one dataset and one lab template. Immediately put
+it in your lab 5 folder (or upload it if you’re on the cloud. Rename the
+lab template to something with your email ID, then open it.</p>
+<p><br><br></p>
+</div>
+<div id="a3.-change-the-yaml-code" class="section level3">
+<h3>A3. Change the YAML Code</h3>
+<p>The YAML code sets up your final report. Changing the theme also
+helps us to not go insane when we’re reading 60 reports. Expand for what
+you need to do.<br></p>
+<details>
+<summary>
+Step A3 Instructions
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong> Change the AUTHOR line to your personal
+E-mail ID <br><br></p>
+<p><strong>Step ii:</strong> Go here and choose a theme out of downcute,
+robobook, material, readthedown or html_clean: <a
+href="https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery"
+class="uri">https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery</a>.<br>
+<em>DO NOT CHOOSE html_docco - it doesn’t have a table of contents</em>
+<br><br></p>
+<p><strong>Step iii:</strong><br>Change the theme line on the template
+YAML code to a theme of your choice. See the example YAML code below
+<br> <em>Note, downcute chaos is different - see below</em><br><br></p>
+<ol style="list-style-type: decimal">
+<li>Example YAML code if you want <code>robobook</code>,
+<code>material</code>, <code>readthedown</code> or
+<code>html_clean</code>. You can also change the highlight option to
+change how code chunks look. - see the rmdformats website.</li>
+</ol>
+<pre class="r"><code>---
+title: &quot;Lab 5&quot;
+author: &quot;ADD YOUR EMAIL ID&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  rmdformats::robobook:
+    self_contained: true
+    highlight: kate
+---</code></pre>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Example YAML code if you want <code>downcute</code> or
+<code>downcute chaos</code>. For white standard downcute, remove the
+downcute_theme line..</li>
+</ol>
+<pre class="r"><code>---
+title: &quot;Lab 5&quot;
+author: &quot;ADD YOUR EMAIL ID&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  rmdformats::downcute:
+    self_contained: true
+    downcute_theme: &quot;chaos&quot;
+    default_style: &quot;dark&quot;
+---</code></pre>
+<p><br><br></p>
+</details>
+<p><br><br></p>
+</div>
+<div id="a4.-add-the-library-code-chunk" class="section level3">
+<h3>A4. Add the library code chunk</h3>
+<p><strong>DO NOT SKIP THIS STEP (or any of them!).</strong> Now you
+need to create the space to run your libraries. Expand for what you need
+to do.<br></p>
+<details>
+<summary>
+Step A4 Instructions
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong> At the top of your lab report, add a new
+code chunk and add the code below. <br><br></p>
+<p><strong>Step ii:</strong> Change the code chunk options at the top to
+read <br> <code>{r, include=FALSE, warning=FALSE, message=FALSE}</code>
+and try to run the code chunk a few times <br><br></p>
+<p><strong>Step iii:</strong> If it works, all ‘friendly text’ should go
+away. If not, look for the little yellow bar at the top asking you to
+install anything missing, or read the error and go to the install
+‘app-store’ to get any packages you need. <br><br></p>
+<pre class="r"><code># IF spdep causes issues, remove and run again. sfdep SHOULD be able to do everything spdep does, it&#39;s just pretty new. 
+
+  rm(list=ls())
+  library(plotly)
+  library(raster)
+  library(readxl)
+  library(sf)
+  library(skimr)
+  library(spdep)
+  library(sfdep)
+  library(tidyverse)
+  library(tidycensus)
+  library(terra)
+  library(tmap)
+  library(dplyr)
+  library(tigris)
+  library(tmap)
+  library(units)
+  library(viridis)
+  library(ggstatsplot)
+
+  options(tigris_use_cache = TRUE)</code></pre>
+<p><br><br></p>
+</details>
+<p><br><br></p>
+</div>
+</div>
+<div id="stop-and-check" class="section level2">
+<h2><strong>STOP AND CHECK</strong></h2>
+<p><br></p>
+<p class="comment"><strong>STOP!</strong> Your screen should look similar to the screenshot below (although your lab 5 folder would be inside GEOG364).<strong>If not, go back and redo the set-up!</strong></p>
+<p><img src="index_images/pg_lab5_setup.png" style="width:100.0%" /></p>
+<p><br><br></p>
+</div>
+<div id="b-morans-showcase" class="section level2">
+<h2>B: Moran’s showcase</h2>
+<p>You are first going to practice Moran’s I hypothesis tests in R -
+with questions that link to lectures in Week 10 and 11 (this week and
+last), and the two recent discussions on Canvas. You need to answer
+these in your section “B. Moran’s showcase”.</p>
+<p>You will get style marks for making your answers easy to find
+(sub-headings!), clear and understandable. You lose marks for saying
+incorrect things or providing vague examples.</p>
+<p><br></p>
+<div id="question-b1." class="section level3">
+<h3>Question B1.</h3>
+<ul>
+<li><u><strong>[100 words min]</strong></u> In your own words, define
+<strong>spatial autocorrelation</strong>, distinguishing between
+<strong>positive, zero</strong> and <strong>negative</strong> spatial
+autocorrelation. Describe how each type of autocorrelation is
+represented in the Moran’s I metric, and provide a real-world example
+for each case to illustrate these concepts (either text or including a
+picture/photo you describe). <br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="question-b2." class="section level3">
+<h3>Question B2.</h3>
+<ul>
+<li><u><strong>[50 words min]</strong></u> Explain why traditional
+statistical tests become challenging when working with data that
+exhibits spatial autocorrelation. &lt;br&gt; (hint, think about the
+assumptions we normally make when taking a sample). <br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="question-b3." class="section level3">
+<h3>Question B3.</h3>
+<ul>
+<li><em>“<strong>H<sub>0</sub></strong>: Any”pattern” we see is spurious
+- the data shows Complete Spatial Randomness and is created by an
+Independent Random Process.”</em></li>
+</ul>
+<p>This week we discussed how a hypothesis test,
+<strong>H<sub>0</sub></strong>, represents a specific scenario we want
+to test, and that the <strong>p-value</strong> gives us the probability
+of observing some aspect of our data if that scenario were true. We also
+covered that the simplest baseline scenario to check is whether any
+observed pattern could be due to an <strong>Independent Random
+Process</strong>.</p>
+<p><br></p>
+<ul>
+<li><u><strong>[50 words min]</strong></u> Explain what Independent
+Random Process is, and how it links with Complete Spatial Randomness and
+spatial autocorrelation.<br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="question-b4." class="section level3">
+<h3>Question B4.</h3>
+<ul>
+<li><p><u><strong>[50 words min]</strong></u> Explain what a Monte Carlo
+<sup>[1]</sup> process is, and how we use them to conduct a Moran’s
+hypothesis test. E.g. explain the figure below. <br> [1] Also known as
+bootstrapping or an ensemble process. <br> (<em>Hint, lecture 11A and <a
+href="#id_0"
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html#app8_5</a></em>
+) <br><br />
+</p>
+<p><sub><em>[1] Otherwise known as bootstrapping, ensembles or “repeating a process over and over..”</em></sub></p></li>
+</ul>
+<p><img src="index_images/pg_lab5_week1A.png"
+style="width:100.0%" /></p>
+<p><br><br></p>
+</div>
+</div>
+<div id="real-example-rest-of-lab" class="section level2">
+<h2>REAL EXAMPLE (REST OF LAB)</h2>
+</div>
+<div id="c.-wrangling-census-data" class="section level2">
+<h2>C. Wrangling Census data</h2>
+<p>The way the rest of this lab is structured is that we going to work
+through an example of analyzing census data using R and testing it for
+autocorrelation. In this section we get all the columns we need, do some
+quality control and get everything neat and ready.</p>
+<p><br></p>
+<div id="c1.-get-the-data" class="section level3">
+<h3>C1. Get the data</h3>
+<p>Your data comes from the American Community Survey, a big government
+dataset that is used alongside the the US Census. Normally, I would get
+you to directly download your data using using <code>tidycensus</code>,
+but the website that provides the accreditation is not working well.
+So.. <br></p>
+<ul>
+<li>Go to Canvas and download the Philadelphia dataset. Put this
+directly into your Lab 5 project folder (or upload directly into your
+lab 5 Posit Cloud project).<br><br></li>
+<li>Now read the data into R using the st_read command and save it as a
+variable called AllData
+e.g. <code>AllData &lt;- st_read("PennACS.gpkg")</code></li>
+</ul>
+<p><br></p>
+<div id="how-dr-g-got-the-census-data" class="section level4">
+<h4><em>How Dr G got the census data</em></h4>
+<p><em>I will download my data directly from the American Community
+Survey using <code>tidycensus</code>. Y<strong>ou do not have to do
+this,</strong> but just in case, you might need it in real life, here is
+my code and a tutorial.</em></p>
+<p><br></p>
+<details>
+<summary>
+Expand for a tidycensus tutorial <br> (you do not need this for this
+lab)
+</summary>
+<p><br></p>
+<pre class="r"><code># This comes from the tidycensus library
+PennACS.sf &lt;- get_acs(
+                survey = &quot;acs5&quot;, 
+                year   = 2020, 
+                state  = &quot;PA&quot;, 
+                geography = &quot;county&quot;, 
+                geometry  = TRUE, 
+                output = &quot;wide&quot;,
+                variables = c(total.pop = &quot;B05012_001&quot;,# Total population
+                         med.income  = &quot;B19013_001&quot;,# Median income 
+                         total.house = &quot;B25001_001&quot;,# Total housing units
+                         broadband   = &quot;B28002_004&quot;,# Houses with internet
+                         house.value = &quot;B25075_001&quot;,# House value 
+                         house.age   = &quot;B25035_001&quot;))# House age
+
+# Then I save your data to a file, which you can access on canvas
+st_write(PennACS.sf,&quot;PennACS.gpkg&quot;)</code></pre>
+<p>To understand what I’m doing, here’s a full tutorial that I wrote a
+few years ago:</p>
+<div class="collapsible-content">
+<iframe src="https://psu-spatial.github.io/Geog364-2021/pg_Tut6_input_output.html#Tutorial_6E:_Reading_in_US_Census_Data" style="width: 100%; height: 700px; border: none;">
+</iframe>
+</div>
+</details>
+<p><br><br></p>
+</div>
+</div>
+<div id="c2.-estimates-vs-margins-of-error" class="section level3">
+<h3>C2. Estimates vs margins of error</h3>
+<p>In the previous step, you should have read in the data. Now click on
+<code>AllData</code> to take a look and understand what is there.</p>
+<p>You should now see that you have census data for Pennsylvania at a
+county level for these variables. In fact, for every one, it has
+downloaded the ESTIMATE, but also has included the MARGIN-OF-ERROR, the
+90% confidence interval on our result (90% of the time our result should
+be within this margin of error)</p>
+<ul>
+<li><p>The total population in each county (<code>total.popE</code> and
+<code>total.popM</code>)</p></li>
+<li><p>Median income of people in each county (<code>med.incomeE</code>
+and <code>med.incomeM</code>)</p></li>
+<li><p>The total number of houses in each county
+(<code>total.houseE</code> and <code>total.houseM</code>)</p></li>
+<li><p>The total number of houses with broadband in each county
+(<code>broadbandE</code> and <code>broadbandM</code>)</p></li>
+<li><p>Mean House Value in each county (<code>house.valueE</code> and
+<code>house.valueM</code>)</p></li>
+<li><p>Mean House Age in each county (<code>house.ageE</code> and
+<code>house.ageM</code>)</p></li>
+</ul>
+<p><em>Note a few columns are slightly different here - I rearranged
+them after making the screenshot</em></p>
+<p><img src="index_images/pg_lab5_data.png" style="width:100.0%" /></p>
+<p><br><br></p>
+</div>
+<div id="c3.-tidy-the-data" class="section level3">
+<h3>C3. Tidy the data</h3>
+<p>First, let’s remove the margin of error columns using dplyr select.
+They are normally very useful, but I want things as clear as possible
+for this lab. We can also make a working version of the data. <br><br />
+</p>
+<ul>
+<li>The code below shows how to select and rename columns. Copy it over
+into your lab report and check it runs. You do not need to edit
+anything,
+<ul>
+<li><p><strong><code>select()</code></strong>: Lists all the columns you
+want to keep, leaving out the “M” columns.</p></li>
+<li><p><strong><code>rename()</code></strong>: Renames each selected
+column, removing the “E” suffix for each specified column.</p></li>
+</ul></li>
+</ul>
+<pre class="r"><code>PennACS_sf &lt;- AllData %&gt;% 
+              dplyr::select(
+                GEOID, NAME, total.popE, 
+                med.incomeE, total.houseE, broadbandE, 
+                house.valueE, house.ageE, geom) %&gt;%
+              dplyr::rename(
+                total.pop = total.popE,
+                med.income = med.incomeE,
+                total.house = total.houseE,
+                broadband = broadbandE,
+                house.value = house.valueE,
+                house.age = house.ageE)</code></pre>
+<p><br><br></p>
+</div>
+<div id="c4.-calculate-county-areas" class="section level3">
+<h3>C4. Calculate county areas</h3>
+<p>We currently have the TOTAL number of people/houses/beds/things in
+each county, but it is also useful to have the percentage or rate,
+especially as each of our counties is a different size. First, let’s get
+the areas.</p>
+<pre class="r"><code>#Finding the area of each county 
+Area_M2 &lt;- st_area(PennACS_sf)
+
+# This is in metres^2. Convert to Km sq and add it as a new column
+# and get rid of the annoying units format
+PennACS_sf$Area_km2 &lt;- set_units(Area_M2, &quot;km^2&quot;)
+PennACS_sf$Area_km2 &lt;- round(as.numeric(PennACS_sf$Area_km2), 2)</code></pre>
+<p><br><br></p>
+</div>
+<div id="c5.-calculate-rates-and-densities" class="section level3">
+<h3>C5. Calculate rates and densities</h3>
+<p>We currently have the TOTAL number of people/houses/beds/things in
+each county, but it is also useful to have the percentage or rate,
+especially as each of our counties is a different size.</p>
+<p><br></p>
+<p>To calculate these we simply use the <code>mutate</code> command. If
+<code>mutate</code> doesn’t make sense, see this tutorial: <a
+href="https://crd150.github.io/lab2.html#Creating_new_variables"
+class="uri">https://crd150.github.io/lab2.html#Creating_new_variables</a></p>
+<ol style="list-style-type: decimal">
+<li>Run this example which will calculate the percentage of people in
+each county who use broadband and save as a new column called
+broadband_percent.<br></li>
+</ol>
+<pre class="r"><code>PennACS_sf &lt;- mutate(PennACS_sf, broadband_percent = broadband/total.house)</code></pre>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Make a new code chunk, copy/paste this code then edit it so that you
+create a new column called pop.density and calculate the number of
+people per square km (hint, you have your new Area_km2 column..)</li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="c6.-check-for-empty-polygons" class="section level3">
+<h3>C6. Check for empty polygons</h3>
+<p>Now.. one quirk of R is that it hates empty polygons. IF YOU GET
+ERRORS PLOTTING, I BET THIS IS WHAT IS HAPPENING.</p>
+<p>In the census we often get them, for example there might be a polygon
+around a lake that doesn’t actually have people living there.</p>
+<p>So first, let’s check for and remove any empty polygons. Get this
+code running in your report.</p>
+<pre class="r"><code># look for and remove empty polyons. 
+empty_polygons &lt;- st_is_empty(PennACS_sf)
+PennACS_sf &lt;- PennACS_sf[which(empty_polygons==FALSE), ] </code></pre>
+<p><br />
+<br><br></p>
+</div>
+</div>
+<div id="d.-describe-the-data" class="section level2">
+<h2>D. Describe the data</h2>
+<p><br></p>
+<div id="d1.-describe-the-data-in-words" class="section level3">
+<h3>D1. Describe the data in words</h3>
+<p>Now, in the report, describe the dataset. Explain what the object of
+analysis is, the spatial domain, the spatial representation and make a
+bullet point list of all the variables and their units.</p>
+<p><br><br></p>
+</div>
+<div id="d2.-make-some-maps" class="section level3">
+<h3>D2. Make some maps</h3>
+<pre class="r"><code>tm_shape(PennACS_sf) +                      
+  tm_polygons(col=&quot;total.pop&quot;,    
+              style=&quot;pretty&quot;, legend.hist = TRUE,  
+              palette=&quot;Reds&quot;)   +
+  tm_layout(main.title = &quot;Population per county PA&quot;,  
+            main.title.size = 0.75, frame = FALSE) +
+  tm_layout(legend.outside = TRUE) </code></pre>
+<p><br></p>
+<ul>
+<li>Above is some code that will make a map of the raw population.
+Use/adjust this example code to make chloropleth maps of these columns
+in PennACS_sf.
+<ol style="list-style-type: decimal">
+<li>“med.income”,</li>
+<li>“house.age”,</li>
+<li>“broadband_percent” and</li>
+<li>“pop.density”</li>
+<li><strong>If you are on posit cloud and it crashes, you only have to
+choose one or two maps and comment that you are on the
+cloud.</strong></li>
+</ol></li>
+</ul>
+<p><br></p>
+<details>
+<summary>
+Plotting help and color palette codes
+</summary>
+<ul>
+<li>Your maps DO NOT have to be interactive, so leave tm_mode(“plot”).
+<br><br></li>
+</ul>
+<!-- -->
+<ul>
+<li>To make your maps more interesting, see below for some common color
+palettes. You can also play with the style option to see different
+breaks (?tm_polygons) - or see here for even more options. <a
+href="http://zevross.com/blog/2018/10/02/creating-beautiful-demographic-maps-in-r-with-the-tidycensus-and-tmap-packages/"
+class="uri">http://zevross.com/blog/2018/10/02/creating-beautiful-demographic-maps-in-r-with-the-tidycensus-and-tmap-packages/</a></li>
+</ul>
+<p><u><strong>Common color palettes</strong></u></p>
+<p>My example uses “Reds” from colorbrewer</p>
+<p><img src="index_images/brewer.png" /></p>
+<p>and from the viridis package</p>
+<p><img src="index_images/viridis.png" /></p>
+<p><br><br></p>
+</details>
+<p><br><br></p>
+</div>
+<div id="d3.-explain-the-maps" class="section level3">
+<h3>D3. Explain the maps</h3>
+<ul>
+<li><strong>[100 words min]</strong> Discuss the spatial
+autocorrelation, pattern and process you see in each map. e.g. Two
+sentences for each map. <br><br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="d4.-comment-on-autocorrelation" class="section level3">
+<h3>D4. Comment on autocorrelation</h3>
+<ul>
+<li><strong>[50 words min]</strong> From your maps, decide on a variable
+that exhibits the most positive autocorrelation and the variable that
+exhibits the most negative autocorrelation (it might still be clustered,
+just the furthest negative) and explain your reasoning.</li>
+</ul>
+<p><br><br></p>
+</div>
+</div>
+<div id="e.-spatial-weights-and-autocorrelation" class="section level2">
+<h2>E. Spatial weights and autocorrelation</h2>
+<p>Here we will continue with our example, focusing on spatial
+autocorrelation.</p>
+<ul>
+<li><p>Create a spatial weights matrix to decide nearest
+neighbours</p></li>
+<li><p>Create and interpret a moran’s scatterplot.</p></li>
+<li><p>Run a Moran’s I hypothesis test against a H0 of complete spatial
+randomness.</p></li>
+<li><p>Next week, we will look at Local Moran’s I.</p></li>
+</ul>
+<p><br><br></p>
+<p><strong>TUESDAY LAB, CODE IS BEING UPDATED IN JUST A SECOND - I’m
+getting this online now for people who arrive early.</strong></p>
 </div>
 
 
