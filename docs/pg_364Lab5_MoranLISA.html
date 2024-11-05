@@ -580,18 +580,17 @@ install anything missing, or read the error and go to the install
   options(tigris_use_cache = TRUE)</code></pre>
 <p><br><br></p>
 </details>
-<p><br><br></p>
+<p><br><br><br></p>
 </div>
 </div>
 <div id="stop-and-check" class="section level2">
 <h2><strong>STOP AND CHECK</strong></h2>
-<p><br></p>
 <p class="comment"><strong>STOP!</strong> Your screen should look similar to the screenshot below (although your lab 5 folder would be inside GEOG364).<strong>If not, go back and redo the set-up!</strong></p>
 <p><img src="index_images/pg_lab5_setup.png" style="width:100.0%" /></p>
-<p><br><br></p>
+<p><br><br><br></p>
 </div>
-<div id="b-morans-showcase" class="section level2">
-<h2>B: Moran’s showcase</h2>
+<div id="b-morans-theory-showcase" class="section level2">
+<h2>B: Moran’s theory showcase</h2>
 <p>You are first going to practice Moran’s I hypothesis tests in R -
 with questions that link to lectures in Week 10 and 11 (this week and
 last), and the two recent discussions on Canvas. You need to answer
@@ -676,23 +675,24 @@ quality control and get everything neat and ready.</p>
 <div id="c1.-get-the-data" class="section level3">
 <h3>C1. Get the data</h3>
 <p>Your data comes from the American Community Survey, a big government
-dataset that is used alongside the the US Census. Normally, I would get
-you to directly download your data using using <code>tidycensus</code>,
-but the website that provides the accreditation is not working well.
-So.. <br></p>
+dataset that is used alongside the the US Census. We will be looking at
+county level demographic data for Pennsylvania.</p>
+<p>Normally, I would get you to directly download your data using using
+<code>tidycensus</code>, but the website that provides accreditation is
+not working. So, I created it for you and you can simply read in the
+file.. <br></p>
 <ul>
-<li>Go to Canvas and download the Philadelphia dataset. Put this
-directly into your Lab 5 project folder (or upload directly into your
-lab 5 Posit Cloud project).<br><br></li>
-<li>Now read the data into R using the st_read command and save it as a
-variable called AllData
-e.g. <code>AllData &lt;- st_read("PennACS.gpkg")</code></li>
+<li>I<strong>f you haven’t already downloaded the data, GO BACK AND DO
+THE SET UP!</strong> <br><br></li>
+<li><strong>Now read the data into R using the st_read command and save
+it as a variable called AllData
+e.g. <code>AllData &lt;- st_read("PennACS.gpkg")</code></strong></li>
 </ul>
 <p><br></p>
 <div id="how-dr-g-got-the-census-data" class="section level4">
-<h4><em>How Dr G got the census data</em></h4>
-<p><em>I will download my data directly from the American Community
-Survey using <code>tidycensus</code>. Y<strong>ou do not have to do
+<h4>How Dr G got the census data</h4>
+<p><em>I download the data directly from the American Community Survey
+using <code>tidycensus</code>. <strong>You do not have to do
 this,</strong> but just in case, you might need it in real life, here is
 my code and a tutorial.</em></p>
 <p><br></p>
@@ -731,8 +731,9 @@ few years ago:</p>
 </div>
 <div id="c2.-estimates-vs-margins-of-error" class="section level3">
 <h3>C2. Estimates vs margins of error</h3>
-<p>In the previous step, you should have read in the data. Now click on
-<code>AllData</code> to take a look and understand what is there.</p>
+<p>In the previous step, you should have read in the data.</p>
+<p><strong>Now click on/View <code>AllData</code> to take a look and
+understand what is there.</strong></p>
 <p>You should now see that you have census data for Pennsylvania at a
 county level for these variables. In fact, for every one, it has
 downloaded the ESTIMATE, but also has included the MARGIN-OF-ERROR, the
@@ -764,9 +765,9 @@ They are normally very useful, but I want things as clear as possible
 for this lab. We can also make a working version of the data. <br><br />
 </p>
 <ul>
-<li>The code below shows how to select and rename columns. Copy it over
-into your lab report and check it runs. You do not need to edit
-anything,
+<li><strong>The code below shows how to select and rename columns. Copy
+it over into your lab report and check it runs. You do not need to edit
+anything,</strong>
 <ul>
 <li><p><strong><code>select()</code></strong>: Lists all the columns you
 want to keep, leaving out the “M” columns.</p></li>
@@ -794,6 +795,10 @@ column, removing the “E” suffix for each specified column.</p></li>
 each county, but it is also useful to have the percentage or rate,
 especially as each of our counties is a different size. First, let’s get
 the areas.</p>
+<ul>
+<li><strong>Copy this code over into your lab report and check it runs.
+You do not need to edit anything,</strong></li>
+</ul>
 <pre class="r"><code>#Finding the area of each county 
 Area_M2 &lt;- st_area(PennACS_sf)
 
@@ -809,32 +814,38 @@ PennACS_sf$Area_km2 &lt;- round(as.numeric(PennACS_sf$Area_km2), 2)</code></pre>
 each county, but it is also useful to have the percentage or rate,
 especially as each of our counties is a different size.</p>
 <p><br></p>
-<p>To calculate these we simply use the <code>mutate</code> command. If
-<code>mutate</code> doesn’t make sense, see this tutorial: <a
-href="https://crd150.github.io/lab2.html#Creating_new_variables"
-class="uri">https://crd150.github.io/lab2.html#Creating_new_variables</a></p>
 <ol style="list-style-type: decimal">
-<li>Run this example which will calculate the percentage of people in
-each county who use broadband and save as a new column called
-broadband_percent.<br></li>
+<li><strong>Copy this code over into your lab report and check it runs.
+You do not need to edit anything,</strong> This example which will
+calculate the percentage of people in each county who use broadband and
+save as a new column called broadband_percent.<br></li>
 </ol>
 <pre class="r"><code>PennACS_sf &lt;- mutate(PennACS_sf, broadband_percent = broadband/total.house)</code></pre>
 <p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Make a new code chunk, copy/paste this code then edit it so that you
-create a new column called pop.density and calculate the number of
-people per square km (hint, you have your new Area_km2 column..)</li>
+<li><p>Make a new code chunk, copy/paste this code then edit it so that
+you create a new column called pop.density and calculate the number of
+people per square km (hint, you have your new Area_km2 column..)
+<br></p>
+<p><em>HINT - If <code>mutate</code> doesn’t make sense, see this
+tutorial: <a
+href="https://crd150.github.io/lab2.html#Creating_new_variables"
+class="uri">https://crd150.github.io/lab2.html#Creating_new_variables</a></em></p></li>
 </ol>
 <p><br><br></p>
 </div>
 <div id="c6.-check-for-empty-polygons" class="section level3">
 <h3>C6. Check for empty polygons</h3>
-<p>Now.. one quirk of R is that it hates empty polygons. IF YOU GET
-ERRORS PLOTTING, I BET THIS IS WHAT IS HAPPENING.</p>
+<p>Now.. one quirk of R is that it hates empty polygons.</p>
+<p>IF YOU GET ERRORS PLOTTING, I BET THIS IS WHAT IS HAPPENING.</p>
 <p>In the census we often get them, for example there might be a polygon
-around a lake that doesn’t actually have people living there.</p>
-<p>So first, let’s check for and remove any empty polygons. Get this
-code running in your report.</p>
+around a lake that doesn’t actually have people living there. So first,
+let’s check for and remove any empty polygons. Get this code running in
+your report.</p>
+<ul>
+<li><strong>Copy the code below into your lab report and check it runs.
+You do not need to edit anything,</strong></li>
+</ul>
 <pre class="r"><code># look for and remove empty polyons. 
 empty_polygons &lt;- st_is_empty(PennACS_sf)
 PennACS_sf &lt;- PennACS_sf[which(empty_polygons==FALSE), ] </code></pre>
@@ -847,9 +858,10 @@ PennACS_sf &lt;- PennACS_sf[which(empty_polygons==FALSE), ] </code></pre>
 <p><br></p>
 <div id="d1.-describe-the-data-in-words" class="section level3">
 <h3>D1. Describe the data in words</h3>
-<p>Now, in the report, describe the dataset. Explain what the object of
-analysis is, the spatial domain, the spatial representation and make a
-bullet point list of all the variables and their units.</p>
+<p><strong>Now, in the report, describe the dataset. Explain what the
+object of analysis is, the spatial domain, the spatial representation
+and make a bullet point list of all the variables and their
+units.</strong></p>
 <p><br><br></p>
 </div>
 <div id="d2.-make-some-maps" class="section level3">
@@ -863,18 +875,17 @@ bullet point list of all the variables and their units.</p>
   tm_layout(legend.outside = TRUE) </code></pre>
 <p><br></p>
 <ul>
-<li>Above is some code that will make a map of the raw population.
-Use/adjust this example code to make chloropleth maps of these columns
-in PennACS_sf.
+<li><strong>Use/adjust the example code above to make chloropleth maps
+of these columns in PennACS_sf.</strong>
 <ol style="list-style-type: decimal">
-<li>“med.income”,</li>
-<li>“house.age”,</li>
-<li>“broadband_percent” and</li>
-<li>“pop.density”</li>
-<li><strong>If you are on posit cloud and it crashes, you only have to
-choose one or two maps and comment that you are on the
-cloud.</strong></li>
+<li><strong>“med.income”,</strong></li>
+<li><strong>“house.age”,</strong></li>
+<li><strong>“broadband_percent” and</strong></li>
+<li><strong>“pop.density”<br />
+</strong></li>
 </ol></li>
+<li>If you are on posit cloud and it crashes, you only have to choose
+one or two maps and comment that you are on the cloud.</li>
 </ul>
 <p><br></p>
 <details>
@@ -924,8 +935,9 @@ just the furthest negative) and explain your reasoning.</li>
 </div>
 <div id="e.-spatial-weights" class="section level2">
 <h2>E. Spatial weights</h2>
-<div id="e1.-neighbourhood" class="section level3">
-<h3>E1. Neighbourhood</h3>
+<p><br></p>
+<div id="e1.-defining-neighbours" class="section level3">
+<h3>E1. Defining neighbours</h3>
 <p>This section leans heavily on the example of <a
 href="https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html"
 class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html</a></p>
@@ -939,8 +951,9 @@ we’ll accept any polygon <em>touching</em> our feature. If we required
 Rooks that at only polygons sharing a lengthof border then we would set
 <code>queen=FALSE</code>.</p>
 <ul>
-<li>Copy/paste this code into R and run it. Nothing should happen other
-than queenneighbours showing up in your environment</li>
+<li><strong>Copy/paste this code into R and run it. Nothing should
+happen other than queenneighbours showing up in your
+environment</strong></li>
 </ul>
 <pre class="r"><code>QueenNeighbours &lt;- poly2nb(PennACS_sf, queen=TRUE)</code></pre>
 <p><br><br></p>
@@ -956,10 +969,6 @@ in our dataset (row 1, which turns out to be Clearfield County)</p>
 
 # neighbours
 QueenNeighbours[[1]]</code></pre>
-<p><strong>YOUR TASK</strong></p>
-<ul>
-<li><strong>Get this running in your lab report</strong></li>
-</ul>
 <p>You should see that Polygon <code>1,</code>Clearfield County has 8
 neighbors. The numbers represent the row number in PennACS_sf. So
 Clearfield County is associated with these neighbours:</p>
@@ -985,9 +994,11 @@ the neighbours are</p>
 report which counties are bordering Lancaster County according to Queens
 1st order (HINT, it’s row 12)</strong></li>
 </ul>
+<p><br><br></p>
 </div>
-<div id="e2.-spatial-neighbours-map" class="section level3">
-<h3>E2. Spatial neighbours map</h3>
+<div id="e2.-mapping-neighbours" class="section level3">
+<h3>E2. Mapping neighbours</h3>
+<p><br></p>
 <p>We can also see a map of the spatial weights matrix. To do this we
 edit the plot command</p>
 <pre class="r"><code>coords &lt;- st_coordinates(st_centroid(PennACS_sf))
@@ -999,8 +1010,9 @@ plot(QueenNeighbours, coords,
      add=TRUE)</code></pre>
 <p><strong>YOUR TASK</strong></p>
 <ul>
-<li><strong>[50 words min] Using the code above plot the weights then
-explain what you see</strong></li>
+<li><strong>[50 words min] Using the code above plot the spatial weights
+then explain what you see. You do not need to edit the
+code</strong></li>
 </ul>
 <p><br><br></p>
 </div>
@@ -1060,11 +1072,15 @@ word for a neighbour is a link).</strong></p></li>
 <h2>I. Advanced</h2>
 <p>To come</p>
 </div>
+<div id="submitting-lab-5" class="section level2">
+<h2>SUBMITTING LAB 5</h2>
 <div
-id="you-do-not-need-to-submit-this-week.-i-will-continue-filling-in-the-empty-sections-if-you-want-to-work-ahead"
-class="section level1">
-<h1><strong>YOU DO NOT NEED TO SUBMIT THIS WEEK. I WILL CONTINUE FILLING
-IN THE EMPTY SECTIONS IF YOU WANT TO WORK AHEAD</strong></h1>
+id="you-do-not-need-to-submit-anything-for-week-1.-i-will-continue-filling-in-the-empty-sections-if-you-want-to-work-ahead"
+class="section level3">
+<h3><strong>YOU DO NOT NEED TO SUBMIT ANYTHING FOR WEEK 1. I WILL
+CONTINUE FILLING IN THE EMPTY SECTIONS IF YOU WANT TO WORK
+AHEAD</strong></h3>
+</div>
 </div>
 
 
