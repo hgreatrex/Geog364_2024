@@ -684,21 +684,93 @@ You should see they have an equal weight of 1/8th .For polygon `1`, each neighbo
 
 ## F. Moran's Scatterplot
 
-```{r}
+<br>
+
+### F1. Making better plot labels
+
+The moran.plot command will label outliers, which makes much easier to interpret the output. However, I noticed writing this that the names for each county were rather long e.g. they each included the statement that they were a county in Pennsylvania.
+
+There are a LOAD of ways to shorten this, for example using the comma to split each string, or removing words, or shortening the string. Here is the most elegant way I can think of. Normally I would put this in data wrangling but as I've just seen it, let's add it here.
+
+<br>
+
+```{r, eval=FALSE}
+PennACS_sf$ShortName <- str_remove_all(PennACS_sf$NAME, 
+                                       " County, Pennsylvania")
+```
+
+-   **Copy the code to your lab report and run it.**
+
+-   **Below that, in a code chunk print out the summary of the PennACS_sf dataset and use that to explain SPECIFICALLY what I did. (e.g. what is the function, what does it do, what did I apply it to and how did I save my results)\
+    **HINT - summary() command
+
+-   If you want a challenge, try and find an alternative way to achieve the same result e.g. shortening the NAMES column
+
+<br><br>
+
+### F2. Moran scatterplot
+
+We can now assess whether the pattern of a SPECIFIC VARIABLE shows autocorrelation or not using a Moran scatterplot. Here is the most simple moran.plot I can write, which is great for quick checks. But keep reading for a more professional looking one, which I recommend for your reports.
+
+```{r, eval=FALSE}
+## and calculate the Moran's plot
+moran.plot(PennACS_sf$total.pop, 
+           listw= QueenWeights,
+           zero.policy = T)
 
 ```
 
-## G. Moran's Hypothesis test
+<br>
 
-To come
+This one looks better!
+
+```{r, eval=FALSE}
+
+# Create the Moran's plot adding labels and axes 
+moran.plot(
+    PennACS_sf$total.pop, 
+    listw = QueenWeights,
+    labels = PennACS_sf$ShortName,
+    xlab = "Total Population",
+    ylab = "Total Population of neighbours (queens 1st order)",
+    main = "",       # Leave main blank to add separately
+    zero.policy = TRUE
+)
+
+# This find the value of Moran's I for my title
+# I'm taking one of the printouts from the moran test
+MoransI <- moran.test(PennACS_sf$total.pop,
+                      listw = QueenWeights)$estimate[1]
+
+
+# Add a multi-line main title with smaller font
+title( main = paste("Spatial autocorrelation of Pennsylvania's total population at a county-scale\nwith neighbourhood defined using 1st order Queen's adjacency.\n\nMoran's I =", round(MoransI, 3),"   (Data from 2020 American Community Survey)"), cex.main = 0.8, font.main=1)
+
+```
+
+If you run this code chunk, you should be able to see that total population has very high positive autocorrelation (e.g. it's very clustered as we know from the maps above). We also know that this isn't a huge surprise as population is dominated by large cities and will be impacted by the size of individual counties. You can also see the expected outliers (Philadelphia, Allegheny (Pittsburgh).
+
+<br>
+
+[**Your tasks**]{.underline}
+
+-   **It's up to you if you want to run/keep the plot above.** <br><br>
+
+-   **But using the code above, make a nice looking Moran's plot for the two variables you chose in Section D4.** (e.g. the one you thought would be most/least clustered). If one was total.pop, choose a different one.<br><br>
+
+-   **[100 words min].** Using your two plots, explain what a moran's scatterplot is showing (including the meaning of the two axes), and what your two examples show - pointing out any interesting or unexpected features.
+
+<br><br>
+
+## G. Moran's Hypothesis test
 
 ## H. LISA
 
-To come
+To come (week 2)
 
 ## I. Advanced
 
-To come
+TTo come (week 2)
 
 ## SUBMITTING LAB 5
 

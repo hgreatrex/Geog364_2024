@@ -1058,19 +1058,98 @@ word for a neighbour is a link).</strong></p></li>
 </div>
 <div id="f.-morans-scatterplot" class="section level2">
 <h2>F. Moran’s Scatterplot</h2>
-<p>To come</p>
+<p><br></p>
+<div id="f1.-making-better-plot-labels" class="section level3">
+<h3>F1. Making better plot labels</h3>
+<p>The moran.plot command will label outliers, which makes much easier
+to interpret the output. However, I noticed writing this that the names
+for each county were rather long e.g. they each included the statement
+that they were a county in Pennsylvania.</p>
+<p>There are a LOAD of ways to shorten this, for example using the comma
+to split each string, or removing words, or shortening the string. Here
+is the most elegant way I can think of. Normally I would put this in
+data wrangling but as I’ve just seen it, let’s add it here.</p>
+<p><br></p>
+<pre class="r"><code>PennACS_sf$ShortName &lt;- str_remove_all(PennACS_sf$NAME, 
+                                       &quot; County, Pennsylvania&quot;)</code></pre>
+<ul>
+<li><p><strong>Copy the code to your lab report and run
+it.</strong></p></li>
+<li><p><strong>Below that, in a code chunk print out the summary of the
+PennACS_sf dataset and use that to explain SPECIFICALLY what I did.
+(e.g. what is the function, what does it do, what did I apply it to and
+how did I save my results)<br />
+</strong>HINT - summary() command</p></li>
+<li><p>If you want a challenge, try and find an alternative way to
+achieve the same result e.g. shortening the NAMES column</p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="f2.-moran-scatterplot" class="section level3">
+<h3>F2. Moran scatterplot</h3>
+<p>We can now assess whether the pattern of a SPECIFIC VARIABLE shows
+autocorrelation or not using a Moran scatterplot. Here is the most
+simple moran.plot I can write, which is great for quick checks. But keep
+reading for a more professional looking one, which I recommend for your
+reports.</p>
+<pre class="r"><code>## and calculate the Moran&#39;s plot
+moran.plot(PennACS_sf$total.pop, 
+           listw= QueenWeights,
+           zero.policy = T)</code></pre>
+<p><br></p>
+<p>This one looks better!</p>
+<pre class="r"><code># Create the Moran&#39;s plot adding labels and axes 
+moran.plot(
+    PennACS_sf$total.pop, 
+    listw = QueenWeights,
+    labels = PennACS_sf$ShortName,
+    xlab = &quot;Total Population&quot;,
+    ylab = &quot;Total Population of neighbours (queens 1st order)&quot;,
+    main = &quot;&quot;,       # Leave main blank to add separately
+    zero.policy = TRUE
+)
+
+# This find the value of Moran&#39;s I for my title
+# I&#39;m taking one of the printouts from the moran test
+MoransI &lt;- moran.test(PennACS_sf$total.pop,
+                      listw = QueenWeights)$estimate[1]
+
+
+# Add a multi-line main title with smaller font
+title( main = paste(&quot;Spatial autocorrelation of Pennsylvania&#39;s total population at a county-scale\nwith neighbourhood defined using 1st order Queen&#39;s adjacency.\n\nMoran&#39;s I =&quot;, round(MoransI, 3),&quot;   (Data from 2020 American Community Survey)&quot;), cex.main = 0.8, font.main=1)</code></pre>
+<p>If you run this code chunk, you should be able to see that total
+population has very high positive autocorrelation (e.g. it’s very
+clustered as we know from the maps above). We also know that this isn’t
+a huge surprise as population is dominated by large cities and will be
+impacted by the size of individual counties. You can also see the
+expected outliers (Philadelphia, Allegheny (Pittsburgh).</p>
+<p><br></p>
+<p><u><strong>Your tasks</strong></u></p>
+<ul>
+<li><p><strong>It’s up to you if you want to run/keep the plot
+above.</strong> <br><br></p></li>
+<li><p><strong>But using the code above, make a nice looking Moran’s
+plot for the two variables you chose in Section D4.</strong> (e.g. the
+one you thought would be most/least clustered). If one was total.pop,
+choose a different one.<br><br></p></li>
+<li><p><strong>[100 words min].</strong> Using your two plots, explain
+what a moran’s scatterplot is showing (including the meaning of the two
+axes), and what your two examples show - pointing out any interesting or
+unexpected features.</p></li>
+</ul>
+<p><br><br></p>
+</div>
 </div>
 <div id="g.-morans-hypothesis-test" class="section level2">
 <h2>G. Moran’s Hypothesis test</h2>
-<p>To come</p>
 </div>
 <div id="h.-lisa" class="section level2">
 <h2>H. LISA</h2>
-<p>To come</p>
+<p>To come (week 2)</p>
 </div>
 <div id="i.-advanced" class="section level2">
 <h2>I. Advanced</h2>
-<p>To come</p>
+<p>TTo come (week 2)</p>
 </div>
 <div id="submitting-lab-5" class="section level2">
 <h2>SUBMITTING LAB 5</h2>
