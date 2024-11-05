@@ -922,8 +922,67 @@ just the furthest negative) and explain your reasoning.</li>
 <p><br><br></p>
 </div>
 </div>
-<div id="e.-spatial-weights-and-autocorrelation" class="section level2">
-<h2>E. Spatial weights and autocorrelation</h2>
+<div id="e.-spatial-weights" class="section level2">
+<h2>E. Spatial weights</h2>
+<div id="e1.-neighbourhood" class="section level3">
+<h3>E1. Neighbourhood</h3>
+<p>This section leans heavily on the example of <a
+href="https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html"
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html</a></p>
+<p>In order to understand autocorrelation, we must first define what is
+meant by “neighboring” polygons. This can refer to contiguous polygons,
+nearest neighbours polygons within a certain distance band, or it could
+be non-spatial in nature and defined by social, political or cultural
+“neighbors”.</p>
+<p>In this lab, we’ll first adopt a contiguous neighbor definition where
+we’ll accept any polygon <em>touching</em> our feature. If we required
+Rooks that at only polygons sharing a lengthof border then we would set
+<code>queen=FALSE</code>.</p>
+<ul>
+<li>Copy/paste this code into R and run it. Nothing should happen other
+than queenneighbours showing up in your environment</li>
+</ul>
+<pre class="r"><code>QueenNeighbours &lt;- poly2nb(PennACS_sf, queen=TRUE)</code></pre>
+<p><br><br></p>
+</div>
+<div id="e1.-understanding-neighbours" class="section level3">
+<h3>E1. Understanding neighbours</h3>
+<p><br></p>
+<p>For each polygon in our polygon object, <code>QueenNeighbours</code>
+lists all polygons deemed to be neighbours (according to queens).</p>
+<p>For example, this code shows all the neighbours for the first polygon
+in our dataset (row 1, which turns out to be Clearfield County)</p>
+<pre class="r"><code>PennACS_sf[1,&quot;NAME&quot;]
+
+# neighbours
+QueenNeighbours[[1]]</code></pre>
+<p>Run this code. You should see that Polygon <code>1,</code>Clearfield
+County has 8 neighbors. The numbers represent the row number in
+PennACS_sf. So Clearfield County is associated with these
+neighbours:</p>
+<pre class="r"><code>#
+PennACS_sf[QueenNeighbours[[1]] , &quot;NAME&quot; ]</code></pre>
+<p>Here instead of printing just row 1, I’m printing the rows contained
+in QueenNeighbours[[1]] e.g. rows 13 14 22 25 35 55 56 61. I find that
+the neighbours are</p>
+<ul>
+<li><p>11 Dauphin County, Pennsylvania</p></li>
+<li><p>24 York County, Pennsylvania</p></li>
+<li><p>26 Chester County, Pennsylvania</p></li>
+<li><p>39 Lebanon County, Pennsylvania</p></li>
+<li><p>51 Berks County, Pennsylvania</p></li>
+</ul>
+<p><br></p>
+<p><strong>YOUR TASK</strong></p>
+<ul>
+<li><strong>Use the example above to write code and tell me in the
+report which counties are bordering Lancaster County according to Queens
+1st order (HINT, it’s row 12)</strong></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="e2.-spatial-weights" class="section level3">
+<h3>E2. Spatial weights</h3>
 <p>Here we will continue with our example, focusing on spatial
 autocorrelation.</p>
 <ul>
@@ -937,6 +996,7 @@ randomness.</p></li>
 <p><br><br></p>
 <p><strong>TUESDAY LAB, CODE IS BEING UPDATED IN JUST A SECOND - I’m
 getting this online now for people who arrive early.</strong></p>
+</div>
 </div>
 
 

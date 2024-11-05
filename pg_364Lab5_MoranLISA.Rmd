@@ -545,7 +545,71 @@ and from the viridis package
 
 <br><br>
 
-## E. Spatial weights and autocorrelation
+## E. Spatial weights
+
+### E1. Neighbourhood
+
+This section leans heavily on the example of <https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html>
+
+In order to understand autocorrelation, we must first define what is meant by “neighboring” polygons. This can refer to contiguous polygons, nearest neighbours polygons within a certain distance band, or it could be non-spatial in nature and defined by social, political or cultural “neighbors”.
+
+In this lab, we’ll first adopt a contiguous neighbor definition where we’ll accept any polygon *touching* our feature. If we required Rooks that at only polygons sharing a lengthof border then we would set `queen=FALSE`.
+
+-   Copy/paste this code into R and run it. Nothing should happen other than queenneighbours showing up in your environment
+
+```{r, eval=FALSE}
+QueenNeighbours <- poly2nb(PennACS_sf, queen=TRUE)
+
+
+```
+
+<br><br>
+
+### E1. Understanding neighbours
+
+<br>
+
+For each polygon in our polygon object, `QueenNeighbours` lists all polygons deemed to be neighbours (according to queens).
+
+For example, this code shows all the neighbours for the first polygon in our dataset (row 1, which turns out to be Clearfield County)
+
+```{r, eval=FALSE}
+
+PennACS_sf[1,"NAME"]
+
+# neighbours
+QueenNeighbours[[1]]
+
+```
+
+Run this code. You should see that Polygon `1,`Clearfield County has 8 neighbors. The numbers represent the row number in PennACS_sf. So Clearfield County is associated with these neighbours:
+
+```{r, eval=FALSE}
+#
+PennACS_sf[QueenNeighbours[[1]] , "NAME" ]
+```
+
+Here instead of printing just row 1, I'm printing the rows contained in QueenNeighbours[[1]] e.g. rows 13 14 22 25 35 55 56 61. I find that the neighbours are
+
+-   11 Dauphin County, Pennsylvania
+
+-   24 York County, Pennsylvania
+
+-   26 Chester County, Pennsylvania
+
+-   39 Lebanon County, Pennsylvania
+
+-   51 Berks County, Pennsylvania
+
+<br>
+
+**YOUR TASK**
+
+-   **Use the example above to write code and tell me in the report which counties are bordering Lancaster County according to Queens 1st order (HINT, it's row 12)**
+
+<br><br>
+
+### E2. Spatial weights
 
 Here we will continue with our example, focusing on spatial autocorrelation.
 
@@ -559,4 +623,6 @@ Here we will continue with our example, focusing on spatial autocorrelation.
 
 <br><br>
 
-**TUESDAY LAB, CODE IS BEING UPDATED IN JUST A SECOND - I'm getting this online now for people who arrive early.**
+# **TUESDAY LAB,** 
+
+**CODE IS BEING UPDATED IN JUST A SECOND - I'm getting this online now**
