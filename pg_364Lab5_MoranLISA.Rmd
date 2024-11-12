@@ -1159,11 +1159,29 @@ So here you can see that although there were counties classed as spatial outlier
 
 ## I. Advanced
 
-Well done! If you reached this stage, you have received
+Well done! If you reached this stage, you have received at least a B+. But Labs 5 and 6 ask you to go a little further...\
 
-You are now going to make a mini tutorial on some new data.
+1.  Look on Canvas. You will see that there is a new dataset and a new report template. REFRESH YOUR PAGE TO SEE DETAILS.\
+2.  I want you to make me a tutorial on spatial autocorrelation and Moran's I for one variable of your choice in that dataset of your choice. Keep reading for details,\
+3.  **But first note you have already done a lot of the work! (e.g. you can copy/paste ANYTHING you wrote in the lab so far) - and remember the readings on canvas or the lecture notes (feel free to include screenshots)\
+    \
+    The coding should also be easy because you are copy/pasting your code from this example into your new report and just changing the table/variable name. e.g. instead of** `PennACS_sf$total.pop` you might have \
+4.  Your tutorial should include the following, \
+    -   An explanation of what autocorrelation is (negative/zero/positive) and (first-second order) - Hint B1\
+    -   Why traditional statistical tests become challenging when working with data that exhibits spatial autocorrelation. - Hint B2\
+    -   A brief description and map of a [**single variable**]{.underline} **of your choice,** commenting what the data is showing and what processes might have caused any pattern you see (population density? climate?)\
+    -   A global moran's scatterplot and test for that variable, both standard and monte carlo - explaining what is going on in each case\
+    -   A LISA analysis for that variable, explaining how the LISA map links back to your moran's scatterplot
 
-CODE TO COME REFRESH YOUR PAGE!
+You are aiming for a class handout or a set of revision notes that explain the concepts at a level someone else in the class can understand. You are being graded on:
+
+-   **Style -** For an A - you should have used headings/subheadings and is your report easy to navigate - I could hand it out in class. You will also have removed spurious code output (like library loading output). For 100%, your tutorial would be flawless and professional.
+
+-   **Descriptions**- Have you explained the concepts clearly in full sentences in a way that one of your classmates would understand. You lose marks for saying things that are incorrect or misleading. You get bonus marks for saying relevant interesting things.
+
+-   **Code**-Is your code neat/tidy and easy to follow.
+
+-   **Maths -** Have you correctly written out and interpreted things like hypothesis tests.
 
 ## SUBMITTING LAB 5
 
