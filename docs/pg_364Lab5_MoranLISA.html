@@ -1467,10 +1467,63 @@ And cold spots around the north west (counties that have <em>lower</em>
 than average populations compared surrounded by counties with
 <em>lower</em> than average populations. However, there are not any
 significant spatial outliers (HIGH-LOW) or (LOW-HIGH).</p>
-<p>I have marked these on the Moran’s scatterplot - see code below.
-Firstly without taking into account significance, then secondly, taking
-into account the p-value (e.g. no</p>
-<p>CODE TO COME, REFRESH YOUR PAGE!</p>
+<p>I have marked these on the Moran’s scatterplot - see code below. I am
+again, only coloring in values that are unusual (and have a low p-value)
+. YOU NEED TO CHANGE THE COLUMN NAME IN STEPS 1, 2 and 4 FOR IT TO
+WORK</p>
+<pre class="r"><code>#--------------------------------------------------------
+# Step 1: Calculate the spatial lag
+# CHANGE total.pop TO YOUR COLUMN NAME
+PennACS_sf$spatial_lag &lt;- lag.listw(QueenWeights, 
+                                    PennACS_sf$total.pop,  # change this
+                                    zero.policy = TRUE)
+
+#--------------------------------------------------------
+# Step 2: Create plot data with category color
+# CHANGE total.pop TO YOUR COLUMN NAME
+plot_data &lt;- data.frame(
+  total_pop = scale(PennACS_sf$total.pop),  # change this
+  spatial_lag = scale(PennACS_sf$spatial_lag),
+  Category = factor(PennACS_sf$Ii, levels = levels(PennACS_sf$Ii)))
+
+
+#--------------------------------------------------------
+# Step 3. Define the color palette for each category explicitly
+pal2 &lt;- c(&quot;High-High&quot; = &quot;#FF0000&quot;, 
+          &quot;Low-Low&quot; = &quot;#0000FF&quot;, 
+          &quot;Low-High&quot; = &quot;#a7adf9&quot;, 
+          &quot;High-Low&quot; = &quot;#f4ada8&quot;, 
+          &quot;&gt;0.05 corrected&quot; = &quot;#ededed&quot;)
+
+
+#--------------------------------------------------------
+# Step 4. Add dummy points for missing categories
+missing_levels &lt;- setdiff(levels(plot_data$Category), unique(plot_data$Category))
+
+plot_data &lt;- rbind(plot_data,
+                   data.frame(total_pop = rep(NA, length(missing_levels)), 
+                              spatial_lag = rep(NA, length(missing_levels)),  
+                              Category = factor(missing_levels, 
+                                                 levels = levels(plot_data$Category)) ))
+
+
+#--------------------------------------------------------
+# Step 4: Create the Moran plot with ggplot2, ensuring all levels appear in the legend
+ggplot(plot_data, aes(x = total_pop, # change this
+                      y = spatial_lag, 
+                      color = Category)) + 
+  geom_point(size = 2, na.rm = TRUE) +  # `na.rm = TRUE` will skip NA points in plotting
+  scale_color_manual(values = pal2, name = &quot;Category&quot;, drop = FALSE) +  # Ensures all categories appear in the legend
+  labs(x = &quot;Normalized Total Population&quot;, 
+       y = &quot;Normalized Spatial Lag of Total Population&quot;, 
+       title = &quot;Normalized Moran Plot with Category-Based Coloring&quot;) +
+  theme_minimal() +
+  geom_vline(xintercept = 0, linetype = &quot;dotted&quot;, color = &quot;black&quot;) +  
+  geom_hline(yintercept = 0, linetype = &quot;dotted&quot;, color = &quot;black&quot;) </code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>So here you can see that although there were counties classed as
+spatial outliers - they weren’t unusual enough to warrant being shown on
+the the map.</p>
 <p><br><br></p>
 </details>
 <p><br></p>
