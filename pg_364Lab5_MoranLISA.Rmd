@@ -35,6 +35,8 @@ library(osmdata)
 library(tigris)
 library(elevatr)
 library(tidycensus)
+  library(spdep)
+  library(sfdep)
 
 ```
 
@@ -315,7 +317,11 @@ Normally, I would get you to directly download your data using using `tidycensus
 
 <br>
 
-#### How Dr G got the census data  
+```{r,include=FALSE, results="hide"}
+AllData <- st_read("./index_data/PennACS.gpkg")
+```
+
+#### How Dr G got the census data
 
 *I download the data directly from the American Community Survey using `tidycensus`. **You do not have to do this,** but just in case, you might need it in real life, here is my code and a tutorial.*
 
@@ -344,7 +350,8 @@ PennACS.sf <- get_acs(
                          house.value = "B25075_001",# House value 
                          house.age   = "B25035_001"))# House age
 
-# Then I save your data to a file, which you can access on canvas
+
+# Then I save your data to a file and upload it to canvas
 st_write(PennACS.sf,"PennACS.gpkg")
 
 ```
@@ -396,7 +403,7 @@ First, let's remove the margin of error columns using dplyr select. They are nor
 
     -   **`rename()`**: Renames each selected column, removing the "E" suffix for each specified column.
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 PennACS_sf <- AllData %>% 
               dplyr::select(
                 GEOID, NAME, total.popE, 
@@ -418,7 +425,7 @@ PennACS_sf <- AllData %>%
 
 We currently have the TOTAL number of people/houses/beds/things in each county, but it is also useful to have the percentage or rate, especially as each of our counties is a different size. First, let's get the areas.
 
--    **Copy this code over into your lab report and check it runs. You do not need to edit anything,**
+-   **Copy this code over into your lab report and check it runs. You do not need to edit anything,**
 
 ```{r, eval=FALSE}
 
@@ -466,7 +473,7 @@ In the census we often get them, for example there might be a polygon around a l
 
 -   **Copy the code below into your lab report and check it runs. You do not need to edit anything,**
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 
 # look for and remove empty polyons. 
 empty_polygons <- st_is_empty(PennACS_sf)
@@ -519,9 +526,8 @@ tm_shape(PennACS_sf) +
 
 -   Your maps DO NOT have to be interactive, so leave tm_mode("plot"). <br><br>
 
-```{=html}
 <!-- -->
-```
+
 -   To make your maps more interesting, see below for some common color palettes. You can also play with the style option to see different breaks (?tm_polygons) - or see here for even more options. <http://zevross.com/blog/2018/10/02/creating-beautiful-demographic-maps-in-r-with-the-tidycensus-and-tmap-packages/>
 
 [**Common color palettes**]{.underline}
@@ -566,7 +572,7 @@ In this lab, we’ll first adopt a contiguous neighbor definition where we’ll 
 
 -   **Copy/paste this code into R and run it. Nothing should happen other than queenneighbours showing up in your environment**
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 QueenNeighbours <- poly2nb(PennACS_sf, queen=TRUE)
 
 ```
@@ -629,7 +635,7 @@ Here instead of printing just row 1, I'm printing the rows contained in QueenNei
 
 We can also see a map of the spatial weights matrix. To do this we edit the plot command
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 
 coords <- st_coordinates(st_centroid(PennACS_sf))
 
@@ -655,7 +661,7 @@ Now we need to turn these neighbours into a spatial weights matrix. We do this u
 
 -   **Get this running in your lab report**
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 QueenWeights <- nb2listw(QueenNeighbours, 
                          style="W", zero.policy=TRUE)
 
@@ -694,7 +700,7 @@ There are a LOAD of ways to shorten this, for example using the comma to split e
 
 <br>
 
-```{r, eval=FALSE}
+```{r, results="hide"}
 PennACS_sf$ShortName <- str_remove_all(PennACS_sf$NAME, 
                                        " County, Pennsylvania")
 ```
@@ -724,7 +730,7 @@ moran.plot(PennACS_sf$total.pop,
 
 This one looks better!
 
-```{r, eval=FALSE}
+```{r}
 
 # Create the Moran's plot adding labels and axes 
 moran.plot(
@@ -762,16 +768,304 @@ If you run this code chunk, you should be able to see that total population has 
 
 <br><br>
 
-## G. Moran's Hypothesis test
+## G. Moran's Hypothesis test (week 2)
 
-## H. LISA
+<br>
 
-To come (week 2)
+### G1. Basic test interpretation
+
+We can use a Moran's hypothesis test to assess our theories about what is causing any clustering (see week 11 lectures).
+
+We write our guess about the underlying process as the null hypothesis, H0. There are many H0 we could test (e.g. is the pattern similar to one caused by population density, or closer to the sea or whatever process you think is behind the pattern). But first.. it's always important to check whether the level of clustering you see might simply be due to random chance.
+
+To do this, we use a Moran's test with this hypothesis:
+
+-   *"**H~0~**: Any "pattern" we see is spurious - the data shows Complete Spatial Randomness and is created by an Independent Random Process."*
+
+In terms of code, this is just as easy as the Moran.plot. Expand for a worked example for the total population variable, which we already know is very clustered.
+
+<details>
+
+<summary>**Moran's test worked example**</summary>
+
+<br>
+
+```{r}
+
+moran.test(PennACS_sf$total.pop, # Variable 
+           listw = QueenWeights, # spatial weights matrix
+           alternative="two.sided", # or greater or less
+           zero.policy=TRUE)     # Ignore missing values
+
+```
+
+-   ***H~0~**: Any clustering/spatial-autocorrelation seen in a map of Pennsylvania's county level Total Population (ACS 2020) is simply down to random chance.*
+
+    -   *The data shows Complete Spatial Randomness and is created by an Independent Random Process. We expect that our observation would have a Moran's I similar to I = -0.015.*
+
+-   ***H~1~**: Pennsylvania's county level Total Population (ACS 2020) shows a value of Moran's I that is either unusually high OR unusually low compared to what you would expect if H0 was true. E.g. the map is so clustered or gridded that it would be very unlikely a Random Independent Process was the cause.*
+
+In this case:
+
+-   The expected value of Moran's I if H0 was true: I = -0.015
+
+-   But our dataset shows a value of Moran's I of I=0.49
+
+-   The probability of this occurring by chance is p=4.958e-13 e.g. If H0 really was true, you would only see a sample with a Moran's I value that's more *extreme* than 0.49 once every 100000000000000 samples.\
+    \
+    *(Extreme? This is because I'm running a two sided test. By more extreme I mean it could be further away from the I = -0.015 in either a positive or negative direction. I=0.5 and I=-0.7 would both count as "weird")*
+
+-   I am happy to reject H0. We have conclusive evidence to suggest that the clustering/spatial-autocorrelation seen in a map of Pennsylvania's county level Total Population is NOT caused by an independent random process and (as I is positive) that it is more clustered than we would expect.
+
+<br><br>
+
+</details>
+
+<br>
+
+[**Your tasks**]{.underline}
+
+-   **Using the worked example above, make and interpret a Moran's hypothesis test for ONE of chosen variables. Check to see if it is MORE CLUSTERED than expected.** <br><br>
+
+<br><br>
+
+<br>
+
+### G2. Monte Carlo Hypothesis test
+
+The theoretical moran's test works really well in simple scenarios above. However, it works *less* well in complex scenarios where either the **data is strongly skewed**, or you have biases such as **edge effects**.
+
+-   In spatial statistics, edge effects arise when units at the study area boundaries have fewer neighbors than those at the center, potentially distorting Moran’s I calculations. With fewer surrounding data points, these boundary units may show **biased spatial relationships**. This means that boundary features with few neighbors can cause Moran’s I to be artificially high or low, simply because they lack surrounding data.
+
+To address these edge effects, we often turn to the **Monte Carlo version of the Moran's I test** .
+
+<br>
+
+<details>
+
+<summary>**Moran's Monte Carlo test worked example**</summary>
+
+<br>
+
+**How the Monte Carlo Moran's I Test Works:**
+
+Read more here: <https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html#app8_5>
+
+1.  **Calculate Observed Moran's I:** Compute the Moran's I statistic for your actual dataset to measure the observed spatial autocorrelation.
+
+2.  **Simulate Random Datasets:**
+
+    -   *Randomly* shuffle the data values across the spatial units to create a new dataset where any spatial structure is removed - and calculate Moran's I each time.
+
+    -   Repeat this process many times. This gives us the distribution of Moran’s I values we could expect to get under the null hypothesis that our values are randomly distributed
+
+3.  **Compare Observed to Simulated Values:** We then compare the observed Moran’s I value to this distribution. If the observed value is extreme compared to the simulated distribution, it suggests that the observed spatial pattern is unlikely to have occurred by chance.
+
+<br>
+
+The code is easy.
+
+In this example, I will randomly shuffle the total population data =999 times by setting `nsim = 999` - it will print out the results and show them graphically.
+
+```{r}
+# Calculate the Moran's I value
+# read below for what nsim is. 
+TotalPop_MoranMC <- moran.mc(PennACS_sf$total.pop, QueenWeights, nsim = 999)
+
+# Print the result
+TotalPop_MoranMC
+
+# Make a plot
+plot(TotalPop_MoranMC, main = "", las = 1)
+
+```
+
+<br>
+
+The code above suggests that our observed Moran’s I value is unusually high compared to the 999 Moran’s I values I created from scenarios where population density showed no spatial-autocorrelation.
+
+The pseudo p-value is written in the summary, 0.01. So in this case I know that if all the assumptions in the test are correct, that there is only a 0.001 chance (\~ 1 in 1000), that the clustering I see in the map is due to random chance.
+
+<br><br>
+
+**What is a pseudo p-value?**
+
+Importantly, the Monte Carlo approach gives you a **'psuedo p-value' that depends on the number of simulations you choose (your ensemble size).** E.g. a pseudo p-value means you are looking to see what percentage of ensembles has a Moran's I that is more clustered that your actual observation.
+
+This means that the minimum p-value you can achieve is:
+
+minimumP = 1/(1+nsim)
+
+where nsim is your chosen number of simulations. You can see the relationship between your ensemble size vs p-value graphically here:
+
+```{r, include=FALSE}
+
+
+check_ensemble_size <- function(threshold,data,weights){
+  #-----------------------------------------------------
+  # This repeatedly runs the MC command to see 
+  # how the p-value changes with ensemble size  
+  # First make an empty data frame to store results
+  #-----------------------------------------------------
+  output <- data.frame(EnsembleSize = integer(), pvalue = numeric())
+  
+  #Repeatedly run moran.mc for different ensemble sizes 
+  #and find the p-value in each case. Save to output
+  for(n in c(seq(10,100,by=5),seq(120, 2000, by = 50))){
+    tmp <- moran.mc(data, weights, nsim = n)
+    output <- rbind(output, data.frame(EnsembleSize = n, pvalue = tmp$p.value))
+  }
+  
+  #Find the first EnsembleSize that crosses your threshold
+  result_threshold <- output[which(output$pvalue <= threshold),][1,]
+  
+  #Plot the results
+  p <- ggplot(output, aes(x = EnsembleSize, y = pvalue)) + geom_line() + 
+    geom_hline(yintercept = threshold,
+               linetype = "dashed", color = "red") +
+    geom_vline(xintercept = result_threshold$EnsembleSize,
+               linetype = "dashed", color = "red") +
+    labs(x = "Ensemble Size (Number of Simulations)", y = "p-value", 
+         title = "Monte Carlo p-values vs. Ensemble Size", 
+         subtitle = paste("Need >", result_threshold$EnsembleSize, 
+                          "simulations for p-value <", threshold)) 
+  
+  # Print out the first value to cross your threshold
+  return(p)
+  
+}
+
+print(check_ensemble_size(0.01,PennACS_sf$total.pop, QueenWeights))
+
+
+
+```
+
+<br><br>
+
+</details>
+
+<br>
+
+[**Your task**]{.underline}
+
+-   **Using the worked example above:**
+    -   **Explain why edge effects might impact your results.**
+    -   **Make and interpret a Moran's hypothesis test for the SAME VARIABLE as you chose above, making sure that you have a lowest possible p-value of 0.002 or smaller.**
+
+<br><br>
+
+## H. LISA (week 2)
+
+We will discuss the background of LISA in wednesdays lecture. To see how it is done in R, see the following tutorial:
+
+<br>
+
+<details>
+
+<summary>**Calculating LISA in R**</summary>
+
+<br>
+
+To compute local indicators of spatial autocorrelation (Local Moran’s I), we can make use of the `localmoran()` function from the spdep package. However, this function adopts an analytical approach to computing the p-value and as described above, it’s best to adopt a Monte Carlo approach. This can be performed using the `localmoran_perm()` function.
+
+In this example, we will run 999 permutations for each polygon. Here's what the code below means.
+
+-   `localmoran_perm()` is a command that runs Local Morans I (LISA) on our data (in my case the total population with queens weights), saving the output as LISA_Output
+
+-   The object `LISA_Output` contains several parameters including the local Moran’s statistic for each polygon, I, and two different p-values: `` Pr(z != E(Ii)) Sim` `` and `Pr(folded) Sim`.
+
+    -   `Pr(folded) Sim`. and the latter is a “folded” p-value for a one-sided test - this one works better for our uses.
+
+-   To extract it, I then turn LISA_Output into an R data.frame (a special type of table). Finally we add the pseudo p-values to PennACS_sf as a new column.
+
+```{r}
+LISA_Output <- localmoran_perm(PennACS_sf$total.pop, QueenWeights, nsim = 999)
+PennACS_sf$LISA_pvalue <- as.data.frame(LISA_Output)$`Pr(folded) Sim`
+
+```
+
+<br>
+
+**Looking at the probabilities**
+
+We can generate a map of the pseudo p-values as follows:
+
+```{r}
+pal1 <- c("#238b45","#66c2a4", "#ccece6", "grey90")
+
+tm_shape(PennACS_sf) + 
+  tm_polygons(style="fixed", breaks = c(0, 0.001, 0.01, 0.05, 0.5),
+              col = "LISA_pvalue", 
+              palette=pal1, border.col = "grey80", lwd = 0.5) +
+  tm_legend(outside = TRUE, text.size = .8) +
+  tm_layout(frame = FALSE) 
+
+```
+
+Here you can see that there are unusual spatial patterns in the north West and towards Philadelphia. But it does NOT show you if the population is more clustered or less clustered than expected.
+
+I have marked these on the Moran's scatterplot - see code below.
+
+CODE TO COME, REFRESH YOUR PAGE!
+
+<br>
+
+**Looking at the actual values.**
+
+To do this we plot the actual values - e.g. we are plotting the values from the moran's scatterplot but ONLY coloring values that are significant/unusual compared to the average for PA. This code also accounts for false discovery rates.
+
+Copy/paste this code. sorry there's no easier way.
+
+```{r}
+
+PennACS_sf$Ii <- hotspot(LISA_Output, 
+                         Prname="Pr(folded) Sim", 
+                         cutoff = 0.05, p.adjust = "fdr")
+
+# Replace NA with ">0.05". This requires that the Ii factor be re-leveled
+PennACS_sf$Ii <- factor(PennACS_sf$Ii, 
+                        levels=c("High-High","Low-Low", 
+                                 "Low-High", "High-Low", ">0.05 corrected"))
+
+PennACS_sf$Ii[is.na(PennACS_sf$Ii)] <- ">0.05 corrected"
+
+pal2 <- c( "#FF0000", "#0000FF", "#a7adf9", "#f4ada8","#ededed")
+
+tm_shape(PennACS_sf) + 
+  tm_polygons(style="cat", border.col = "grey80", lwd = 0.5,
+                           col = "Ii", palette=pal2) +
+               tm_legend(outside = TRUE, text.size = .8) +
+               tm_layout(frame = FALSE)
+
+```
+
+So we can see that there are significant "hotspots" around Philadelphia (counties that have higher than average populations compared surrounded by counties with higher than average populations). And cold spots around the north west (counties that have *lower* than average populations compared surrounded by counties with *lower* than average populations. However, there are not any significant spatial outliers (HIGH-LOW) or (LOW-HIGH).
+
+I have marked these on the Moran's scatterplot - see code below.
+
+CODE TO COME, REFRESH YOUR PAGE!
+
+<br><br>
+
+</details>
+
+<br>
+
+[**Your task**]{.underline}
+
+-   **Using the worked example above and wednesdays class materials on LISA**
+    -   **Make and interpret a LISA analysis for the SAME VARIABLE as you chose above using at least 500 simulations.**
+    -   **Explain why LISA can be less robust/more sensitive than Moran's I (we will talk about this in class, and it's linked to sample size..)**
+
+<br><br>
 
 ## I. Advanced
 
-TTo come (week 2)
+You are now going to make a mini tutorial on some new data.
+
+**CODE TO COME REFRESH YOUR PAGE!**
 
 ## SUBMITTING LAB 5
 
-### **YOU DO NOT NEED TO SUBMIT ANYTHING FOR WEEK 1. I WILL CONTINUE FILLING IN THE EMPTY SECTIONS IF YOU WANT TO WORK AHEAD**
+### SUBMISSION DETAILS TO COME (refresh page)

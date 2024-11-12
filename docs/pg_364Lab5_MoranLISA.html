@@ -717,7 +717,8 @@ PennACS.sf &lt;- get_acs(
                          house.value = &quot;B25075_001&quot;,# House value 
                          house.age   = &quot;B25035_001&quot;))# House age
 
-# Then I save your data to a file, which you can access on canvas
+
+# Then I save your data to a file and upload it to canvas
 st_write(PennACS.sf,&quot;PennACS.gpkg&quot;)</code></pre>
 <p>To understand what I’m doing, here’s a full tutorial that I wrote a
 few years ago:</p>
@@ -1008,6 +1009,7 @@ plot(st_geometry(PennACS_sf),main=&quot;Queen&#39;s 1st order neighbours&quot;)
 plot(QueenNeighbours, coords, 
      col = &quot;blue&quot;, pch=16,cex=.6,
      add=TRUE)</code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p><strong>YOUR TASK</strong></p>
 <ul>
 <li><strong>[50 words min] Using the code above plot the spatial weights
@@ -1117,6 +1119,7 @@ MoransI &lt;- moran.test(PennACS_sf$total.pop,
 
 # Add a multi-line main title with smaller font
 title( main = paste(&quot;Spatial autocorrelation of Pennsylvania&#39;s total population at a county-scale\nwith neighbourhood defined using 1st order Queen&#39;s adjacency.\n\nMoran&#39;s I =&quot;, round(MoransI, 3),&quot;   (Data from 2020 American Community Survey)&quot;), cex.main = 0.8, font.main=1)</code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>If you run this code chunk, you should be able to see that total
 population has very high positive autocorrelation (e.g. it’s very
 clustered as we know from the maps above). We also know that this isn’t
@@ -1140,25 +1143,317 @@ unexpected features.</p></li>
 <p><br><br></p>
 </div>
 </div>
-<div id="g.-morans-hypothesis-test" class="section level2">
-<h2>G. Moran’s Hypothesis test</h2>
+<div id="g.-morans-hypothesis-test-week-2" class="section level2">
+<h2>G. Moran’s Hypothesis test (week 2)</h2>
+<p><br></p>
+<div id="g1.-basic-test-interpretation" class="section level3">
+<h3>G1. Basic test interpretation</h3>
+<p>We can use a Moran’s hypothesis test to assess our theories about
+what is causing any clustering (see week 11 lectures).</p>
+<p>We write our guess about the underlying process as the null
+hypothesis, H0. There are many H0 we could test (e.g. is the pattern
+similar to one caused by population density, or closer to the sea or
+whatever process you think is behind the pattern). But first.. it’s
+always important to check whether the level of clustering you see might
+simply be due to random chance.</p>
+<p>To do this, we use a Moran’s test with this hypothesis:</p>
+<ul>
+<li><em>“<strong>H<sub>0</sub></strong>: Any”pattern” we see is spurious
+- the data shows Complete Spatial Randomness and is created by an
+Independent Random Process.”</em></li>
+</ul>
+<p>In terms of code, this is just as easy as the Moran.plot. Expand for
+a worked example for the total population variable, which we already
+know is very clustered.</p>
+<details>
+<summary>
+<strong>Moran’s test worked example</strong>
+</summary>
+<p><br></p>
+<pre class="r"><code>moran.test(PennACS_sf$total.pop, # Variable 
+           listw = QueenWeights, # spatial weights matrix
+           alternative=&quot;two.sided&quot;, # or greater or less
+           zero.policy=TRUE)     # Ignore missing values</code></pre>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  PennACS_sf$total.pop  
+## weights: QueenWeights    
+## 
+## Moran I statistic standard deviate = 7.2265, p-value = 4.958e-13
+## alternative hypothesis: two.sided
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.482999652      -0.015151515       0.004751946</code></pre>
+<ul>
+<li><p><em><strong>H<sub>0</sub></strong>: Any
+clustering/spatial-autocorrelation seen in a map of Pennsylvania’s
+county level Total Population (ACS 2020) is simply down to random
+chance.</em></p>
+<ul>
+<li><em>The data shows Complete Spatial Randomness and is created by an
+Independent Random Process. We expect that our observation would have a
+Moran’s I similar to I = -0.015.</em></li>
+</ul></li>
+<li><p><em><strong>H<sub>1</sub></strong>: Pennsylvania’s county level
+Total Population (ACS 2020) shows a value of Moran’s I that is either
+unusually high OR unusually low compared to what you would expect if H0
+was true. E.g. the map is so clustered or gridded that it would be very
+unlikely a Random Independent Process was the cause.</em></p></li>
+</ul>
+<p>In this case:</p>
+<ul>
+<li><p>The expected value of Moran’s I if H0 was true: I =
+-0.015</p></li>
+<li><p>But our dataset shows a value of Moran’s I of I=0.49</p></li>
+<li><p>The probability of this occurring by chance is p=4.958e-13
+e.g. If H0 really was true, you would only see a sample with a Moran’s I
+value that’s more <em>extreme</em> than 0.49 once every 100000000000000
+samples.<br />
+<br />
+<em>(Extreme? This is because I’m running a two sided test. By more
+extreme I mean it could be further away from the I = -0.015 in either a
+positive or negative direction. I=0.5 and I=-0.7 would both count as
+“weird”)</em></p></li>
+<li><p>I am happy to reject H0. We have conclusive evidence to suggest
+that the clustering/spatial-autocorrelation seen in a map of
+Pennsylvania’s county level Total Population is NOT caused by an
+independent random process and (as I is positive) that it is more
+clustered than we would expect.</p></li>
+</ul>
+<p><br><br></p>
+</details>
+<p><br></p>
+<p><u><strong>Your tasks</strong></u></p>
+<ul>
+<li><strong>Using the worked example above, make and interpret a Moran’s
+hypothesis test for ONE of chosen variables. Check to see if it is MORE
+CLUSTERED than expected.</strong> <br><br></li>
+</ul>
+<p><br><br></p>
+<p><br></p>
 </div>
-<div id="h.-lisa" class="section level2">
-<h2>H. LISA</h2>
-<p>To come (week 2)</p>
+<div id="g2.-monte-carlo-hypothesis-test" class="section level3">
+<h3>G2. Monte Carlo Hypothesis test</h3>
+<p>The theoretical moran’s test works really well in simple scenarios
+above. However, it works <em>less</em> well in complex scenarios where
+either the <strong>data is strongly skewed</strong>, or you have biases
+such as <strong>edge effects</strong>.</p>
+<ul>
+<li>In spatial statistics, edge effects arise when units at the study
+area boundaries have fewer neighbors than those at the center,
+potentially distorting Moran’s I calculations. With fewer surrounding
+data points, these boundary units may show <strong>biased spatial
+relationships</strong>. This means that boundary features with few
+neighbors can cause Moran’s I to be artificially high or low, simply
+because they lack surrounding data.</li>
+</ul>
+<p>To address these edge effects, we often turn to the <strong>Monte
+Carlo version of the Moran’s I test</strong> .</p>
+<p><br></p>
+<details>
+<summary>
+<strong>Moran’s Monte Carlo test worked example</strong>
+</summary>
+<p><br></p>
+<p><strong>How the Monte Carlo Moran’s I Test Works:</strong></p>
+<p>Read more here: <a
+href="https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html#app8_5"
+class="uri">https://mgimond.github.io/Spatial/spatial-autocorrelation-in-r.html#app8_5</a></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Calculate Observed Moran’s I:</strong> Compute the
+Moran’s I statistic for your actual dataset to measure the observed
+spatial autocorrelation.</p></li>
+<li><p><strong>Simulate Random Datasets:</strong></p>
+<ul>
+<li><p><em>Randomly</em> shuffle the data values across the spatial
+units to create a new dataset where any spatial structure is removed -
+and calculate Moran’s I each time.</p></li>
+<li><p>Repeat this process many times. This gives us the distribution of
+Moran’s I values we could expect to get under the null hypothesis that
+our values are randomly distributed</p></li>
+</ul></li>
+<li><p><strong>Compare Observed to Simulated Values:</strong> We then
+compare the observed Moran’s I value to this distribution. If the
+observed value is extreme compared to the simulated distribution, it
+suggests that the observed spatial pattern is unlikely to have occurred
+by chance.</p></li>
+</ol>
+<p><br></p>
+<p>The code is easy.</p>
+<p>In this example, I will randomly shuffle the total population data
+=999 times by setting <code>nsim = 999</code> - it will print out the
+results and show them graphically.</p>
+<pre class="r"><code># Calculate the Moran&#39;s I value
+# read below for what nsim is. 
+TotalPop_MoranMC &lt;- moran.mc(PennACS_sf$total.pop, QueenWeights, nsim = 999)
+
+# Print the result
+TotalPop_MoranMC</code></pre>
+<pre><code>## 
+##  Monte-Carlo simulation of Moran I
+## 
+## data:  PennACS_sf$total.pop 
+## weights: QueenWeights  
+## number of simulations + 1: 1000 
+## 
+## statistic = 0.483, observed rank = 1000, p-value = 0.001
+## alternative hypothesis: greater</code></pre>
+<pre class="r"><code># Make a plot
+plot(TotalPop_MoranMC, main = &quot;&quot;, las = 1)</code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><br></p>
+<p>The code above suggests that our observed Moran’s I value is
+unusually high compared to the 999 Moran’s I values I created from
+scenarios where population density showed no
+spatial-autocorrelation.</p>
+<p>The pseudo p-value is written in the summary, 0.01. So in this case I
+know that if all the assumptions in the test are correct, that there is
+only a 0.001 chance (~ 1 in 1000), that the clustering I see in the map
+is due to random chance.</p>
+<p><br><br></p>
+<p><strong>What is a pseudo p-value?</strong></p>
+<p>Importantly, the Monte Carlo approach gives you a <strong>‘psuedo
+p-value’ that depends on the number of simulations you choose (your
+ensemble size).</strong> E.g. a pseudo p-value means you are looking to
+see what percentage of ensembles has a Moran’s I that is more clustered
+that your actual observation.</p>
+<p>This means that the minimum p-value you can achieve is:</p>
+<p>minimumP = 1/(1+nsim)</p>
+<p>where nsim is your chosen number of simulations. You can see the
+relationship between your ensemble size vs p-value graphically here:</p>
+<p><br><br></p>
+</details>
+<p><br></p>
+<p><u><strong>Your task</strong></u></p>
+<ul>
+<li><strong>Using the worked example above:</strong>
+<ul>
+<li><strong>Explain why edge effects might impact your
+results.</strong></li>
+<li><strong>Make and interpret a Moran’s hypothesis test for the SAME
+VARIABLE as you chose above, making sure that you have a lowest possible
+p-value of 0.002 or smaller.</strong></li>
+</ul></li>
+</ul>
+<p><br><br></p>
+</div>
+</div>
+<div id="h.-lisa-week-2" class="section level2">
+<h2>H. LISA (week 2)</h2>
+<p>We will discuss the background of LISA in wednesdays lecture. To see
+how it is done in R, see the following tutorial:</p>
+<p><br></p>
+<details>
+<summary>
+<strong>Calculating LISA in R</strong>
+</summary>
+<p><br></p>
+<p>To compute local indicators of spatial autocorrelation (Local Moran’s
+I), we can make use of the <code>localmoran()</code> function from the
+spdep package. However, this function adopts an analytical approach to
+computing the p-value and as described above, it’s best to adopt a Monte
+Carlo approach. This can be performed using the
+<code>localmoran_perm()</code> function.</p>
+<p>In this example, we will run 999 permutations for each polygon.
+Here’s what the code below means.</p>
+<ul>
+<li><p><code>localmoran_perm()</code> is a command that runs Local
+Morans I (LISA) on our data (in my case the total population with queens
+weights), saving the output as LISA_Output</p></li>
+<li><p>The object <code>LISA_Output</code> contains several parameters
+including the local Moran’s statistic for each polygon, I, and two
+different p-values: <code>Pr(z != E(Ii)) Sim`</code> and
+<code>Pr(folded) Sim</code>.</p>
+<ul>
+<li><code>Pr(folded) Sim</code>. and the latter is a “folded” p-value
+for a one-sided test - this one works better for our uses.</li>
+</ul></li>
+<li><p>To extract it, I then turn LISA_Output into an R data.frame (a
+special type of table). Finally we add the pseudo p-values to PennACS_sf
+as a new column.</p></li>
+</ul>
+<pre class="r"><code>LISA_Output &lt;- localmoran_perm(PennACS_sf$total.pop, QueenWeights, nsim = 999)
+PennACS_sf$LISA_pvalue &lt;- as.data.frame(LISA_Output)$`Pr(folded) Sim`</code></pre>
+<p><br></p>
+<p><strong>Looking at the probabilities</strong></p>
+<p>We can generate a map of the pseudo p-values as follows:</p>
+<pre class="r"><code>pal1 &lt;- c(&quot;#238b45&quot;,&quot;#66c2a4&quot;, &quot;#ccece6&quot;, &quot;grey90&quot;)
+
+tm_shape(PennACS_sf) + 
+  tm_polygons(style=&quot;fixed&quot;, breaks = c(0, 0.001, 0.01, 0.05, 0.5),
+              col = &quot;LISA_pvalue&quot;, 
+              palette=pal1, border.col = &quot;grey80&quot;, lwd = 0.5) +
+  tm_legend(outside = TRUE, text.size = .8) +
+  tm_layout(frame = FALSE) </code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Here you can see that there are unusual spatial patterns in the north
+West and towards Philadelphia. But it does NOT show you if the
+population is more clustered or less clustered than expected.</p>
+<p>I have marked these on the Moran’s scatterplot - see code below.</p>
+<p>CODE TO COME, REFRESH YOUR PAGE!</p>
+<p><br></p>
+<p><strong>Looking at the actual values.</strong></p>
+<p>To do this we plot the actual values - e.g. we are plotting the
+values from the moran’s scatterplot but ONLY coloring values that are
+significant/unusual compared to the average for PA. This code also
+accounts for false discovery rates.</p>
+<p>Copy/paste this code. sorry there’s no easier way.</p>
+<pre class="r"><code>PennACS_sf$Ii &lt;- hotspot(LISA_Output, 
+                         Prname=&quot;Pr(folded) Sim&quot;, 
+                         cutoff = 0.05, p.adjust = &quot;fdr&quot;)
+
+# Replace NA with &quot;&gt;0.05&quot;. This requires that the Ii factor be re-leveled
+PennACS_sf$Ii &lt;- factor(PennACS_sf$Ii, 
+                        levels=c(&quot;High-High&quot;,&quot;Low-Low&quot;, 
+                                 &quot;Low-High&quot;, &quot;High-Low&quot;, &quot;&gt;0.05 corrected&quot;))
+
+PennACS_sf$Ii[is.na(PennACS_sf$Ii)] &lt;- &quot;&gt;0.05 corrected&quot;
+
+pal2 &lt;- c( &quot;#FF0000&quot;, &quot;#0000FF&quot;, &quot;#a7adf9&quot;, &quot;#f4ada8&quot;,&quot;#ededed&quot;)
+
+tm_shape(PennACS_sf) + 
+  tm_polygons(style=&quot;cat&quot;, border.col = &quot;grey80&quot;, lwd = 0.5,
+                           col = &quot;Ii&quot;, palette=pal2) +
+               tm_legend(outside = TRUE, text.size = .8) +
+               tm_layout(frame = FALSE)</code></pre>
+<p><img src="pg_364Lab5_MoranLISA_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>So we can see that there are significant “hotspots” around
+Philadelphia (counties that have higher than average populations
+compared surrounded by counties with higher than average populations).
+And cold spots around the north west (counties that have <em>lower</em>
+than average populations compared surrounded by counties with
+<em>lower</em> than average populations. However, there are not any
+significant spatial outliers (HIGH-LOW) or (LOW-HIGH).</p>
+<p>I have marked these on the Moran’s scatterplot - see code below.</p>
+<p>CODE TO COME, REFRESH YOUR PAGE!</p>
+<p><br><br></p>
+</details>
+<p><br></p>
+<p><u><strong>Your task</strong></u></p>
+<ul>
+<li><strong>Using the worked example above and wednesdays class
+materials on LISA</strong>
+<ul>
+<li><strong>Make and interpret a LISA analysis for the SAME VARIABLE as
+you chose above using at least 500 simulations.</strong></li>
+<li><strong>Explain why LISA can be less robust/more sensitive than
+Moran’s I (we will talk about this in class, and it’s linked to sample
+size..)</strong></li>
+</ul></li>
+</ul>
+<p><br><br></p>
 </div>
 <div id="i.-advanced" class="section level2">
 <h2>I. Advanced</h2>
-<p>TTo come (week 2)</p>
+<p>You are now going to make a mini tutorial on some new data.</p>
+<p><strong>CODE TO COME REFRESH YOUR PAGE!</strong></p>
 </div>
 <div id="submitting-lab-5" class="section level2">
 <h2>SUBMITTING LAB 5</h2>
-<div
-id="you-do-not-need-to-submit-anything-for-week-1.-i-will-continue-filling-in-the-empty-sections-if-you-want-to-work-ahead"
+<div id="submission-details-to-come-refresh-page"
 class="section level3">
-<h3><strong>YOU DO NOT NEED TO SUBMIT ANYTHING FOR WEEK 1. I WILL
-CONTINUE FILLING IN THE EMPTY SECTIONS IF YOU WANT TO WORK
-AHEAD</strong></h3>
+<h3>SUBMISSION DETAILS TO COME (refresh page)</h3>
 </div>
 </div>
 
