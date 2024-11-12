@@ -37,6 +37,7 @@ library(elevatr)
 library(tidycensus)
   library(spdep)
   library(sfdep)
+library(RColorBrewer)
 
 ```
 
@@ -1005,9 +1006,51 @@ tm_shape(PennACS_sf) +
 
 Here you can see that there are unusual spatial patterns in the north West and towards Philadelphia. But it does NOT show you if the population is more clustered or less clustered than expected.
 
-I have marked these on the Moran's scatterplot - see code below.
+I have marked these on the Moran's scatterplot - see code below. Sorry it's long! It's rather custom but should work if you copy/paste **remembering to change total.pop to your column of choice**
 
-CODE TO COME, REFRESH YOUR PAGE!
+```{r}
+# Add this library to the top of your script and run
+library(RColorBrewer)
+
+
+# Step 1: Calculate the spatial lag
+# CHANGE total.pop TO YOUR COLUMN NAME
+
+PennACS_sf$spatial_lag <- lag.listw(QueenWeights, 
+                                    PennACS_sf$total.pop,  # change this
+                                    zero.policy = TRUE)
+
+
+#--------------------------------------------------------
+# Step 2: Normalize total population and spatial lag
+# CHANGE total.pop TO YOUR COLUMN NAME
+
+plot_data <- data.frame(
+  total_pop = scale(PennACS_sf$total.pop), # change this
+  spatial_lag = scale(PennACS_sf$spatial_lag),
+  LISA_pvalue = PennACS_sf$LISA_pvalue)
+
+#--------------------------------------------------------
+# Step 3: Create the Moran plot with ggplot2
+# CHANGE total.pop TO YOUR COLUMN NAME
+
+ggplot(plot_data, aes(x = total_pop, # change this
+                      y = spatial_lag, 
+                      color = LISA_pvalue)) + geom_point(size = 2) +
+  
+  scale_color_gradientn(colors = c(rev(brewer.pal(5, "BuGn")), "#ccece6"),  
+    values = c(0, 0.01, 0.05, 0.1, 0.2, 1),name = "LISA p-value",
+    limits = c(0, max(plot_data$LISA_pvalue))) +
+  
+  labs(x = "Normalized Total Population", 
+       y = "Normalized Spatial Lag of Total Population", 
+       title = "Normalized Moran Plot with LISA p-value Coloring") +
+  theme_minimal() +
+  geom_vline(xintercept = 0, linetype = "dotted", color = "black") +  
+  geom_hline(yintercept = 0, linetype = "dotted", color = "black")    
+
+
+```
 
 <br>
 
@@ -1042,7 +1085,7 @@ tm_shape(PennACS_sf) +
 
 So we can see that there are significant "hotspots" around Philadelphia (counties that have higher than average populations compared surrounded by counties with higher than average populations). And cold spots around the north west (counties that have *lower* than average populations compared surrounded by counties with *lower* than average populations. However, there are not any significant spatial outliers (HIGH-LOW) or (LOW-HIGH).
 
-I have marked these on the Moran's scatterplot - see code below.
+I have marked these on the Moran's scatterplot - see code below. I am again, only coloring in values that are unusual (and have a low p-value)
 
 CODE TO COME, REFRESH YOUR PAGE!
 
@@ -1064,7 +1107,7 @@ CODE TO COME, REFRESH YOUR PAGE!
 
 You are now going to make a mini tutorial on some new data.
 
-**CODE TO COME REFRESH YOUR PAGE!**
+CODE TO COME REFRESH YOUR PAGE!
 
 ## SUBMITTING LAB 5
 
