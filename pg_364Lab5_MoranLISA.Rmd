@@ -1157,21 +1157,70 @@ So here you can see that although there were counties classed as spatial outlier
 
 <br><br>
 
-## I. Advanced
+## I. Advanced (Week 2 and homework)
 
 Well done! If you reached this stage, you have received at least a B+. But Labs 5 and 6 ask you to go a little further...\
 
-1.  Look on Canvas. You will see that there is a new dataset and a new report template. REFRESH YOUR PAGE TO SEE DETAILS.\
-2.  I want you to make me a tutorial on spatial autocorrelation and Moran's I for one variable of your choice in that dataset of your choice. Keep reading for details,\
-3.  **But first note you have already done a lot of the work! (e.g. you can copy/paste ANYTHING you wrote in the lab so far) - and remember the readings on canvas or the lecture notes (feel free to include screenshots)\
-    \
-    The coding should also be easy because you are copy/pasting your code from this example into your new report and just changing the table/variable name. e.g. instead of** `PennACS_sf$total.pop` you might have \
-4.  Your tutorial should include the following, \
-    -   An explanation of what autocorrelation is (negative/zero/positive) and (first-second order) - Hint B1\
-    -   Why traditional statistical tests become challenging when working with data that exhibits spatial autocorrelation. - Hint B2\
-    -   A brief description and map of a [**single variable**]{.underline} **of your choice,** commenting what the data is showing and what processes might have caused any pattern you see (population density? climate?)\
-    -   A global moran's scatterplot and test for that variable, both standard and monte carlo - explaining what is going on in each case\
-    -   A LISA analysis for that variable, explaining how the LISA map links back to your moran's scatterplot
+1.  Look on Canvas. You will see that there is a new dataset for Richmond Virginia and a new report template. Download them and put them in your lab 5 folder/upload them to the cloud
+
+2.  I want you to make me a tutorial on spatial autocorrelation and Moran's I for one variable of your choice in that dataset of your choice. Keep reading for details.
+
+<br><br>
+
+### What do you need to do
+
+<br>
+
+#### FIRST, REMEMBER YOU HAVE ALREADY DONE MOST OF THIS WORK! 
+
+-   E.g you can copy/paste ANYTHING you wrote in your lab so far and remember the readings on canvas or the lecture notes (feel free to include screenshots).
+
+-   The coding should also be easy because you are copy/pasting your code from this example into your new tutorial and and just changing the table/variable name to make it run
+
+    -   e.g. instead of `PennACS_sf$total.pop` you might have `RichmondACS$med.age` \
+
+    -   Also remember that YOU WON'T NEED EVERY CODE CHUNK. For example you don't need any of the stuff on rearranging the data because I have already done that for you. I have marked the sections where you might find the answers in the hints below
+
+<br><br>
+
+####  WHAT DATA IS YOUR TUTORIAL ON?
+
+I have provided a dataset of census data for Richmond Virginia. The data is stored as polygons at a census tract level and I extracted three specific variables,
+
+-   `med.age` median age of people in each census tract
+
+-   `house.age` median HOUSE age in each census tract
+
+-   `monthly.expenses,` the median amount people spend on expenses in that tract each month
+
+If you open the template report and run the read-in code chunks, you should see this,
+
+```{r}
+Richmond_ACS <- st_read("Richmond_ACS.gpkg")
+Richmond_ACS
+```
+
+<br><br>
+
+####  WHAT YOU NEED TO DO
+
+**First choose ONE of the three variables above. You only need to focus on one of them. The make a tutorial which contains the following.** **You are aiming for a class handout or a set of revision notes that explain the concepts at a level someone else in the class can understand.**
+
+-   An explanation of what autocorrelation is (negative/zero/positive) and (first-second order) - [*Hint Lab 5 B1*]{.underline}
+
+-   Why traditional statistical tests become challenging when working with data that exhibits spatial autocorrelation. - [*Hint Lab 5 B2.*]{.underline}
+
+    -   *you don't need section C, I did the wrangling for you*
+
+-   A brief description and map of a single variable of your choice, commenting what the data is showing and what processes might have caused any pattern you see (population density? climate?) - [*Hint Lab 5 Section D.*]{.underline}
+
+-   A global moran's scatterplot and test for that variable, both standard and monte carlo - explaining what is going on in each case [*(Hint sections E, F and G, ignoring the renaming part in F)*]{.underline}
+
+-   A LISA analysis for that variable, explaining how the LISA map links back to your moran's scatterplot [*(Hint section H)*]{.underline}
+
+<br><br>
+
+#### HOW ARE YOU GRADED?
 
 You are aiming for a class handout or a set of revision notes that explain the concepts at a level someone else in the class can understand. You are being graded on:
 
@@ -1182,6 +1231,8 @@ You are aiming for a class handout or a set of revision notes that explain the c
 -   **Code**-Is your code neat/tidy and easy to follow.
 
 -   **Maths -** Have you correctly written out and interpreted things like hypothesis tests.
+
+<br><br>
 
 ## SUBMITTING LAB 5
 

@@ -1541,51 +1541,133 @@ size..)</strong></li>
 </ul>
 <p><br><br></p>
 </div>
-<div id="i.-advanced" class="section level2">
-<h2>I. Advanced</h2>
+<div id="i.-advanced-week-2-and-homework" class="section level2">
+<h2>I. Advanced (Week 2 and homework)</h2>
 <p>Well done! If you reached this stage, you have received at least a
 B+. But Labs 5 and 6 ask you to go a little further…<br />
 </p>
 <ol style="list-style-type: decimal">
-<li>Look on Canvas. You will see that there is a new dataset and a new
-report template. REFRESH YOUR PAGE TO SEE DETAILS.<br />
-</li>
-<li>I want you to make me a tutorial on spatial autocorrelation and
+<li><p>Look on Canvas. You will see that there is a new dataset for
+Richmond Virginia and a new report template. Download them and put them
+in your lab 5 folder/upload them to the cloud</p></li>
+<li><p>I want you to make me a tutorial on spatial autocorrelation and
 Moran’s I for one variable of your choice in that dataset of your
-choice. Keep reading for details,<br />
-</li>
-<li><strong>But first note you have already done a lot of the work!
-(e.g. you can copy/paste ANYTHING you wrote in the lab so far) - and
-remember the readings on canvas or the lecture notes (feel free to
-include screenshots)<br />
-<br />
-The coding should also be easy because you are copy/pasting your code
-from this example into your new report and just changing the
-table/variable name. e.g. instead of</strong>
-<code>PennACS_sf$total.pop</code> you might have<br />
-</li>
-<li>Your tutorial should include the following,<br />
-
-<ul>
-<li>An explanation of what autocorrelation is (negative/zero/positive)
-and (first-second order) - Hint B1<br />
-</li>
-<li>Why traditional statistical tests become challenging when working
-with data that exhibits spatial autocorrelation. - Hint B2<br />
-</li>
-<li>A brief description and map of a <u><strong>single
-variable</strong></u> <strong>of your choice,</strong> commenting what
-the data is showing and what processes might have caused any pattern you
-see (population density? climate?)<br />
-</li>
-<li>A global moran’s scatterplot and test for that variable, both
-standard and monte carlo - explaining what is going on in each
-case<br />
-</li>
-<li>A LISA analysis for that variable, explaining how the LISA map links
-back to your moran’s scatterplot</li>
-</ul></li>
+choice. Keep reading for details.</p></li>
 </ol>
+<p><br><br></p>
+<div id="what-do-you-need-to-do" class="section level3">
+<h3>What do you need to do</h3>
+<p><br></p>
+<div id="first-remember-you-have-already-done-most-of-this-work"
+class="section level4">
+<h4>FIRST, REMEMBER YOU HAVE ALREADY DONE MOST OF THIS WORK!</h4>
+<ul>
+<li><p>E.g you can copy/paste ANYTHING you wrote in your lab so far and
+remember the readings on canvas or the lecture notes (feel free to
+include screenshots).</p></li>
+<li><p>The coding should also be easy because you are copy/pasting your
+code from this example into your new tutorial and and just changing the
+table/variable name to make it run</p>
+<ul>
+<li><p>e.g. instead of <code>PennACS_sf$total.pop</code> you might have
+<code>RichmondACS$med.age</code><br />
+</p></li>
+<li><p>Also remember that YOU WON’T NEED EVERY CODE CHUNK. For example
+you don’t need any of the stuff on rearranging the data because I have
+already done that for you. I have marked the sections where you might
+find the answers in the hints below</p></li>
+</ul></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="what-data-is-your-tutorial-on" class="section level4">
+<h4>WHAT DATA IS YOUR TUTORIAL ON?</h4>
+<p>I have provided a dataset of census data for Richmond Virginia. The
+data is stored as polygons at a census tract level and I extracted three
+specific variables,</p>
+<ul>
+<li><p><code>med.age</code> median age of people in each census
+tract</p></li>
+<li><p><code>house.age</code> median HOUSE age in each census
+tract</p></li>
+<li><p><code>monthly.expenses,</code> the median amount people spend on
+expenses in that tract each month</p></li>
+</ul>
+<p>If you open the template report and run the read-in code chunks, you
+should see this,</p>
+<pre class="r"><code>Richmond_ACS &lt;- st_read(&quot;Richmond_ACS.gpkg&quot;)</code></pre>
+<pre><code>## Reading layer `Richmond_ACS&#39; from data source 
+##   `/Users/hlg5155/Documents/GitHub/Teaching/GEOG364 Github/Geog364_2024/Richmond_ACS.gpkg&#39; 
+##   using driver `GPKG&#39;
+## Simple feature collection with 66 features and 5 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -77.60117 ymin: 37.44697 xmax: -77.38551 ymax: 37.60281
+## Geodetic CRS:  NAD83</code></pre>
+<pre class="r"><code>Richmond_ACS</code></pre>
+<pre><code>## Simple feature collection with 66 features and 5 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -77.60117 ymin: 37.44697 xmax: -77.38551 ymax: 37.60281
+## Geodetic CRS:  NAD83
+## First 10 features:
+##          GEOID         NAME med.age house.age month.expenses
+## 1  51760040300    Tract 403    19.3      1939           1333
+## 2  51760040900    Tract 409    31.8      1939           1139
+## 3  51760050400    Tract 504    40.9      1945           1739
+## 4  51760071001 Tract 710.01    30.9      1984            977
+## 5  51760010402 Tract 104.02    46.9      1954            948
+## 6  51760020100    Tract 201    20.7      1962            263
+## 7  51760020600    Tract 206    32.2      1939           1365
+## 8  51760060900    Tract 609    34.3      1957            868
+## 9  51760010800    Tract 108    43.6      1948            920
+## 10 51760040600    Tract 406    28.4      1939           1081
+##                              geom
+## 1  POLYGON ((-77.45655 37.5432...
+## 2  POLYGON ((-77.48052 37.5584...
+## 3  POLYGON ((-77.51194 37.5818...
+## 4  POLYGON ((-77.52741 37.5161...
+## 5  POLYGON ((-77.46258 37.5840...
+## 6  POLYGON ((-77.40941 37.5559...
+## 7  POLYGON ((-77.4182 37.5373,...
+## 8  POLYGON ((-77.45016 37.4605...
+## 9  POLYGON ((-77.42484 37.5821...
+## 10 POLYGON ((-77.47438 37.5656...</code></pre>
+<p><br><br></p>
+</div>
+<div id="what-you-need-to-do" class="section level4">
+<h4>WHAT YOU NEED TO DO</h4>
+<p><strong>First choose ONE of the three variables above. You only need
+to focus on one of them. The make a tutorial which contains the
+following.</strong> <strong>You are aiming for a class handout or a set
+of revision notes that explain the concepts at a level someone else in
+the class can understand.</strong></p>
+<ul>
+<li><p>An explanation of what autocorrelation is
+(negative/zero/positive) and (first-second order) - <u><em>Hint Lab 5
+B1</em></u></p></li>
+<li><p>Why traditional statistical tests become challenging when working
+with data that exhibits spatial autocorrelation. - <u><em>Hint Lab 5
+B2.</em></u></p>
+<ul>
+<li><em>you don’t need section C, I did the wrangling for you</em></li>
+</ul></li>
+<li><p>A brief description and map of a single variable of your choice,
+commenting what the data is showing and what processes might have caused
+any pattern you see (population density? climate?) - <u><em>Hint Lab 5
+Section D.</em></u></p></li>
+<li><p>A global moran’s scatterplot and test for that variable, both
+standard and monte carlo - explaining what is going on in each case
+<u><em>(Hint sections E, F and G, ignoring the renaming part in
+F)</em></u></p></li>
+<li><p>A LISA analysis for that variable, explaining how the LISA map
+links back to your moran’s scatterplot <u><em>(Hint section
+H)</em></u></p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="how-are-you-graded" class="section level4">
+<h4>HOW ARE YOU GRADED?</h4>
 <p>You are aiming for a class handout or a set of revision notes that
 explain the concepts at a level someone else in the class can
 understand. You are being graded on:</p>
@@ -1605,6 +1687,9 @@ follow.</p></li>
 <li><p><strong>Maths -</strong> Have you correctly written out and
 interpreted things like hypothesis tests.</p></li>
 </ul>
+<p><br><br></p>
+</div>
+</div>
 </div>
 <div id="submitting-lab-5" class="section level2">
 <h2>SUBMITTING LAB 5</h2>
