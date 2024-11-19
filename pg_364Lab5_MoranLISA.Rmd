@@ -1165,25 +1165,31 @@ Well done! If you reached this stage, you have received at least a B+. But Labs 
 
 2.  I want you to make me a tutorial on spatial autocorrelation and Moran's I for one variable of your choice in that dataset of your choice. Keep reading for details.
 
+
+```{=html}
+<p class="comment"><strong>You are going to submit this file SEPARATELY. If you put it all in one file, you can re-download the tutorial lab template and copy/paste your work across (Easier in source view, not the fancy visual view) </strong></p>
+```
+
+
 <br><br>
 
 ### What do you need to do
 
 <br>
 
-#### FIRST, REMEMBER YOU HAVE ALREADY DONE MOST OF THIS WORK! 
+#### FIRST, REMEMBER YOU HAVE ALREADY DONE MOST OF THIS WORK!
 
 -   E.g you can copy/paste ANYTHING you wrote in your lab so far and remember the readings on canvas or the lecture notes (feel free to include screenshots).
 
 -   The coding should also be easy because you are copy/pasting your code from this example into your new tutorial and and just changing the table/variable name to make it run
 
-    -   e.g. instead of `PennACS_sf$total.pop` you might have `RichmondACS$med.age` \
+    -   e.g. instead of `PennACS_sf$total.pop` you might have `RichmondACS$med.age`\
 
     -   Also remember that YOU WON'T NEED EVERY CODE CHUNK. For example you don't need any of the stuff on rearranging the data because I have already done that for you. I have marked the sections where you might find the answers in the hints below
 
 <br><br>
 
-####  WHAT DATA IS YOUR TUTORIAL ON?
+#### WHAT DATA IS YOUR TUTORIAL ON?
 
 I have provided a dataset of census data for Richmond Virginia. The data is stored as polygons at a census tract level and I extracted three specific variables,
 
@@ -1202,7 +1208,7 @@ Richmond_ACS
 
 <br><br>
 
-####  WHAT YOU NEED TO DO
+#### WHAT YOU NEED TO DO
 
 **First choose ONE of the three variables above. You only need to focus on one of them. The make a tutorial which contains the following.** **You are aiming for a class handout or a set of revision notes that explain the concepts at a level someone else in the class can understand.**
 
@@ -1236,4 +1242,78 @@ You are aiming for a class handout or a set of revision notes that explain the c
 
 ## SUBMITTING LAB 5
 
-### SUBMISSION DETAILS TO COME (refresh page)
+<br>
+
+
+```{=html}
+<p class="comment"><strong>THIS IS DIFFERENT TO PREVIOUS LABS. <br> You are going to submit your Richmond example and your main lab script separately.  If you put it all in one file, you can re-download the Week2- lab template and copy/paste your Richmond work across (Easier in source view, not the fancy visual view) </strong></p>
+```
+
+### For the main lab-script
+
+1. Save your work throughout and spell check your writing (button next to the save button). 
+2. Press the knit button one final time If you have not made any mistakes in the code then R should create a html file in your lab5 folder, complete with a very recent time-stamp.
+
+### For your Richmond worked example
+
+Ideally, I want you to submit this as a separate file.   If you put it all in the main lab script, you can re-download the Week2- lab template and copy/paste your Richmond work across (Easier in source view, not the fancy visual view)
+
+1. Save your Richmond tutorial .Rmd and spell check your writing (button next to the save button). 
+2. Press the knit button one final time If you have not made any mistakes in the code then R should create a SECOND html file in your lab5 folder, complete with a very recent time-stamp.
+
+<br>
+
+### If you use the POSIT cloud website
+
+You are going to download FOUR files:
+  -  Your html and your .Rmd file for your main lab 5 (up to/including section H).<br>
+  -  Your html and your .Rmd file for your Richmond tutorial (Section I).<br>
+
+
+You can download each of your .RmD and html files by:
+
+-   Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.) <br>
+
+```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
+knitr::include_graphics('./index_images/im_T2_Download.png')
+```
+
+<br>
+
+Now go to Canvas and submit ALL FOUR of your html and your .Rmd file in Lab 5
+
+<br>
+
+### If you use the RSTudio desktop on your own computer
+
+-   Go to your Lab 5 folder, In that folder, double click on BOTH html files. This will open it in your browser. CHECK THAT THESE ARE WHAT YOU WANT TO SUBMIT <br>
+
+-   Now go to Canvas and submit FOUR FILES:
+  -  Your html and your .Rmd file for your main lab 5 (up to/including section H).<br>
+  -  Your html and your .Rmd file for your Richmond tutorial (Section I).<br>
+
+```{r, echo=FALSE}
+knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
+```
+
+<br>
+
+## GRADING CHECK-LIST
+
+[160 marks total]
+[130 marks for your main lab]
+[30 marks for your tutorial]
+
+
+### What does your grade mean?
+
+Overall, here is what your lab should correspond to:
+
+```{r, echo=FALSE}
+rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
+knitr::kable(rubric) %>%   
+  kable_classic_2() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
+
+
+```

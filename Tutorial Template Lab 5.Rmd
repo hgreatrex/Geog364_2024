@@ -1,0 +1,57 @@
+---
+title: "Lab 5 Tutorial Template"
+author: "hlg5155"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    highlight: tango
+---
+
+
+```{r, message=FALSE, warning=FALSE}
+# Add all your libraries here
+library(sf)
+```
+
+# Instructions
+
+You can remove these at the end
+
+Also remember that YOU WON'T NEED EVERY CODE CHUNK.  For example you don't need any of the stuff on rearranging the data because I have already done that for you.   I have marked the sections where you might find the answers in the hints.
+
+Your tutorial should include the following,  
+
+ - An explanation of what autocorrelation is (negative/zero/positive) and (first-second order) - Hint B1
+
+ - Why traditional statistical tests become challenging when working with data that exhibits spatial autocorrelation. - Hint B2
+
+ - A brief description and map of a single variable of your choice, commenting what the data is showing and what processes might have caused any pattern you see (population density? climate?) - Hint Section D.
+
+ - A global moran's scatterplot and test for that variable, both standard and monte carlo - explaining what is going on in each case (Hint sections E, F and G, ignoring the renaming part in F)
+
+ - A LISA analysis for that variable, explaining how the LISA map links back to your moran's scatterplot (Hint section H)
+
+
+REMEMBER YOU HAVE ALREADY DONE MOST OF THIS WORK!  (e.g. you can copy/paste ANYTHING you wrote in the lab so far) - and remember the readings on canvas or the lecture notes (feel free to include screenshots).  The coding should also be easy because you are copy/pasting your code from this example into your new report and just changing the table/variable name.  e.g. instead of PennACS_sf$total.pop you might have Richmond_ACS$med.age
+
+
+
+
+# Reading in the data
+
+Remember to put Richmond_ACS.gpkg into your project folder - and then this code should run. You can carry on from here.
+
+```{r}
+Richmond_ACS <- st_read("Richmond_ACS.gpkg")
+```
+
+
+```{r}
+Richmond_ACS
+```
+
+
+# Your tutorial..
+
+## What is autocorrelation
