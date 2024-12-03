@@ -502,7 +502,7 @@ At least your schools map might look pretty boring with the default bandwidth (t
 
 <br>
 
-### Adjusting the bandwidth
+#### Adjusting the bandwidth
 
 ![](index_images/pg_Lab6_KernelBandwidthEsri.png){width="90%"}
 
@@ -520,15 +520,21 @@ plot(SchoolDensity, main=NULL, las=1)
 contour(SchoolDensity, add=TRUE)
 ```
 
-2.  See if you can adjust the bandwidth for Schools and McDonald's to say something interesting about each pattern, linking it to the underlying geography/envrionment (e.g. these are real school/mcdonalds locations, what's going on) Explain your process/ reasoning below your maps. <br><br>
+2.  See if you can adjust the bandwidth for Schools and McDonald's to say something interesting about each pattern, linking it to the underlying geography/envrionment (e.g. these are real school/Mcdonalds locations, what's going on) Explain your process/ reasoning below your maps. <br><br>
 
 ### C4. Quadrat analysis
 
-Here is a GREAT description of quadrat analysis, describing the hypothesis test used and its interpretation. This will also be part of your homework. Use this document to answer the text/analysis part of the questions below. E.g. I will only help you through the code.
+*Here is a GREAT description of quadrat analysis, describing the hypothesis test used and its interpretation. This will also be part of your homework. Use this document to answer the text/analysis part of the questions below. E.g. I will only help you through the code.*
 
 <https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062>
 
-(if you can't see this, go to Lab 6 on Canvas, - it's Chapter 14B McGrew on quadrat analysis)
+*(if you can't see this, go to Lab 6 on Canvas, - it's Chapter 14B McGrew on quadrat analysis)*
+
+<br>
+
+We can also apply a similar approach to assess whether our dots are clustered together or not. The easiest form of this is called quadrat analysis.
+
+1.  Using the resources above, write around 100 words explaining what quadrat analysis and the Variance-Mean-Radio are.
 
 **To be updated by 11.30 Refresh your page!**
 
@@ -538,7 +544,9 @@ If you are really up to here, read this while you're waiting as we're working th
 
 <br><br>
 
-### C5. Relationship with co-variates
+### C5. Relationship with covariates
+
+To be updated by the end of Tuesday Dec 3 ("week 2 work"
 
 ## D. Distance based point pattern analysis  
 

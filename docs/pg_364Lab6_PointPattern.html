@@ -847,6 +847,7 @@ So it’s a moving weighted mean.</p>
 <p><img src="index_images/pg_Lab6_Kernelexplanation.png" /></p>
 <p>Its bandwidth is the size of the circle and defines the kernel’s
 window extent.</p>
+<p><br></p>
 <ol style="list-style-type: decimal">
 <li>The code is very easy, we simply use the density command. Here is
 the code to calculate density of the schools data using a default
@@ -859,9 +860,9 @@ contour(SchoolDensity1, add=TRUE)</code></pre>
 <p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>At least your schools map might look pretty boring with the default
 bandwidth (think about why)</p>
-</div>
-<div id="adjusting-the-bandwidth" class="section level3">
-<h3>Adjusting the bandwidth</h3>
+<p><br></p>
+<div id="adjusting-the-bandwidth" class="section level4">
+<h4>Adjusting the bandwidth</h4>
 <p><img src="index_images/pg_Lab6_KernelBandwidthEsri.png"
 style="width:90.0%" /></p>
 <p>Different bandwidth/circle-sizes tell us differnet things about the
@@ -870,6 +871,7 @@ of the city most prone to late night road accidents. A smaller bandwidth
 shows the exact streets, but it’s harder to get an overall picture.</p>
 <p>THERE IS NO CORRECT BANDWIDTH - but adjusting it often tells you
 different stories about the data.</p>
+<p><br></p>
 <ol style="list-style-type: decimal">
 <li>Edit the code you just wrote to include the sigma option. E.g.
 sigma=50 means you’re using a circle of size 50km to smooth the data.
@@ -882,22 +884,31 @@ contour(SchoolDensity, add=TRUE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>See if you can adjust the bandwidth for Schools and McDonald’s to
 say something interesting about each pattern, linking it to the
-underlying geography/envrionment (e.g. these are real school/mcdonalds
+underlying geography/envrionment (e.g. these are real school/Mcdonalds
 locations, what’s going on) Explain your process/ reasoning below your
 maps. <br><br></li>
 </ol>
 </div>
+</div>
 <div id="c4.-quadrat-analysis" class="section level3">
 <h3>C4. Quadrat analysis</h3>
-<p>Here is a GREAT description of quadrat analysis, describing the
+<p><em>Here is a GREAT description of quadrat analysis, describing the
 hypothesis test used and its interpretation. This will also be part of
 your homework. Use this document to answer the text/analysis part of the
-questions below. E.g. I will only help you through the code.</p>
+questions below. E.g. I will only help you through the code.</em></p>
 <p><a
 href="https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062"
 class="uri">https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062</a></p>
-<p>(if you can’t see this, go to Lab 6 on Canvas, - it’s Chapter 14B
-McGrew on quadrat analysis)</p>
+<p><em>(if you can’t see this, go to Lab 6 on Canvas, - it’s Chapter 14B
+McGrew on quadrat analysis)</em></p>
+<p><br></p>
+<p>We can also apply a similar approach to assess whether our dots are
+clustered together or not. The easiest form of this is called quadrat
+analysis.</p>
+<ol style="list-style-type: decimal">
+<li>Using the resources above, write around 100 words explaining what
+quadrat analysis and the Variance-Mean-Radio are.</li>
+</ol>
 <p><strong>To be updated by 11.30 Refresh your page!</strong></p>
 <p>If you are really up to here, read this while you’re waiting as we’re
 working through something similar</p>
@@ -905,8 +916,9 @@ working through something similar</p>
 class="uri">https://mgimond.github.io/Spatial/chp11_0.html</a></p>
 <p><br><br></p>
 </div>
-<div id="c5.-relationship-with-co-variates" class="section level3">
-<h3>C5. Relationship with co-variates</h3>
+<div id="c5.-relationship-with-covariates" class="section level3">
+<h3>C5. Relationship with covariates</h3>
+<p>To be updated by the end of Tuesday Dec 3 (“week 2 work”</p>
 </div>
 </div>
 <div id="d.-distance-based-point-pattern-analysis"
