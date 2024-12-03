@@ -716,12 +716,17 @@ you see.</li>
 <div id="b4.-converting-our-data-into-ppp-format"
 class="section level3">
 <h3>B4. Converting our data into ppp format</h3>
-<p>Spatstat does require us to convert all our data into specific
-‘custom’ formats.</p>
+<p>All point pattern analysis tools used in this tutorial are available
+in the <code>spatstat</code> package. These tools are designed to work
+with points stored in custom <code>ppp</code> formats and <em>not</em>
+as the <code>sf</code> data you are used to using (e.g. tmap stops
+working from this point onwards).</p>
 <ol style="list-style-type: decimal">
-<li>First we need to turn our NY state border into a special spatial
-“owin” frame, This will allow us to make our spatial domain NY state
-rather than a rectangle.Get the code working below in your own lab.</li>
+<li>First we need to turn our NY state border into a custom spatial
+“owin” “window frame”, This will allow us to make our spatial domain NY
+state rather than a rectangle.<br />
+<br />
+Get the code working below in your own lab.</li>
 </ol>
 <pre class="r"><code>state.owin &lt;- as.owin(stateborder.utm)</code></pre>
 <p><br><br></p>
@@ -729,9 +734,10 @@ rather than a rectangle.Get the code working below in your own lab.</li>
 <li>We are going to work with <em>unmarked</em> data (for now). So for
 each of Schools and McDonalds, we need to first only use the geometry
 (X/Y locations) and then convert it to a ppp format, then assign our
-window as New York. Get the code working below in your own lab. You
-should see a version of the map where it’s easier to see the point
-patterns.</li>
+window as New York.<br />
+<br />
+Get the code working below in your own lab. You should see a version of
+the map where it’s easier to see the point patterns.</li>
 </ol>
 <pre class="r"><code># Just take XY locations
 School.locs  &lt;- st_geometry(Schools)
@@ -748,7 +754,7 @@ plot(School.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
 <p><br><br></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Repeat for the McDonalds data to make a ppp version of that. You
-should see something like this.</li>
+should see something like this map.</li>
 </ol>
 <pre class="r"><code>plot(McDonalds.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
 <p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
@@ -760,12 +766,94 @@ should see something like this.</li>
 <div id="c.-density-based-point-pattern-analysis."
 class="section level2">
 <h2>C. Density based point pattern analysis.</h2>
-<p>To be updated by 10:15. Refresh your page!</p>
+<p>A <em>first order</em> property of a pattern concerns itself with the
+variation of the observations’ density across a study area. For example,
+the distribution of oak trees will vary across a landscape based on
+underlying soil characteristics (resulting in areas having dense
+clusters of oaks and other areas not). This allows us to take into
+account the non uniformity of space.</p>
+<div id="c1.-converting-units-to-km" class="section level3">
+<h3>C1. Converting units to km</h3>
+<p><em>(this might be missing from your lab template, add it
+in!)</em></p>
+<p>At the moment all our units are in m. This is going to make the
+analysis hard to write up given we’re looking at all of New York
+State.</p>
+<ol style="list-style-type: decimal">
+<li>Let’s convert ALL our data’s units to km. Get this code working in
+your report.
+<ul>
+<li><em>IF YOU GET ERRORS TELL YIFEI (This is the code chunk causing Dr
+G problems..). If it really doesn’t work, ignore this section, re-run
+all your code and move on (just reporting your answers in m)</em></li>
+</ul></li>
+</ol>
+<pre class="r"><code>School.ppp &lt;- rescale(School.ppp, 1000, &quot;km&quot;)
+McDonalds.ppp &lt;- rescale(McDonalds.ppp, 1000, &quot;km&quot;)
+median_income &lt;- rescale(median_income, 1000, &quot;km&quot;)
+pop_density    &lt;- rescale(pop_density, 1000, &quot;km&quot;)</code></pre>
+<p><br><br></p>
+</div>
+<div id="c2.-global-density" class="section level3">
+<h3>C2. Global density</h3>
+<p><em>(this might be missing from your lab template, add it
+in!)</em></p>
+<p>A basic measure of a pattern’s density is its overall, or
+<strong>global</strong> <strong>density</strong>. E.g. how many points
+are there per unit area:</p>
+<p><span class="math display">$$
+\text{Global density} = \frac{\text{number points}}{\text{study area}}
+$$</span></p>
+<p>here’s how to do this for a ppp dataset, in this case the schools
+data.</p>
+<pre class="r"><code># Number of points
+num_points &lt;- npoints(School.ppp)
+num_points</code></pre>
+<pre><code>## [1] 928</code></pre>
+<pre class="r"><code># Area of the study region
+study_area &lt;- area.owin(Window(School.ppp))
+study_area</code></pre>
+<pre><code>## [1] 127570</code></pre>
+<pre class="r"><code># Global density in m^2
+global_density &lt;- num_points / study_area
+global_density</code></pre>
+<pre><code>## [1] 0.00727444</code></pre>
+<p>So this code suggests that in New York State, there are 0.0072
+schools per square km. E.g. if the schools were evenly distributed in a
+grid-like pattern, the average distance between schools would be around
+12 kilometers in any direction.</p>
+<ul>
+<li><em>1/0.0072 ~ 139, this means if schools were evenly distributed in
+a grid like pattern then there would be roughly one school every 139
+square kilometers. Taking the square root of 139 gives about 11.79, so
+if the schools were evenly distributed in a grid-like pattern, the
+average distance between schools would be approximately 12 kilometers in
+each direction.</em></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><strong>Calculate and explain the global density of the McDonalds
+dataset.</strong></li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="c3.-quadrat-analysis" class="section level3">
+<h3>C3. Quadrat analysis</h3>
+<p>Here is a GREAT description of quadrat analysis, describing the
+hypothesis test used and its interpretation. This will also be part of
+your homework. Use this document to answer the text/analysis part of the
+questions below. E.g. I will only help you through the code.</p>
+<p><a
+href="https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062"
+class="uri">https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062</a></p>
+<p>(if you can’t see this, go to Lab 6 on Canvas, - it’s Chapter 14B
+McGrew on quadrat analysis)</p>
+<p><strong>To be updated by 10:45. Refresh your page!</strong></p>
 <p>If you are really up to here (already?), read this while you’re
 waiting as we’re working through something similar</p>
 <p><a href="https://mgimond.github.io/Spatial/chp11_0.html"
 class="uri">https://mgimond.github.io/Spatial/chp11_0.html</a></p>
 <p><br><br></p>
+</div>
 </div>
 <div id="d.-distance-based-point-pattern-analysis"
 class="section level2">

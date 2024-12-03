@@ -358,9 +358,11 @@ There is a specific package designed to do point pattern analysis called spatsta
 
 ### B4. Converting our data into ppp format
 
-Spatstat does require us to convert all our data into specific 'custom' formats.
+All point pattern analysis tools used in this tutorial are available in the `spatstat` package. These tools are designed to work with points stored in custom `ppp` formats and *not* as the `sf` data you are used to using (e.g. tmap stops working from this point onwards).
 
-1.  First we need to turn our NY state border into a special spatial "owin" frame, This will allow us to make our spatial domain NY state rather than a rectangle.Get the code working below in your own lab.
+1.  First we need to turn our NY state border into a custom spatial "owin" "window frame", This will allow us to make our spatial domain NY state rather than a rectangle.\
+    \
+    Get the code working below in your own lab.
 
 ```{r}
 
@@ -370,7 +372,9 @@ state.owin <- as.owin(stateborder.utm)
 
 <br><br>
 
-2.  We are going to work with *unmarked* data (for now). So for each of Schools and McDonalds, we need to first only use the geometry (X/Y locations) and then convert it to a ppp format, then assign our window as New York. Get the code working below in your own lab. You should see a version of the map where it's easier to see the point patterns.
+2.  We are going to work with *unmarked* data (for now). So for each of Schools and McDonalds, we need to first only use the geometry (X/Y locations) and then convert it to a ppp format, then assign our window as New York. \
+    \
+    Get the code working below in your own lab. You should see a version of the map where it's easier to see the point patterns.
 
 ```{r,results="hide"}
 # Just take XY locations
@@ -389,7 +393,7 @@ plot(School.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)
 
 <br><br>
 
-3.  Repeat for the McDonalds data to make a ppp version of that. You should see something like this.
+3.  Repeat for the McDonalds data to make a ppp version of that. You should see something like this map.
 
 ```{r,echo=FALSE, include=FALSE}
 # Just take XY locations
@@ -400,7 +404,6 @@ McDonalds.ppp  <- as.ppp(McDonalds.locs)
 
 # Set the domain to be NY State
 Window(McDonalds.ppp) <- state.owin
-
 
 ```
 
@@ -417,9 +420,75 @@ plot(McDonalds.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)
 ```
 <br><br>
 
-## C. Density based point pattern analysis. 
+## C. Density based point pattern analysis.
 
-To be updated by 10:15. Refresh your page!
+A *first order* property of a pattern concerns itself with the variation of the observations’ density across a study area. For example, the distribution of oak trees will vary across a landscape based on underlying soil characteristics (resulting in areas having dense clusters of oaks and other areas not). This allows us to take into account the non uniformity of space.
+
+### C1. Converting units to km
+
+*(this might be missing from your lab template, add it in!)*
+
+At the moment all our units are in m. This is going to make the analysis hard to write up given we're looking at all of New York State.
+
+1.  Let's convert ALL our data's units to km. Get this code working in your report.
+    -   *IF YOU GET ERRORS TELL YIFEI (This is the code chunk causing Dr G problems..). If it really doesn't work, ignore this section, re-run all your code and move on (just reporting your answers in m)*
+
+```{r}
+School.ppp <- rescale(School.ppp, 1000, "km")
+McDonalds.ppp <- rescale(McDonalds.ppp, 1000, "km")
+median_income <- rescale(median_income, 1000, "km")
+pop_density    <- rescale(pop_density, 1000, "km")
+
+```
+
+<br><br>
+
+### C2. Global density
+
+*(this might be missing from your lab template, add it in!)*
+
+A basic measure of a pattern’s density is its overall, or **global** **density**. E.g. how many points are there per unit area:
+
+$$
+\text{Global density} = \frac{\text{number points}}{\text{study area}}
+$$
+
+here's how to do this for a ppp dataset, in this case the schools data.
+
+```{r}
+
+# Number of points
+num_points <- npoints(School.ppp)
+num_points
+
+# Area of the study region
+study_area <- area.owin(Window(School.ppp))
+study_area
+
+# Global density in m^2
+global_density <- num_points / study_area
+global_density
+
+
+```
+
+So this code suggests that in New York State, there are 0.0072 schools per square km. E.g. if the schools were evenly distributed in a grid-like pattern, the average distance between schools would be around 12 kilometers in any direction.
+
+-   *1/0.0072 \~ 139, this means if schools were evenly distributed in a grid like pattern then there would be roughly one school every 139 square kilometers. Taking the square root of 139 gives about 11.79, so if the schools were evenly distributed in a grid-like pattern, the average distance between schools would be approximately 12 kilometers in each direction.*
+
+1.  **Calculate and explain the global density of the McDonalds dataset.**
+
+<br><br>
+
+### C3. Quadrat analysis
+
+Here is a GREAT description of quadrat analysis, describing the hypothesis test used and its interpretation. This will also be part of your homework. Use this document to answer the text/analysis part of the questions below. E.g. I will only help you through the code.
+
+<https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062>
+
+(if you can't see this, go to Lab 6 on Canvas, - it's Chapter 14B McGrew on quadrat analysis)
+
+**To be updated by 10:45. Refresh your page!**
 
 If you are really up to here (already?), read this while you're waiting as we're working through something similar
 
