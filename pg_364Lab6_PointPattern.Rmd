@@ -536,7 +536,7 @@ We can also apply a similar approach to assess whether our dots are clustered to
 
 1.  Using the resources above, write around 100 words explaining what quadrat analysis and the Variance-Mean-Radio are.
 
-**To be updated by 11.30 Refresh your page!**
+### Quadrat analysis will be updated by midnight Tues (alongwith the rest of the lab)
 
 If you are really up to here, read this while you're waiting as we're working through something similar
 
