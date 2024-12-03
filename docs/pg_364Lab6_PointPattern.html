@@ -836,8 +836,59 @@ dataset.</strong></li>
 </ol>
 <p><br><br></p>
 </div>
-<div id="c3.-quadrat-analysis" class="section level3">
-<h3>C3. Quadrat analysis</h3>
+<div id="c3.-local-density---kernel-smoothing" class="section level3">
+<h3>C3. Local density - Kernel smoothing</h3>
+<p>First, we could simply turn our dots into a heatmap. e.g. areas with
+a high intensity of dots are marked differently. The easiest way to do
+this is using a process called Kernel Density Smoothing. We will talk
+about this in class, but essentially we’re just moving a circle (or some
+other shape) over the data and counting how many points are inside it.
+So it’s a moving weighted mean.</p>
+<p><img src="index_images/pg_Lab6_Kernelexplanation.png" /></p>
+<p>Its bandwidth is the size of the circle and defines the kernel’s
+window extent.</p>
+<ol style="list-style-type: decimal">
+<li>The code is very easy, we simply use the density command. Here is
+the code to calculate density of the schools data using a default
+bandwidth. Get this code working and make another similar code chunk for
+the McDonald’s data.</li>
+</ol>
+<pre class="r"><code>SchoolDensity1 &lt;- density(School.ppp) # Using the default bandwidth
+plot(SchoolDensity1, main=NULL, las=1)
+contour(SchoolDensity1, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>At least your schools map might look pretty boring with the default
+bandwidth (think about why)</p>
+</div>
+<div id="adjusting-the-bandwidth" class="section level3">
+<h3>Adjusting the bandwidth</h3>
+<p><img src="index_images/pg_Lab6_KernelBandwidthEsri.png"
+style="width:90.0%" /></p>
+<p>Different bandwidth/circle-sizes tell us differnet things about the
+data. For example in the example above a large bandwidth shows the areas
+of the city most prone to late night road accidents. A smaller bandwidth
+shows the exact streets, but it’s harder to get an overall picture.</p>
+<p>THERE IS NO CORRECT BANDWIDTH - but adjusting it often tells you
+different stories about the data.</p>
+<ol style="list-style-type: decimal">
+<li>Edit the code you just wrote to include the sigma option. E.g.
+sigma=50 means you’re using a circle of size 50km to smooth the data.
+sigma=5 means you’re using a circle of size 5km. E.g.</li>
+</ol>
+<pre class="r"><code>SchoolDensity &lt;- density(School.ppp, sigma=100) 
+plot(SchoolDensity, main=NULL, las=1)
+contour(SchoolDensity, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>See if you can adjust the bandwidth for Schools and McDonald’s to
+say something interesting about each pattern, linking it to the
+underlying geography/envrionment (e.g. these are real school/mcdonalds
+locations, what’s going on) Explain your process/ reasoning below your
+maps. <br><br></li>
+</ol>
+</div>
+<div id="c4.-quadrat-analysis" class="section level3">
+<h3>C4. Quadrat analysis</h3>
 <p>Here is a GREAT description of quadrat analysis, describing the
 hypothesis test used and its interpretation. This will also be part of
 your homework. Use this document to answer the text/analysis part of the
@@ -847,12 +898,15 @@ href="https://psu.instructure.com/courses/2328607/files/folder/1_Readings?previe
 class="uri">https://psu.instructure.com/courses/2328607/files/folder/1_Readings?preview=171032062</a></p>
 <p>(if you can’t see this, go to Lab 6 on Canvas, - it’s Chapter 14B
 McGrew on quadrat analysis)</p>
-<p><strong>To be updated by 10:45. Refresh your page!</strong></p>
-<p>If you are really up to here (already?), read this while you’re
-waiting as we’re working through something similar</p>
+<p><strong>To be updated by 11.30 Refresh your page!</strong></p>
+<p>If you are really up to here, read this while you’re waiting as we’re
+working through something similar</p>
 <p><a href="https://mgimond.github.io/Spatial/chp11_0.html"
 class="uri">https://mgimond.github.io/Spatial/chp11_0.html</a></p>
 <p><br><br></p>
+</div>
+<div id="c5.-relationship-with-co-variates" class="section level3">
+<h3>C5. Relationship with co-variates</h3>
 </div>
 </div>
 <div id="d.-distance-based-point-pattern-analysis"

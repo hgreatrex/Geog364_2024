@@ -480,7 +480,49 @@ So this code suggests that in New York State, there are 0.0072 schools per squar
 
 <br><br>
 
-### C3. Quadrat analysis
+### C3. Local density - Kernel smoothing
+
+First, we could simply turn our dots into a heatmap. e.g. areas with a high intensity of dots are marked differently. The easiest way to do this is using a process called Kernel Density Smoothing. We will talk about this in class, but essentially we're just moving a circle (or some other shape) over the data and counting how many points are inside it. So it's a moving weighted mean.
+
+![](index_images/pg_Lab6_Kernelexplanation.png)
+
+Its bandwidth is the size of the circle and defines the kernel’s window extent.
+
+<br>
+
+1.  The code is very easy, we simply use the density command. Here is the code to calculate density of the schools data using a default bandwidth. Get this code working and make another similar code chunk for the McDonald's data.
+
+```{r, results="hide"}
+SchoolDensity1 <- density(School.ppp) # Using the default bandwidth
+plot(SchoolDensity1, main=NULL, las=1)
+contour(SchoolDensity1, add=TRUE)
+```
+
+At least your schools map might look pretty boring with the default bandwidth (think about why)
+
+<br>
+
+### Adjusting the bandwidth
+
+![](index_images/pg_Lab6_KernelBandwidthEsri.png){width="90%"}
+
+Different bandwidth/circle-sizes tell us differnet things about the data. For example in the example above a large bandwidth shows the areas of the city most prone to late night road accidents. A smaller bandwidth shows the exact streets, but it's harder to get an overall picture.
+
+THERE IS NO CORRECT BANDWIDTH - but adjusting it often tells you different stories about the data.
+
+<br>
+
+1.  Edit the code you just wrote to include the sigma option. E.g. sigma=50 means you're using a circle of size 50km to smooth the data. sigma=5 means you're using a circle of size 5km. E.g.
+
+```{r, results="hide"}
+SchoolDensity <- density(School.ppp, sigma=100) 
+plot(SchoolDensity, main=NULL, las=1)
+contour(SchoolDensity, add=TRUE)
+```
+
+2.  See if you can adjust the bandwidth for Schools and McDonald's to say something interesting about each pattern, linking it to the underlying geography/envrionment (e.g. these are real school/mcdonalds locations, what's going on) Explain your process/ reasoning below your maps. <br><br>
+
+### C4. Quadrat analysis
 
 Here is a GREAT description of quadrat analysis, describing the hypothesis test used and its interpretation. This will also be part of your homework. Use this document to answer the text/analysis part of the questions below. E.g. I will only help you through the code.
 
@@ -488,13 +530,15 @@ Here is a GREAT description of quadrat analysis, describing the hypothesis test 
 
 (if you can't see this, go to Lab 6 on Canvas, - it's Chapter 14B McGrew on quadrat analysis)
 
-**To be updated by 10:45. Refresh your page!**
+**To be updated by 11.30 Refresh your page!**
 
-If you are really up to here (already?), read this while you're waiting as we're working through something similar
+If you are really up to here, read this while you're waiting as we're working through something similar
 
 <https://mgimond.github.io/Spatial/chp11_0.html>
 
 <br><br>
+
+### C5. Relationship with co-variates
 
 ## D. Distance based point pattern analysis  
 
