@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 6: Point Pattern Analysis</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEOG-364</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="pg_Tut1_about.html">1. About R, R-Studio &amp; R-Studio Cloud</a>
+    </li>
+    <li>
+      <a href="pg_Tut2_startup.html">2. Getting started</a>
+    </li>
+    <li>
+      <a href="pg_Tut3_basics.html">3. Console Basics</a>
+    </li>
+    <li>
+      <a href="pg_Tut4_markdown.html">4. Markdown</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Labs
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="pg_364Lab1_Basics_2021.html">Lab 1: R-Basics</a>
+    </li>
+    <li>
+      <a href="pg_364Lab2_Summary.html">Lab 2: Summarising data</a>
+    </li>
+    <li>
+      <a href="pg_364Lab3_Spatial.html">Lab 3: Spatial Basics</a>
+    </li>
+    <li>
+      <a href="pg_364Lab4_Neighbourhood.html">Lab 4: Neighbourhood</a>
+    </li>
+    <li>
+      <a href="pg_364Lab5_MoranLISA.html">Lab 5: Moran/LISA</a>
+    </li>
+    <li>
+      <a href="pg_364Lab6_PointPattern.html">Lab 6: Point Pattern</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Lab 6: Point Pattern Analysis</h1>
+<h3 class="subtitle"><h4 style="font-style:normal"><br />
+GEOG-364 - Spatial Analysis<br />
+</h4></h3>
+
+</div>
+
+
+<p><br></p>
+<div id="welcome-to-your-final-lab" class="section level2">
+<h2>Welcome to your final Lab!</h2>
+<p><br></p>
+<div id="aims" class="section level3">
+<h3>Aims</h3>
+<p>Today’s lab explores point pattern analysis, especially density and
+distance based approaches for a case study in New York <br></p>
+<p class="comment"><strong>THIS IS YOUR FINAL LAB. <br> It is shorter to take into account the fact you have less time.</strong></p>
+<p><br><br></p>
+</div>
+</div>
+<div id="a.-set-up---new-libraries" class="section level2">
+<h2>A. Set-up - NEW LIBRARIES</h2>
+<p>Seriously, please don’t skip this. It’s the biggest cause of lab
+issues.</p>
+<p><br></p>
+<div id="a1.-create-a-lab-6-project" class="section level3">
+<h3>A1. Create a Lab 6 project</h3>
+<p>First, you need to set up your project folder for lab 6, and install
+packages if you are on the cloud.</p>
+<details>
+<summary>
+POSIT CLOUD people, click here to install packages..
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong><br>Go to <a
+href="https://posit.cloud/content/"
+class="uri">https://posit.cloud/content/</a> and make a new project for
+Lab 5 <br><br></p>
+<p><strong>Step ii:</strong><br>Run this code IN THE CONSOLE to install
+the packages you need. <br></p>
+<ul>
+<li>This is going to take 5-10 minutes, so let it run and carry on.
+<br><br></li>
+</ul>
+<pre class="r"><code># COPY/PASTE THIS IN THE CONSOLE QUADRANT, 
+# DON&#39;T PUT IT IN A CODE CHUNK 
+
+install.packages(&quot;readxl&quot;)
+install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;ggstatsplot&quot;)
+install.packages(&quot;plotly&quot;)
+install.packages(&quot;dplyr&quot;)
+install.packages(&quot;skimr&quot;)
+install.packages(&quot;rmdformats&quot;)
+
+install.packages(&quot;remotes&quot;)
+remotes::install_github(repo = &quot;r-spatial/sf&quot;, 
+                        ref = &quot;93a25fd8e2f5c6af7c080f92141cb2b765a04a84&quot;)
+
+install.packages(&quot;terra&quot;)
+install.packages(&quot;tidycensus&quot;)
+install.packages(&quot;tigris&quot;)
+install.packages(&quot;tmap&quot;)
+install.packages(&quot;units&quot;)
+install.packages(&quot;spdep&quot;)
+install.packages(&quot;sfdep&quot;)
+install.packages(&quot;rmapshaper&quot;)
+# NEW
+install.packages(&quot;spatstat&quot;)
+
+
+# If you get a weird error it might be that the quote marks have messed up. 
+# Replace all of them and ask Dr G for a shortcut.</code></pre>
+<p><br><br></p>
+<p><strong>Step iii:</strong> <br>Go to the Lab Canvas page and download
+the data AND the lab report. Upload each one into your project
+folder.<br><em>Forgotten how? See Lab 2 Set-Up.</em> <br></p>
+<p><br></p>
+</details>
+<div class="small-gap">
+
+</div>
+<details>
+<summary>
+R-DESKTOP people, click here to create your lab project.
+</summary>
+<p><br></p>
+<div class="collapsible-content">
+<iframe src="pindent_Tut2b_ProjectsDesktop.html" style="width: 100%; height: 700px; border: none;">
+</iframe>
+</div>
+</details>
+<p><br><br></p>
+</div>
+<div id="a2.-add-your-data-lab-template" class="section level3">
+<h3>A2. Add your data &amp; lab template</h3>
+<p>Go to Canvas and download the lab template and datasets for this
+week’s lab. Should be one dataset and one lab template. Immediately put
+it in your lab 6 folder (or upload it if you’re on the cloud. Rename the
+lab template to something with your email ID, then open it.</p>
+<p><br><br></p>
+</div>
+<div id="a3.-change-the-yaml-code" class="section level3">
+<h3>A3. Change the YAML Code</h3>
+<p>The YAML code sets up your final report. Changing the theme also
+helps us to not go insane when we’re reading 60 reports. Expand for what
+you need to do.<br></p>
+<details>
+<summary>
+Step A3 Instructions
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong> Change the AUTHOR line to your personal
+E-mail ID <br><br></p>
+<p><strong>Step ii:</strong> Go here and choose a theme out of downcute,
+robobook, material, readthedown or html_clean: <a
+href="https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery"
+class="uri">https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery</a>.<br>
+<em>DO NOT CHOOSE html_docco - it doesn’t have a table of contents</em>
+<br><br></p>
+<p><strong>Step iii:</strong><br>Change the theme line on the template
+YAML code to a theme of your choice. See the example YAML code below
+<br> <em>Note, downcute chaos is different - see below</em><br><br></p>
+<ol style="list-style-type: decimal">
+<li>Example YAML code if you want <code>robobook</code>,
+<code>material</code>, <code>readthedown</code> or
+<code>html_clean</code>. You can also change the highlight option to
+change how code chunks look. - see the rmdformats website.</li>
+</ol>
+<pre class="r"><code>---
+title: &quot;Lab 6&quot;
+author: &quot;ADD YOUR EMAIL ID&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  rmdformats::robobook:
+    self_contained: true
+    highlight: kate
+---</code></pre>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Example YAML code if you want <code>downcute</code> or
+<code>downcute chaos</code>. For white standard downcute, remove the
+downcute_theme line..</li>
+</ol>
+<pre class="r"><code>---
+title: &quot;Lab 6&quot;
+author: &quot;ADD YOUR EMAIL ID&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  rmdformats::downcute:
+    self_contained: true
+    downcute_theme: &quot;chaos&quot;
+    default_style: &quot;dark&quot;
+---</code></pre>
+<p><br><br></p>
+</details>
+<p><br><br></p>
+</div>
+<div id="a4.-add-the-library-code-chunk" class="section level3">
+<h3>A4. Add the library code chunk</h3>
+<p><strong>DO NOT SKIP THIS STEP (or any of them!).</strong> Now you
+need to create the space to run your libraries. Expand for what you need
+to do.<br></p>
+<details>
+<summary>
+Step A4 Instructions
+</summary>
+<p><br></p>
+<p><strong>Step i:</strong> At the top of your lab report, add a new
+code chunk and add the code below. <br><br></p>
+<p><strong>Step ii:</strong> Change the code chunk options at the top to
+read <br> <code>{r, include=FALSE, warning=FALSE, message=FALSE}</code>
+and try to run the code chunk a few times <br><br></p>
+<p><strong>Step iii:</strong> If it works, all ‘friendly text’ should go
+away. If not, look for the little yellow bar at the top asking you to
+install anything missing, or read the error and go to the install
+‘app-store’ to get any packages you need. <br><br></p>
+<pre class="r"><code># spatstat is  NEW package for you (probably). Install if necessary.
+
+  rm(list=ls())
+  library(plotly)
+  library(raster)
+  library(readxl)
+  library(sf)
+  library(skimr)
+  library(tidyverse)
+  library(tidycensus)
+  library(terra)
+  library(tmap)
+  library(dplyr)
+  library(tigris)
+  library(tmap)
+  library(units)
+  library(viridis)
+  library(ggstatsplot)
+  library(rmapshaper)
+  library(spatstat) # NEW!  You might have to install this.
+ 
+  options(tigris_use_cache = TRUE)</code></pre>
+<p><br><br></p>
+</details>
+<p><br><br><br></p>
+</div>
+<div id="stop-and-check" class="section level3">
+<h3><strong>STOP AND CHECK</strong></h3>
+<p class="comment"><strong>STOP!</strong> Your screen should look similar to the screenshot below (although it would be lab 6 and your folder would be inside GEOG364).<strong>If not, go back and redo the set-up!</strong></p>
+<p><img src="index_images/pg_lab5_setup.png" style="width:100.0%" /></p>
+<p><br><br><br></p>
+</div>
+<div id="a5.-reading-in-the-data" class="section level3">
+<h3>A5. Reading in the data</h3>
+<p>The aim of this lab is to look at two point patterns: high-schools
+and McDonalds across New York State. First we need to get the data.</p>
+<ol style="list-style-type: decimal">
+<li><p>Make sure you followed the instructions above and that
+Lab6_SpatialData_NY.RData is your Lab 6 folder.<br><br></p></li>
+<li><p>RData files are a special way of storing data that is unique to
+R. Essentially you load this file and you see what data was on my
+screen. This means you don’t have to spend a lot of time reading all the
+datasets into your computer.<br><br></p></li>
+<li><p>Create a new code chunk in section A, and use the load command to
+open the data into R. It will only work if the file is in your project
+folder. For example, this is how I will do it with my teacher’s
+version.</p></li>
+</ol>
+<pre class="r"><code># your file is called something else
+load(&quot;Lab6Teachers.RData&quot;)</code></pre>
+<p><br><br></p>
+</div>
+<div id="a6.-check-it-loaded-correctly" class="section level3">
+<h3>A6. Check it loaded correctly</h3>
+<p><strong>IMPORTANT! Make sure that you have run the library code chunk
+including the spatstat package or the next bit won’t
+work.</strong><br><br></p>
+<ol style="list-style-type: decimal">
+<li><p>Look at the Environment tab and you’ll see several datasets have
+appeared:</p>
+<ul>
+<li><p><code>median_income</code> and <code>pop_density</code> are
+derived from census tract vector data from the American Community
+Survey. Rather than our normal vector format, they are saved as
+<em>raster images</em> (to make the point pattern code work).
+<br></p></li>
+<li><p><code>Schools</code> is a point dataset containing the location
+of all the high-schools in New York State.<br></p></li>
+<li><p><code>McDonalds</code> is a dataset containing the location of
+all the McDonalds resturants in New York State. <br><br></p></li>
+</ul></li>
+<li><p>In a code chunk, write the name of median_data and use the
+<u><strong>plot</strong></u> command to make a plot of the median_income
+data. You should see this.</p></li>
+</ol>
+<pre class="r"><code>median_income</code></pre>
+<pre><code>## real-valued pixel image
+## 187 x 234 pixel array (ny, nx)
+## enclosing rectangle: [597530, 1276300] x [4483100, 5025500] units</code></pre>
+<pre class="r"><code>plot(median_income)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><br></p>
+<p class="comment"><strong>THIS WILL ONLY WORK IF YOU HAVE RUN THE LOAD LIBRARY CODE CHUNK TO LOAD THE SPATSTAT PACKAGE. If you see a list of stuff and it doesn't make a map, install and load library(spatstat) </strong></p>
+<p><br><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Repeat the step above for the population density dataset,
+<code>pop_density</code> to make sure that has loaded correctly.</li>
+</ol>
+<p><br><br><br></p>
+</div>
+</div>
+<div id="b.-data-exploration-wrangling" class="section level2">
+<h2>B. Data Exploration &amp; Wrangling</h2>
+<div id="b1.-understanding-schools-across-ny-state"
+class="section level3">
+<h3>B1. Understanding schools across NY State</h3>
+<ol style="list-style-type: decimal">
+<li>One of the variables I loaded was called <code>Schools</code>. Using
+tmap’s qtm command (see previous labs or here), make a nice map of the
+variable and describe any spatial patterns you see, focusing especially
+on the autocorrelation of the points and any processes that might cause
+it. <br><br><br />
+
+<ul>
+<li><em>You do not need to look at any variables in particular (although
+feel free to color the points if you want), I just care about the
+locations of the schools themselves.</em><br><br />
+</li>
+<li><em>You also have the NYState border saved as</em>
+<code>stateborder.utm</code> *if you wish to use it.<br />
+
+<ul>
+<li></li>
+</ul></li>
+<li><em>Hint, see previous labs for examples of using tmap and
+tm_dots(), or nice examples here (scroll down to find them) <a
+href="https://jamescheshire.github.io/learningR/mapping-point-data-in-r.html#loading-point-data-into-r"
+class="uri">https://jamescheshire.github.io/learningR/mapping-point-data-in-r.html#loading-point-data-into-r</a></em><br></li>
+</ul></li>
+</ol>
+<p><br><br></p>
+<p>Hint, for</p>
+</div>
+<div id="b2.-understanding-mcdonalds" class="section level3">
+<h3>B2. Understanding McDonalds</h3>
+<ol style="list-style-type: decimal">
+<li>Repeat what you did for the <code>McDonalds</code> data. As part of
+your description, compare and contrast this pattern with the schools
+data.</li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="b3.-describing-spatstat." class="section level3">
+<h3>B3. Describing Spatstat.</h3>
+<p>There is a specific package designed to do point pattern analysis
+called spatstat. It’s a bit old fashioned (hence the weird image files)
+but it does point pattern very well. It is also linked to a textbook and
+many online materials.</p>
+<ol style="list-style-type: decimal">
+<li>Go to this website and look around <a
+href="https://spatstat.org/FAQ.html"
+class="uri">https://spatstat.org/FAQ.html</a> In your report, in at
+least 50 words, describe what spatstat is and any interesting features
+you see.</li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="b4.-converting-data-into-ppp-format" class="section level3">
+<h3>B4. Converting data into ppp format</h3>
+<p>Spatstat does require us to convert all our data into specific
+‘custom’ formats.</p>
+<ol style="list-style-type: decimal">
+<li>First we need to turn our NY state border into a special spatial
+“owin” frame, This will allow us to make our spatial domain NY state
+rather than a rectangle.Get the code working below in your own lab.</li>
+</ol>
+<pre class="r"><code>state.owin &lt;- as.owin(stateborder.utm)</code></pre>
+<p><br><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>We are going to work with <em>unmarked</em> data (for now). So for
+each of Schools and McDonalds, we need to first only use the geometry
+(X/Y locations) and then convert it to a ppp format, then assign our
+window as New York. Get the code working below in your own lab. You
+should see a version of the map where it’s easier to see the point
+patterns.</li>
+</ol>
+<pre class="r"><code># Just take XY locations
+School.locs  &lt;- st_geometry(Schools)
+
+# Convert to point pattern format
+School.ppp  &lt;- as.ppp(School.locs)
+
+# Set the domain to be NY State
+Window(School.ppp) &lt;- state.owin
+
+# and plot
+plot(School.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><br><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Repeat for the McDonalds data to make a ppp version of that. You
+should see something like this.</li>
+</ol>
+<pre class="r"><code>plot(McDonalds.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><br></p>
+<p class="comment"><strong>If your lab template said something about mean centres, ignore and move on. You got a *very* early version of the template and it's no longer in the lab </strong></p>
+<p><br><br></p>
+</div>
+</div>
+<div id="c.-density-based-point-pattern-analysis."
+class="section level2">
+<h2>C. Density based point pattern analysis.</h2>
+<p>To be updated by 10:15. Refresh your page!</p>
+<p>If you are really up to here (already?), read this while you’re
+waiting as we’re working through something similar</p>
+<p><a href="https://mgimond.github.io/Spatial/chp11_0.html"
+class="uri">https://mgimond.github.io/Spatial/chp11_0.html</a></p>
+<p><br><br></p>
+</div>
+<div id="d.-distance-based-point-pattern-analysis"
+class="section level2">
+<h2>D. Distance based point pattern analysis</h2>
+<p>To be updated by the end of Tuesday Dec 3 (“week 2 work”</p>
+</div>
+<div id="submitting-lab-6" class="section level2">
+<h2>SUBMITTING LAB 6</h2>
+<div id="submission-details-to-come" class="section level3">
+<h3>SUBMISSION DETAILS TO COME</h3>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
