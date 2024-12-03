@@ -591,7 +591,9 @@ install anything missing, or read the error and go to the install
 <h3><strong>STOP AND CHECK</strong></h3>
 <p class="comment"><strong>STOP!</strong> Your screen should look similar to the screenshot below (although it would be lab 6 and your folder would be inside GEOG364).<strong>If not, go back and redo the set-up!</strong></p>
 <p><img src="index_images/pg_lab5_setup.png" style="width:100.0%" /></p>
-<p><br><br><br></p>
+<p><br></p>
+<p class="comment"><strong>IMPORTANT! You are in charge of keeping your final report neat with easy to find answers. For example this includes surpressing library loading code chunk outputs, putting in headings/sub-headings, writing clear answers under your code and linking your answers to the real-world. <br><br> 100% is reserved for exceptionally professional labs, it's your final one, so impress us! (I can use it as evidence if I write you reference letters in the future..) </strong></p>
+<p><br><br></p>
 </div>
 <div id="a5.-reading-in-the-data" class="section level3">
 <h3>A5. Reading in the data</h3>
@@ -613,8 +615,8 @@ version.</p></li>
 load(&quot;Lab6Teachers.RData&quot;)</code></pre>
 <p><br><br></p>
 </div>
-<div id="a6.-check-it-loaded-correctly" class="section level3">
-<h3>A6. Check it loaded correctly</h3>
+<div id="a6.-check-the-data-loaded-correctly" class="section level3">
+<h3>A6. Check the data loaded correctly</h3>
 <p><strong>IMPORTANT! Make sure that you have run the library code chunk
 including the spatstat package or the next bit won’t
 work.</strong><br><br></p>
@@ -636,27 +638,28 @@ all the McDonalds resturants in New York State. <br><br></p></li>
 <u><strong>plot</strong></u> command to make a plot of the median_income
 data. You should see this.</p></li>
 </ol>
+<pre class="r"><code># THIS WILL ONLY WORK IF YOU HAVE RUN THE LOAD LIBRARY CODE CHUNK TO LOAD THE SPATSTAT PACKAGE. If you see a list of stuff and it doesn&#39;t make a map, install and load library(spatstat)</code></pre>
 <pre class="r"><code>median_income</code></pre>
 <pre><code>## real-valued pixel image
 ## 187 x 234 pixel array (ny, nx)
 ## enclosing rectangle: [597530, 1276300] x [4483100, 5025500] units</code></pre>
 <pre class="r"><code>plot(median_income)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><br></p>
-<p class="comment"><strong>THIS WILL ONLY WORK IF YOU HAVE RUN THE LOAD LIBRARY CODE CHUNK TO LOAD THE SPATSTAT PACKAGE. If you see a list of stuff and it doesn't make a map, install and load library(spatstat) </strong></p>
-<p><br><br></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Repeat the step above for the population density dataset,
 <code>pop_density</code> to make sure that has loaded correctly.</li>
 </ol>
-<p><br><br><br></p>
+<p><br><br></p>
 </div>
 </div>
 <div id="b.-data-exploration-wrangling" class="section level2">
 <h2>B. Data Exploration &amp; Wrangling</h2>
-<div id="b1.-understanding-schools-across-ny-state"
+<div
+id="b1.-understanding-the-spatial-point-pattern-of-schools-across-ny-state"
 class="section level3">
-<h3>B1. Understanding schools across NY State</h3>
+<h3>B1. Understanding the spatial point pattern of schools across NY
+State</h3>
 <ol style="list-style-type: decimal">
 <li>One of the variables I loaded was called <code>Schools</code>. Using
 tmap’s qtm command (see previous labs or here), make a nice map of the
@@ -682,10 +685,12 @@ class="uri">https://jamescheshire.github.io/learningR/mapping-point-data-in-r.ht
 </ul></li>
 </ol>
 <p><br><br></p>
-<p>Hint, for</p>
 </div>
-<div id="b2.-understanding-mcdonalds" class="section level3">
-<h3>B2. Understanding McDonalds</h3>
+<div
+id="b3.-understanding-the-spatial-point-pattern-of-mcdonalds-across-ny-state"
+class="section level3">
+<h3>B3. Understanding the spatial point pattern of McDonalds across NY
+State</h3>
 <ol style="list-style-type: decimal">
 <li>Repeat what you did for the <code>McDonalds</code> data. As part of
 your description, compare and contrast this pattern with the schools
@@ -693,8 +698,8 @@ data.</li>
 </ol>
 <p><br><br></p>
 </div>
-<div id="b3.-describing-spatstat." class="section level3">
-<h3>B3. Describing Spatstat.</h3>
+<div id="b3.-describing-the-spatstat-package." class="section level3">
+<h3>B3. Describing the Spatstat package.</h3>
 <p>There is a specific package designed to do point pattern analysis
 called spatstat. It’s a bit old fashioned (hence the weird image files)
 but it does point pattern very well. It is also linked to a textbook and
@@ -708,8 +713,9 @@ you see.</li>
 </ol>
 <p><br><br></p>
 </div>
-<div id="b4.-converting-data-into-ppp-format" class="section level3">
-<h3>B4. Converting data into ppp format</h3>
+<div id="b4.-converting-our-data-into-ppp-format"
+class="section level3">
+<h3>B4. Converting our data into ppp format</h3>
 <p>Spatstat does require us to convert all our data into specific
 ‘custom’ formats.</p>
 <ol style="list-style-type: decimal">
@@ -738,14 +744,14 @@ Window(School.ppp) &lt;- state.owin
 
 # and plot
 plot(School.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p><br><br></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Repeat for the McDonalds data to make a ppp version of that. You
 should see something like this.</li>
 </ol>
 <pre class="r"><code>plot(McDonalds.ppp, pch=16, cols=rgb(0,0,0,.5),cex=.5)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p><br></p>
 <p class="comment"><strong>If your lab template said something about mean centres, ignore and move on. You got a *very* early version of the template and it's no longer in the lab </strong></p>
 <p><br><br></p>

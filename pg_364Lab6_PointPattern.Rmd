@@ -262,7 +262,12 @@ output:
 ```
 ![](index_images/pg_lab5_setup.png){width="100%"}
 
-<br><br><br>
+<br>
+
+```{=html}
+<p class="comment"><strong>IMPORTANT! You are in charge of keeping your final report neat with easy to find answers. For example this includes surpressing library loading code chunk outputs, putting in headings/sub-headings, writing clear answers under your code and linking your answers to the real-world. <br><br> 100% is reserved for exceptionally professional labs, it's your final one, so impress us! (I can use it as evidence if I write you reference letters in the future..) </strong></p>
+```
+<br><br>
 
 ### A5. Reading in the data
 
@@ -281,7 +286,7 @@ load("Lab6Teachers.RData")
 
 <br><br>
 
-### A6. Check it loaded correctly
+### A6. Check the data loaded correctly
 
 **IMPORTANT! Make sure that you have run the library code chunk including the spatstat package or the next bit won't work.**<br><br>
 
@@ -304,6 +309,10 @@ stateborder.utm <- NYstateborder.utm
 ```
 
 ```{r}
+# THIS WILL ONLY WORK IF YOU HAVE RUN THE LOAD LIBRARY CODE CHUNK TO LOAD THE SPATSTAT PACKAGE. If you see a list of stuff and it doesn't make a map, install and load library(spatstat)
+```
+
+```{r}
 median_income
 plot(median_income)
 
@@ -317,18 +326,13 @@ median_income <- oldmedincome
 
 <br>
 
-```{=html}
-<p class="comment"><strong>THIS WILL ONLY WORK IF YOU HAVE RUN THE LOAD LIBRARY CODE CHUNK TO LOAD THE SPATSTAT PACKAGE. If you see a list of stuff and it doesn't make a map, install and load library(spatstat) </strong></p>
-```
-<br><br>
-
 3.  Repeat the step above for the population density dataset, `pop_density` to make sure that has loaded correctly.
 
-<br><br><br>
+<br><br>
 
 ## B. Data Exploration & Wrangling
 
-### B1. Understanding schools across NY State
+### B1. Understanding the spatial point pattern of schools across NY State
 
 1.  One of the variables I loaded was called `Schools`. Using tmap's qtm command (see previous labs or here), make a nice map of the variable and describe any spatial patterns you see, focusing especially on the autocorrelation of the points and any processes that might cause it. <br><br>\
     -   *You do not need to look at any variables in particular (although feel free to color the points if you want), I just care about the locations of the schools themselves.*<br>\
@@ -338,15 +342,13 @@ median_income <- oldmedincome
 
 <br><br>
 
-Hint, for
-
-### B2.  Understanding McDonalds
+### B3. Understanding the spatial point pattern of McDonalds across NY State
 
 1.  Repeat what you did for the `McDonalds` data. As part of your description, compare and contrast this pattern with the schools data.
 
 <br><br>
 
-### B3. Describing Spatstat.
+### B3. Describing the Spatstat package.
 
 There is a specific package designed to do point pattern analysis called spatstat. It's a bit old fashioned (hence the weird image files) but it does point pattern very well. It is also linked to a textbook and many online materials.
 
@@ -354,7 +356,7 @@ There is a specific package designed to do point pattern analysis called spatsta
 
 <br><br>
 
-### B4. Converting data into ppp format
+### B4. Converting our data into ppp format
 
 Spatstat does require us to convert all our data into specific 'custom' formats.
 
