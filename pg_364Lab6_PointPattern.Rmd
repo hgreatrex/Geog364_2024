@@ -542,6 +542,8 @@ We can also apply a similar approach to assess whether our dots are clustered to
 
 ## IMPORTANT Updates 
 
+You can write these updates at the end of week 1's work e.g. inside C4- or make separate section around there. Whatever works best in your head
+
 <br>
 
 ### WK2 -Update 1. PLOTS
@@ -641,7 +643,11 @@ plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)
 
 ### WK2 -Update 3. DENSITY CHECK
 
--   **[Task],** you can now use these code chunks to re-run the density plots.
+**DO NOT DELETE YOUR OLD TEXT OR GO BACK. Just keep writing for this section, In fact you can refer back to help you explain the new patterns.**
+
+<br>
+
+-   **[Task], you can now use these code chunks to run the density plots for West NY state..**
 
 ```{r}
 
@@ -664,10 +670,13 @@ contour(McDonaldsWestDensity, add=TRUE)
 -   **[TASK] . In the text below the plots, explain the NEW difference between the McDonalds and Schools data.**
 
     -   *HINT, In the point pattern plots above the patterns look quite different, but here they are similar. Explain what this means for the interpretation of the pattern going on, referring to the processes that "cause" a school or McDonalds.*
+    -   
 
 <br><br>
 
-## C. Density based point pattern continued..
+## C. Density point pattern continued..
+
+Now you can continue with the instructions
 
 ### C4. Quadrat continued
 
@@ -845,8 +854,8 @@ Now we can plot the data. This command is horrible, just copy/paste changing lon
 L_Max<-(max(Schools_L$iso-Schools_L$r))
 L_Min <- 0-L_Max
 
-#The dots are weirdly important here. Copy/paste
-plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max))
+#The dots are weirdly important here. Copy/paste. I have cut this off at 30km
+plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max),xlim=c(0,30))
 
 # Add IRP simulated Lestimates (so many, they merge into a grey cloud)
 plot(IRPsimulation, . - r ~ r,add=TRUE)
