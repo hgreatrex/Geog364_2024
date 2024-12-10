@@ -1227,7 +1227,7 @@ report and explain that.</p></li>
 </ul></li>
 </ul>
 <pre class="r"><code># Calculate the L function. 
-Schools_L &lt;- Lest(SchoolWest.ppp,correction = &quot;Ripley&quot;)
+Schools_L &lt;- Lest(McDonalds.ppp,correction = &quot;Ripley&quot;)
 
 # Create an ensemble (collection) of simulated point patterns 
 # that is based on our data data, 
@@ -1247,8 +1247,8 @@ changing longleaf to your market data. I will look for a better one!</p>
 L_Max&lt;-(max(Schools_L$iso-Schools_L$r))
 L_Min &lt;- 0-L_Max
 
-#The dots are weirdly important here. Copy/paste
-plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max))
+#The dots are weirdly important here. Copy/paste. I have cut this off at 30km
+plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max),xlim=c(0,30))
 
 # Add IRP simulated Lestimates (so many, they merge into a grey cloud)
 plot(IRPsimulation, . - r ~ r,add=TRUE)</code></pre>

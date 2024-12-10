@@ -831,7 +831,7 @@ We will now conduct an L-Function analysis on the data. This is a version of Rip
 
 ```{r}
 # Calculate the L function. 
-Schools_L <- Lest(SchoolWest.ppp,correction = "Ripley")
+Schools_L <- Lest(McDonalds.ppp,correction = "Ripley")
 
 # Create an ensemble (collection) of simulated point patterns 
 # that is based on our data data, 
