@@ -1016,16 +1016,6 @@ plot(SchoolWest.ppp, pch=1, cols=rgb(0,0,0,.5),cex=.5,
      main=&quot;Point pattern of schools and McDonalds (red) in West NY-State&quot;)
 plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)</code></pre>
 <p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<pre class="r"><code># and plot densities
-
-SchoolWestDensity &lt;- density(SchoolWest.ppp, sigma=10) 
-plot(SchoolWestDensity, main=NULL, las=1)
-contour(SchoolWestDensity, add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
-<pre class="r"><code>McDonaldsWestDensity &lt;- density(McDonaldsWest.ppp, sigma=10) 
-plot(McDonaldsWestDensity, main=NULL, las=1)
-contour(McDonaldsWestDensity, add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
 <p><br><br></p>
 </div>
 <div id="wk2--update-3.-density-check" class="section level3">
@@ -1057,6 +1047,10 @@ interpretation of the pattern going on, referring to the processes that
 </ul>
 <p><br><br></p>
 </div>
+</div>
+<div id="c.-density-based-point-pattern-continued.."
+class="section level2">
+<h2>C. Density based point pattern continued..</h2>
 <div id="c4.-quadrat-continued" class="section level3">
 <h3>C4. Quadrat continued</h3>
 <p>We spent much of week 15 talking about quadrat analysis. In R, we can

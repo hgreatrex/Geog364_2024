@@ -647,16 +647,6 @@ plot(SchoolWest.ppp, pch=1, cols=rgb(0,0,0,.5),cex=.5,
      main="Point pattern of schools and McDonalds (red) in West NY-State")
 plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)
 
-# and plot densities
-
-SchoolWestDensity <- density(SchoolWest.ppp, sigma=10) 
-plot(SchoolWestDensity, main=NULL, las=1)
-contour(SchoolWestDensity, add=TRUE)
-
-
-McDonaldsWestDensity <- density(McDonaldsWest.ppp, sigma=10) 
-plot(McDonaldsWestDensity, main=NULL, las=1)
-contour(McDonaldsWestDensity, add=TRUE)
 
 ```
 
@@ -690,11 +680,13 @@ contour(McDonaldsWestDensity, add=TRUE)
 
 <br><br>
 
+## C. Density based point pattern continued..
+
 ### C4. Quadrat continued
 
 We spent much of week 15 talking about quadrat analysis. In R, we can do this using the quadratcount command, where nx and ny choose the number of gridcells
 
-Here's an example, where I divide the Schools data in 9 grid-cells, or quadrats - 3 quadrats in the x direction and 3 in the y direction. You can see that because NY is a weird shape, it ignores the ones outside our range.
+Here's an example, where I divide the Schools data in 6 grid-cells, or quadrats - 3 quadrats in the x direction and 2 in the y direction. You can see that because NY is a weird shape, it ignores the ones outside our range.
 
 ```{r}
 
@@ -772,6 +764,8 @@ You can skip this section! For those interested in how to go deeper into using d
 ## D. Distance based point pattern analysis
 
 This part is based on week 16's classes.
+
+<br>\<
 
 ### D1. Nearest neighbours
 
