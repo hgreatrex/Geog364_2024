@@ -540,18 +540,18 @@ We can also apply a similar approach to assess whether our dots are clustered to
 
 ## WEEK 2
 
-## WK2 -Updates - IMPORTANT
+## IMPORTANT Updates 
+
+<br>
 
 ### WK2 -Update 1. PLOTS
 
-Hello from Dr G! First, I have finally found a way for you to better see your plots below a code chunk - I know the ppp ones have been difficult to make out as they appear tiny.
-
-What we do is change the margin of the plot using the "plotting parameters" `par()` command BEFORE making the plot. There are MANY things you can change using this command\
+Hello from Dr G! First, I have finally found a way for you to better see your plots below a code chunk - I know the ppp ones have been difficult to make out as they appear tiny. What we do is change the margin of the plot using the "plotting parameters" `par()` command BEFORE making the plot. There are MANY things you can change using this command\
 - see `?par` for more options
 
-*Fore, this fix will also work for any of the "base" plot functions that we tried in Lab 3.*
+*Note, this fix will also work for any of the "base" plot functions that we tried in Lab 3.*
 
--   **[TASK] From section B4 onward, change ALL your plot commands so that they first have this par() line.**
+<br>
 
 ```{r}
 
@@ -562,26 +562,13 @@ par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
 plot(School.ppp, pch=16, 
      cols=rgb(0,0,0,.5),cex=.5,
      main="Point pattern of NY schools data")
+
+
 ```
 
-or
+<br>
 
-```{r}
-
-
-SchoolDensity1 <- density(School.ppp) # Using the default bandwidth
-
-par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
-plot(SchoolDensity1, main=NULL, las=1)
-
-# you can turn off contours to better see the colors also by removing the line below
-contour(SchoolDensity1, add=TRUE)
-
-# or add the points if useful to understand what is happening
-plot(School.ppp, pch=16, 
-     cols=rgb(1,1,1,.5),cex=.4,add=TRUE)
-
-```
+-   **[TASK] From section B4 onward, change ALL your plot commands so that they first have this par() line. When you re-run you should see bigger maps.**
 
 <br><br>
 
@@ -765,7 +752,7 @@ You can skip this section! For those interested in how to go deeper into using d
 
 This part is based on week 16's classes.
 
-<br>\<
+<br>
 
 ### D1. Nearest neighbours
 
@@ -803,28 +790,29 @@ clarkevans.test(SchoolWest.ppp)
 
 ```
 
+<br>
+
 -   **[TASK] Get this analysis running for the McDonalds data. Compare your results with mine.** Explain what is going on and any similarities or differences that relate to the underlying process of how schools were "created" vs "mcdonalds"?\
 
--   **[TASK] Also explain.**<br>**\#**
+-   **[TASK] Also explain...**
 
     -   What would the clarke evens ratio, R, be for very dispersed data?<br>
 
     -   What would the clarke evens ratio, R, be for very clustered data?<br>
 
--   **[TASK] Also explain**<br>
+-   **[TASK] Also explain**...
 
     1.  What are edge effects in point pattern data? Are they going be an issue for this SPECIFIC dataset/analysis and why?<br>
 
-    2.  What is the locational fallacy? Is it going going be an issue for this SPECIFIC dataset/analysis and why?<br>
-
--   \
-    \
+    2.  What is the locational fallacy? Is it going going be an issue for this SPECIFIC dataset/analysis and why?<br>\
 
 <br><br>
 
 ### D3. Ripley's L-Function
 
 We will now conduct an L-Function analysis on the data. This is a version of Ripley's K that is easier to interpret. This code won't show any output if it runs correctly because I've saved all the outputs to variables.
+
+<br>
 
 -   **[TASK] - get the code below working for the McDonalds data and explain what is going on (Wednedays lecture will help) - or look up Ripley's K and L.**
 

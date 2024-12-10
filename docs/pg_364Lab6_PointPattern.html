@@ -915,23 +915,21 @@ quadrat analysis and the Variance-Mean-Radio are.</li>
 <div id="week-2" class="section level2">
 <h2>WEEK 2</h2>
 </div>
-<div id="wk2--updates---important" class="section level2">
-<h2>WK2 -Updates - IMPORTANT</h2>
+<div id="important-updates" class="section level2">
+<h2>IMPORTANT Updates</h2>
+<p><br></p>
 <div id="wk2--update-1.-plots" class="section level3">
 <h3>WK2 -Update 1. PLOTS</h3>
 <p>Hello from Dr G! First, I have finally found a way for you to better
 see your plots below a code chunk - I know the ppp ones have been
-difficult to make out as they appear tiny.</p>
-<p>What we do is change the margin of the plot using the “plotting
-parameters” <code>par()</code> command BEFORE making the plot. There are
-MANY things you can change using this command<br />
+difficult to make out as they appear tiny. What we do is change the
+margin of the plot using the “plotting parameters” <code>par()</code>
+command BEFORE making the plot. There are MANY things you can change
+using this command<br />
 - see <code>?par</code> for more options</p>
-<p><em>Fore, this fix will also work for any of the “base” plot
+<p><em>Note, this fix will also work for any of the “base” plot
 functions that we tried in Lab 3.</em></p>
-<ul>
-<li><strong>[TASK] From section B4 onward, change ALL your plot commands
-so that they first have this par() line.</strong></li>
-</ul>
+<p><br></p>
 <pre class="r"><code># FIRST USE PAR() to sets the borders and text size.
 par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
 
@@ -940,19 +938,12 @@ plot(School.ppp, pch=16,
      cols=rgb(0,0,0,.5),cex=.5,
      main=&quot;Point pattern of NY schools data&quot;)</code></pre>
 <p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>or</p>
-<pre class="r"><code>SchoolDensity1 &lt;- density(School.ppp) # Using the default bandwidth
-
-par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
-plot(SchoolDensity1, main=NULL, las=1)
-
-# you can turn off contours to better see the colors also by removing the line below
-contour(SchoolDensity1, add=TRUE)
-
-# or add the points if useful to understand what is happening
-plot(School.ppp, pch=16, 
-     cols=rgb(1,1,1,.5),cex=.4,add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><br></p>
+<ul>
+<li><strong>[TASK] From section B4 onward, change ALL your plot commands
+so that they first have this par() line. When you re-run you should see
+bigger maps.</strong></li>
+</ul>
 <p><br><br></p>
 </div>
 <div id="wk2--update-2.-subset-to-west-ny" class="section level3">
@@ -1015,7 +1006,7 @@ par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
 plot(SchoolWest.ppp, pch=1, cols=rgb(0,0,0,.5),cex=.5,
      main=&quot;Point pattern of schools and McDonalds (red) in West NY-State&quot;)
 plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p><br><br></p>
 </div>
 <div id="wk2--update-3.-density-check" class="section level3">
@@ -1028,12 +1019,12 @@ the density plots.</li>
 SchoolWestDensity &lt;- density(SchoolWest.ppp, sigma=10) 
 plot(SchoolWestDensity, main=NULL, las=1)
 contour(SchoolWestDensity, add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <pre class="r"><code># and check densities
 McDonaldsWestDensity &lt;- density(McDonaldsWest.ppp, sigma=10) 
 plot(McDonaldsWestDensity, main=NULL, las=1)
 contour(McDonaldsWestDensity, add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p><br></p>
 <ul>
 <li><p><strong>[TASK] . In the text below the plots, explain the NEW
@@ -1056,8 +1047,8 @@ class="section level2">
 <p>We spent much of week 15 talking about quadrat analysis. In R, we can
 do this using the quadratcount command, where nx and ny choose the
 number of gridcells</p>
-<p>Here’s an example, where I divide the Schools data in 9 grid-cells,
-or quadrats - 3 quadrats in the x direction and 3 in the y direction.
+<p>Here’s an example, where I divide the Schools data in 6 grid-cells,
+or quadrats - 3 quadrats in the x direction and 2 in the y direction.
 You can see that because NY is a weird shape, it ignores the ones
 outside our range.</p>
 <pre class="r"><code>Quad.School &lt;- quadratcount(SchoolWest.ppp, nx = 3, ny = 2)
@@ -1070,7 +1061,7 @@ plot(SchoolWest.ppp,
      main=&quot;Schools quadrat count&quot;) # plot title
 
 plot(Quad.School, add = TRUE, cex = 2)  # Now I add Q on top.</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Alternatively, we can plot the intensity, because the colours make it
 simpler to see patterns. This time, I added the points on top.</p>
 <pre class="r"><code># Plot the intensity
@@ -1088,7 +1079,7 @@ plot(intensity(Quad.School, image=TRUE),
      col=my_colours, 
      main=&quot;Point intensity of schools&quot;, las=1)  
 plot(west.owin,add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p><br></p>
 <ul>
 <li><strong>[TASK] Get the code running in your report, but in your
@@ -1148,6 +1139,7 @@ grade, please continue.</strong></p>
 class="section level2">
 <h2>D. Distance based point pattern analysis</h2>
 <p>This part is based on week 16’s classes.</p>
+<p><br></p>
 <div id="d1.-nearest-neighbours" class="section level3">
 <h3>D1. Nearest neighbours</h3>
 <p>The <code>nndist</code> command calculates the distance of the
@@ -1161,7 +1153,7 @@ hist(SchoolWest.nn,br=30,
      xlab=&quot;Distance between nearest neighbours&quot;,
      ylab=&quot;Frequency&quot;);
 box()</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p><br></p>
 <p>We can now easily calculate the average nearest neighbor distance
 using the mean command. I have rounded the answer to 3 decimal places.
@@ -1181,29 +1173,28 @@ compared to a pattern caused by an IRP.</p>
 ## data:  SchoolWest.ppp
 ## R = 1.0916, p-value = 0.00213
 ## alternative hypothesis: two-sided</code></pre>
+<p><br></p>
 <ul>
 <li><p><strong>[TASK] Get this analysis running for the McDonalds data.
 Compare your results with mine.</strong> Explain what is going on and
 any similarities or differences that relate to the underlying process of
 how schools were “created” vs “mcdonalds”?<br />
 </p></li>
-<li><p><strong>[TASK] Also explain.</strong><br><strong>#</strong></p>
+<li><p><strong>[TASK] Also explain…</strong></p>
 <ul>
 <li><p>What would the clarke evens ratio, R, be for very dispersed
 data?<br></p></li>
 <li><p>What would the clarke evens ratio, R, be for very clustered
 data?<br></p></li>
 </ul></li>
-<li><p><strong>[TASK] Also explain</strong><br></p>
+<li><p><strong>[TASK] Also explain</strong>…</p>
 <ol style="list-style-type: decimal">
 <li><p>What are edge effects in point pattern data? Are they going be an
 issue for this SPECIFIC dataset/analysis and why?<br></p></li>
 <li><p>What is the locational fallacy? Is it going going be an issue for
-this SPECIFIC dataset/analysis and why?<br></p></li>
-</ol></li>
-<li><p><br />
-<br />
+this SPECIFIC dataset/analysis and why?<br><br />
 </p></li>
+</ol></li>
 </ul>
 <p><br><br></p>
 </div>
@@ -1213,6 +1204,7 @@ this SPECIFIC dataset/analysis and why?<br></p></li>
 version of Ripley’s K that is easier to interpret. This code won’t show
 any output if it runs correctly because I’ve saved all the outputs to
 variables.</p>
+<p><br></p>
 <ul>
 <li><p><strong>[TASK] - get the code below working for the McDonalds
 data and explain what is going on (Wednedays lecture will help) - or
@@ -1252,7 +1244,7 @@ plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max))
 
 # Add IRP simulated Lestimates (so many, they merge into a grey cloud)
 plot(IRPsimulation, . - r ~ r,add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p><br><br></p>
 </div>
 <div id="lab-is-complete" class="section level3">
