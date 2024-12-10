@@ -336,8 +336,7 @@ median_income <- oldmedincome
 
 1.  One of the variables I loaded was called `Schools`. Using tmap's qtm command (see previous labs or here), make a nice map of the variable and describe any spatial patterns you see, focusing especially on the autocorrelation of the points and any processes that might cause it. <br><br>\
     -   *You do not need to look at any variables in particular (although feel free to color the points if you want), I just care about the locations of the schools themselves.*<br>\
-    -   *You also have the NYState border saved as* `stateborder.utm` *if you wish to use it.\
-        *
+    -   *You also have the NYState border saved as* `stateborder.utm` \*if you wish to use it.\
     -   *Hint, see previous labs for examples of using tmap and tm_dots(), or nice examples here (scroll down to find them) <https://jamescheshire.github.io/learningR/mapping-point-data-in-r.html#loading-point-data-into-r>*<br>
 
 <br><br>
@@ -372,7 +371,7 @@ state.owin <- as.owin(stateborder.utm)
 
 <br><br>
 
-2.  We are going to work with *unmarked* data (for now). So for each of Schools and McDonalds, we need to first only use the geometry (X/Y locations) and then convert it to a ppp format, then assign our window as New York. \
+2.  We are going to work with *unmarked* data (for now). So for each of Schools and McDonalds, we need to first only use the geometry (X/Y locations) and then convert it to a ppp format, then assign our window as New York.\
     \
     Get the code working below in your own lab. You should see a version of the map where it's easier to see the point patterns.
 
@@ -434,10 +433,11 @@ At the moment all our units are in m. This is going to make the analysis hard to
     -   *IF YOU GET ERRORS TELL YIFEI (This is the code chunk causing Dr G problems..). If it really doesn't work, ignore this section, re-run all your code and move on (just reporting your answers in m)*
 
 ```{r}
-School.ppp <- rescale(School.ppp, 1000, "km")
+library(spatstat) 
+School.ppp    <- rescale(School.ppp, 1000, "km")
 McDonalds.ppp <- rescale(McDonalds.ppp, 1000, "km")
 median_income <- rescale(median_income, 1000, "km")
-pop_density    <- rescale(pop_density, 1000, "km")
+pop_density   <- rescale(pop_density, 1000, "km")
 
 ```
 
@@ -515,7 +515,7 @@ THERE IS NO CORRECT BANDWIDTH - but adjusting it often tells you different stori
 1.  Edit the code you just wrote to include the sigma option. E.g. sigma=50 means you're using a circle of size 50km to smooth the data. sigma=5 means you're using a circle of size 5km. E.g.
 
 ```{r, results="hide"}
-SchoolDensity <- density(School.ppp, sigma=100) 
+SchoolDensity <- density(School.ppp, sigma=100000) 
 plot(SchoolDensity, main=NULL, las=1)
 contour(SchoolDensity, add=TRUE)
 ```
@@ -536,22 +536,396 @@ We can also apply a similar approach to assess whether our dots are clustered to
 
 1.  Using the resources above, write around 100 words explaining what quadrat analysis and the Variance-Mean-Radio are.
 
-### Quadrat analysis will be updated by midnight Tues (alongwith the rest of the lab)
+<br><br>
 
-If you are really up to here, read this while you're waiting as we're working through something similar
+## WEEK 2
 
-<https://mgimond.github.io/Spatial/chp11_0.html>
+## WK2 -Updates - IMPORTANT
+
+### WK2 -Update 1. PLOTS
+
+Hello from Dr G! First, I have finally found a way for you to better see your plots below a code chunk - I know the ppp ones have been difficult to make out as they appear tiny.
+
+What we do is change the margin of the plot using the "plotting parameters" `par()` command BEFORE making the plot. There are MANY things you can change using this command\
+- see `?par` for more options
+
+*Fore, this fix will also work for any of the "base" plot functions that we tried in Lab 3.*
+
+-   **[TASK] From section B4 onward, change ALL your plot commands so that they first have this par() line.**
+
+```{r}
+
+# FIRST USE PAR() to sets the borders and text size.
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+
+#Then plot. note, you can change things like the color and transparency of the points using rgb(), or try pch=4 for little crosses. 
+plot(School.ppp, pch=16, 
+     cols=rgb(0,0,0,.5),cex=.5,
+     main="Point pattern of NY schools data")
+```
+
+or
+
+```{r}
+
+
+SchoolDensity1 <- density(School.ppp) # Using the default bandwidth
+
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolDensity1, main=NULL, las=1)
+
+# you can turn off contours to better see the colors also by removing the line below
+contour(SchoolDensity1, add=TRUE)
+
+# or add the points if useful to understand what is happening
+plot(School.ppp, pch=16, 
+     cols=rgb(1,1,1,.5),cex=.4,add=TRUE)
+
+```
+
+<br><br>
+
+### WK2 -Update 2. SUBSET TO WEST NY
+
+Secondly, I update these datasets annually and it seems there are now SO MANY schools and McDonalds in New York that it is skewing the dataset. So lets do a quick fix to only look at the West part of the State. This will also handily remove the State Park.
+
+Run this code, and all your future analyses will be much more interesting. If this was a professional project, I would split them in two and do this analysis on each case. I would also make this more elegant, but it works for now :)
+
+<br>
+
+-   **[TASK] - get the code below running in your report, remembering to hide code chunk output**
+
+```{r, results="hide"}
+
+# SET YOUR CODE CHUNK OPTION TO results="hide", or this will be ugly when knitted
+
+# Load New York counties data
+ny_counties <- counties(state = "NY", cb = TRUE, class = "sf")
+
+# Define the latitude boundary
+longitude_boundary <- -74.8
+
+# Filter counties west of the given longitude
+# Ensure CRS matches Schools
+# Fix invalid geometries
+ny_counties_west <- ny_counties %>%
+  filter(st_coordinates(st_centroid(geometry))[, 1] < longitude_boundary) %>%
+  st_transform(crs = st_crs(Schools)) %>% 
+  st_make_valid()                               
+
+# Get only the points in the new area
+west_schools  <- st_intersection(Schools, ny_counties_west)
+west_McDonalds <- st_intersection(McDonalds, ny_counties_west)
+
+#---------------------------
+# then reconvert to ppp. 
+west.owin <- as.owin(ny_counties_west)
+
+SchoolWest.ppp     <- as.ppp(st_geometry(west_schools))
+McDonaldsWest.ppp  <- as.ppp(st_geometry(west_McDonalds))
+
+Window(SchoolWest.ppp)    <- west.owin
+Window(McDonaldsWest.ppp) <- west.owin
+
+# and change units. Just in case I'm reloading spatstat
+library(spatstat) 
+SchoolWest.ppp    <- rescale(SchoolWest.ppp, 1000, "km")
+McDonaldsWest.ppp <- rescale(McDonaldsWest.ppp, 1000, "km")
+west.owin         <- affine(west.owin, mat = diag(c(1 / 1000, 1 / 1000)))
+
+
+```
+
+<br>
+
+-   **[TASK] -Then use this code chunk to check it works**
+
+```{r}
+# and plot to check it works
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolWest.ppp, pch=1, cols=rgb(0,0,0,.5),cex=.5,
+     main="Point pattern of schools and McDonalds (red) in West NY-State")
+plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)
+
+# and plot densities
+
+SchoolWestDensity <- density(SchoolWest.ppp, sigma=10) 
+plot(SchoolWestDensity, main=NULL, las=1)
+contour(SchoolWestDensity, add=TRUE)
+
+
+McDonaldsWestDensity <- density(McDonaldsWest.ppp, sigma=10) 
+plot(McDonaldsWestDensity, main=NULL, las=1)
+contour(McDonaldsWestDensity, add=TRUE)
+
+```
+
+<br><br>
+
+### WK2 -Update 3. DENSITY CHECK
+
+-   **[Task],** you can now use these code chunks to re-run the density plots.
+
+```{r}
+
+# and check densities
+SchoolWestDensity <- density(SchoolWest.ppp, sigma=10) 
+plot(SchoolWestDensity, main=NULL, las=1)
+contour(SchoolWestDensity, add=TRUE)
+
+```
+
+```{r}
+# and check densities
+McDonaldsWestDensity <- density(McDonaldsWest.ppp, sigma=10) 
+plot(McDonaldsWestDensity, main=NULL, las=1)
+contour(McDonaldsWestDensity, add=TRUE)
+```
+
+<br>
+
+-   **[TASK] . In the text below the plots, explain the NEW difference between the McDonalds and Schools data.**
+
+    -   *HINT, In the point pattern plots above the patterns look quite different, but here they are similar. Explain what this means for the interpretation of the pattern going on, referring to the processes that "cause" a school or McDonalds.*
+
+<br><br>
+
+### C4. Quadrat continued
+
+We spent much of week 15 talking about quadrat analysis. In R, we can do this using the quadratcount command, where nx and ny choose the number of gridcells
+
+Here's an example, where I divide the Schools data in 9 grid-cells, or quadrats - 3 quadrats in the x direction and 3 in the y direction. You can see that because NY is a weird shape, it ignores the ones outside our range.
+
+```{r}
+
+Quad.School <- quadratcount(SchoolWest.ppp, nx = 3, ny = 2)
+
+# and plot
+
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolWest.ppp,       
+     cex = 0.5, pch = 4, # point size and shape    
+     main="Schools quadrat count") # plot title
+
+plot(Quad.School, add = TRUE, cex = 2)  # Now I add Q on top.
+```
+
+Alternatively, we can plot the intensity, because the colours make it simpler to see patterns. This time, I added the points on top.
+
+```{r}
+# Plot the intensity
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+
+
+# better colors. you might need to install the RColorBrewer package
+# choose your own palette here!
+# https://earlglynn.github.io/RNotes/package/RColorBrewer/index.html
+ 
+my_colours <- RColorBrewer::brewer.pal(8, "YlGnBu")[-8]  
+# Specify the number of colors and remove the darkest
+
+plot(intensity(Quad.School, image=TRUE),
+     col=my_colours, 
+     main="Point intensity of schools", las=1)  
+plot(west.owin,add=TRUE)
+
+```
+
+<br>
+
+-   **[TASK] Get the code running in your report, but in your case, run your analysis with 6 quadrats in each direction.**
+
+<br>
+
+-   **[TASK] - According to my plot above, I think that there should be most points in the West. Do you agree from your analysis? What effect are we describing here? (hint, in the lecture notes and linked to gerrymandering)**
+
+<br>
+
+#### Hypothesis tests
+
+Now let's run a hypothesis test to see if overall the data is likely to come from an independent random process.
+
+The code is **`quadrat.test(DATA ,nx=X, ny=Y)`** where you replace DATA, X and Y with your dataset and number of quadrats.
+
+-   **[TASK]** Use the `quadrat.test() command` on the `SchoolWest.ppp` dataset with 6 quadrats in each direction. Below, write out a FULL hypothesis test that assesses whether the SCHOOLS data is likely to come from an IRP. . E.g. I expect you to write your hypotheses, results and conclusion below the code.\
+
+    <br>\
+
+-   **[Advanced\*\* \*\*TASK]** Go back to section A1 and B4 and take a look at your schools points. What nuance is your test result missing e.g. do you agree with its results at every scale and location?
 
 <br><br>
 
 ### C5. Relationship with covariates
 
-To be updated by the end of Tuesday Dec 3 ("week 2 work"
+You can skip this section! For those interested in how to go deeper into using density based analyses to assess how schools etc link with population density,
 
-## D. Distance based point pattern analysis  
+<https://mgimond.github.io/Spatial/chp11_0.html>
 
-To be updated by the end of Tuesday Dec 3 ("week 2 work"
+<br><br>
+
+## Check point
+
+**If you reach this point and submit, I will award you between a C and a B (depending on how well you did). If you wish to get a higher grade, please continue.**
+
+<br><br>
+
+## D. Distance based point pattern analysis
+
+This part is based on week 16's classes.
+
+### D1. Nearest neighbours
+
+The `nndist` command calculates the distance of the nearest neighbour for every point. Here is how I would examine the range of nearest neighbours for the school and look at the average.
+
+```{r}
+
+SchoolWest.nn <- nndist(SchoolWest.ppp)
+
+#now I make a histogram of nearest neighbours
+par(mar=c(5,5,2,2))
+hist(SchoolWest.nn,br=30,
+     xlab="Distance between nearest neighbours",
+     ylab="Frequency");
+box()
+
+```
+
+<br>
+
+We can now easily calculate the average nearest neighbor distance using the mean command. I have rounded the answer to 3 decimal places. As you can see Schools in West NY State, are on average 8.58km apart.
+
+```{r}
+
+round(mean(SchoolWest.nn),3)
+
+```
+
+<br>
+
+Finally, we can calculate the R.Ratio and see if it is unusal compared to a pattern caused by an IRP.
+
+```{r}
+clarkevans.test(SchoolWest.ppp)
+
+```
+
+-   **[TASK] Get this analysis running for the McDonalds data. Compare your results with mine.** Explain what is going on and any similarities or differences that relate to the underlying process of how schools were "created" vs "mcdonalds"?\
+
+-   **[TASK] Also explain.**<br>**\#**
+
+    -   What would the clarke evens ratio, R, be for very dispersed data?<br>
+
+    -   What would the clarke evens ratio, R, be for very clustered data?<br>
+
+-   **[TASK] Also explain**<br>
+
+    1.  What are edge effects in point pattern data? Are they going be an issue for this SPECIFIC dataset/analysis and why?<br>
+
+    2.  What is the locational fallacy? Is it going going be an issue for this SPECIFIC dataset/analysis and why?<br>
+
+-   \
+    \
+
+<br><br>
+
+### D3. Ripley's L-Function
+
+We will now conduct an L-Function analysis on the data. This is a version of Ripley's K that is easier to interpret. This code won't show any output if it runs correctly because I've saved all the outputs to variables.
+
+-   **[TASK] - get the code below working for the McDonalds data and explain what is going on (Wednedays lecture will help) - or look up Ripley's K and L.**
+
+    -   ADVANCED, explain what the grey cloud means and why you get that wiggle at small distances\
+
+    -   IF THIS DOESN'T WORK FOR YOU, YOUR COMPUTER ISN'T POWERFUL ENOUGH - People on Posit cloud, take a screenshot of my results, put it in your report and explain that.
+
+```{r}
+# Calculate the L function. 
+Schools_L <- Lest(SchoolWest.ppp,correction = "Ripley")
+
+# Create an ensemble (collection) of simulated point patterns 
+# that is based on our data data, 
+# but the points have been rearranged using an independent random process. 
+# For each one, calculate the L function, lest. 
+
+#It will take a minute to run. ideally we would want many more simulations
+# 
+IRPsimulation <- envelope(SchoolWest.ppp, 
+                              Lest, correction = "Ripley", 
+                              verbose = F,
+                              nsim=20, nrank=1, 
+                              savepatterns = FALSE, savefuns = FALSE)
+```
+
+Now we can plot the data. This command is horrible, just copy/paste changing longleaf to your market data. I will look for a better one!
+
+```{r}
+#Find the max and min values
+L_Max<-(max(Schools_L$iso-Schools_L$r))
+L_Min <- 0-L_Max
+
+#The dots are weirdly important here. Copy/paste
+plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max))
+
+# Add IRP simulated Lestimates (so many, they merge into a grey cloud)
+plot(IRPsimulation, . - r ~ r,add=TRUE)
+```
+
+<br><br>
+
+### LAB IS COMPLETE!
+
+You will be graded on a similar rubric to lab 5\
+<br><br>
 
 ## SUBMITTING LAB 6
 
-### SUBMISSION DETAILS TO COME
+Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab6 folder, complete with a very recent time-stamp.
+
+<br>
+
+### If you use the POSIT cloud website
+
+You can download each of your .RmD and html files by:
+
+-   Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
+
+```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
+knitr::include_graphics('./index_images/im_T2_Download.png')
+```
+
+-   Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
+
+-   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
+
+<br>
+
+### If you use the RSTudio desktop on your own computer
+
+-   Press knit!
+
+-   Go to your Lab 6 folder, In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
+
+-   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 6.<br>
+
+```{r, echo=FALSE}
+knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
+```
+
+<br>
+
+## GRADING CHECK-LIST
+
+[110 marks total]
+
+### What does your grade mean?
+
+Overall, here is what your lab should correspond to:
+
+```{r, echo=FALSE}
+rubric <- readxl::read_excel("pg_364Lab_rubrictable.xlsx")
+knitr::kable(rubric) %>%   
+  kable_classic_2() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"))
+
+
+```

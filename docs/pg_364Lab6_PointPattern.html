@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -674,10 +676,7 @@ locations of the schools themselves.</em><br><br />
 </li>
 <li><em>You also have the NYState border saved as</em>
 <code>stateborder.utm</code> *if you wish to use it.<br />
-
-<ul>
-<li></li>
-</ul></li>
+</li>
 <li><em>Hint, see previous labs for examples of using tmap and
 tm_dots(), or nice examples here (scroll down to find them) <a
 href="https://jamescheshire.github.io/learningR/mapping-point-data-in-r.html#loading-point-data-into-r"
@@ -788,10 +787,11 @@ G problems..). If it really doesn’t work, ignore this section, re-run
 all your code and move on (just reporting your answers in m)</em></li>
 </ul></li>
 </ol>
-<pre class="r"><code>School.ppp &lt;- rescale(School.ppp, 1000, &quot;km&quot;)
+<pre class="r"><code>library(spatstat) 
+School.ppp    &lt;- rescale(School.ppp, 1000, &quot;km&quot;)
 McDonalds.ppp &lt;- rescale(McDonalds.ppp, 1000, &quot;km&quot;)
 median_income &lt;- rescale(median_income, 1000, &quot;km&quot;)
-pop_density    &lt;- rescale(pop_density, 1000, &quot;km&quot;)</code></pre>
+pop_density   &lt;- rescale(pop_density, 1000, &quot;km&quot;)</code></pre>
 <p><br><br></p>
 </div>
 <div id="c2.-global-density" class="section level3">
@@ -877,7 +877,7 @@ different stories about the data.</p>
 sigma=50 means you’re using a circle of size 50km to smooth the data.
 sigma=5 means you’re using a circle of size 5km. E.g.</li>
 </ol>
-<pre class="r"><code>SchoolDensity &lt;- density(School.ppp, sigma=100) 
+<pre class="r"><code>SchoolDensity &lt;- density(School.ppp, sigma=100000) 
 plot(SchoolDensity, main=NULL, las=1)
 contour(SchoolDensity, add=TRUE)</code></pre>
 <p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
@@ -909,32 +909,555 @@ analysis.</p>
 <li>Using the resources above, write around 100 words explaining what
 quadrat analysis and the Variance-Mean-Radio are.</li>
 </ol>
+<p><br><br></p>
 </div>
-<div
-id="quadrat-analysis-will-be-updated-by-midnight-tues-alongwith-the-rest-of-the-lab"
-class="section level3">
-<h3>Quadrat analysis will be updated by midnight Tues (alongwith the
-rest of the lab)</h3>
-<p>If you are really up to here, read this while you’re waiting as we’re
-working through something similar</p>
+</div>
+<div id="week-2" class="section level2">
+<h2>WEEK 2</h2>
+</div>
+<div id="wk2--updates---important" class="section level2">
+<h2>WK2 -Updates - IMPORTANT</h2>
+<div id="wk2--update-1.-plots" class="section level3">
+<h3>WK2 -Update 1. PLOTS</h3>
+<p>Hello from Dr G! First, I have finally found a way for you to better
+see your plots below a code chunk - I know the ppp ones have been
+difficult to make out as they appear tiny.</p>
+<p>What we do is change the margin of the plot using the “plotting
+parameters” <code>par()</code> command BEFORE making the plot. There are
+MANY things you can change using this command<br />
+- see <code>?par</code> for more options</p>
+<p><em>Fore, this fix will also work for any of the “base” plot
+functions that we tried in Lab 3.</em></p>
+<ul>
+<li><strong>[TASK] From section B4 onward, change ALL your plot commands
+so that they first have this par() line.</strong></li>
+</ul>
+<pre class="r"><code># FIRST USE PAR() to sets the borders and text size.
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+
+#Then plot. note, you can change things like the color and transparency of the points using rgb(), or try pch=4 for little crosses. 
+plot(School.ppp, pch=16, 
+     cols=rgb(0,0,0,.5),cex=.5,
+     main=&quot;Point pattern of NY schools data&quot;)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>or</p>
+<pre class="r"><code>SchoolDensity1 &lt;- density(School.ppp) # Using the default bandwidth
+
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolDensity1, main=NULL, las=1)
+
+# you can turn off contours to better see the colors also by removing the line below
+contour(SchoolDensity1, add=TRUE)
+
+# or add the points if useful to understand what is happening
+plot(School.ppp, pch=16, 
+     cols=rgb(1,1,1,.5),cex=.4,add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><br><br></p>
+</div>
+<div id="wk2--update-2.-subset-to-west-ny" class="section level3">
+<h3>WK2 -Update 2. SUBSET TO WEST NY</h3>
+<p>Secondly, I update these datasets annually and it seems there are now
+SO MANY schools and McDonalds in New York that it is skewing the
+dataset. So lets do a quick fix to only look at the West part of the
+State. This will also handily remove the State Park.</p>
+<p>Run this code, and all your future analyses will be much more
+interesting. If this was a professional project, I would split them in
+two and do this analysis on each case. I would also make this more
+elegant, but it works for now :)</p>
+<p><br></p>
+<ul>
+<li><strong>[TASK] - get the code below running in your report,
+remembering to hide code chunk output</strong></li>
+</ul>
+<pre class="r"><code># SET YOUR CODE CHUNK OPTION TO results=&quot;hide&quot;, or this will be ugly when knitted
+
+# Load New York counties data
+ny_counties &lt;- counties(state = &quot;NY&quot;, cb = TRUE, class = &quot;sf&quot;)
+
+# Define the latitude boundary
+longitude_boundary &lt;- -74.8
+
+# Filter counties west of the given longitude
+# Ensure CRS matches Schools
+# Fix invalid geometries
+ny_counties_west &lt;- ny_counties %&gt;%
+  filter(st_coordinates(st_centroid(geometry))[, 1] &lt; longitude_boundary) %&gt;%
+  st_transform(crs = st_crs(Schools)) %&gt;% 
+  st_make_valid()                               
+
+# Get only the points in the new area
+west_schools  &lt;- st_intersection(Schools, ny_counties_west)
+west_McDonalds &lt;- st_intersection(McDonalds, ny_counties_west)
+
+#---------------------------
+# then reconvert to ppp. 
+west.owin &lt;- as.owin(ny_counties_west)
+
+SchoolWest.ppp     &lt;- as.ppp(st_geometry(west_schools))
+McDonaldsWest.ppp  &lt;- as.ppp(st_geometry(west_McDonalds))
+
+Window(SchoolWest.ppp)    &lt;- west.owin
+Window(McDonaldsWest.ppp) &lt;- west.owin
+
+# and change units. Just in case I&#39;m reloading spatstat
+library(spatstat) 
+SchoolWest.ppp    &lt;- rescale(SchoolWest.ppp, 1000, &quot;km&quot;)
+McDonaldsWest.ppp &lt;- rescale(McDonaldsWest.ppp, 1000, &quot;km&quot;)
+west.owin         &lt;- affine(west.owin, mat = diag(c(1 / 1000, 1 / 1000)))</code></pre>
+<p><br></p>
+<ul>
+<li><strong>[TASK] -Then use this code chunk to check it
+works</strong></li>
+</ul>
+<pre class="r"><code># and plot to check it works
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolWest.ppp, pch=1, cols=rgb(0,0,0,.5),cex=.5,
+     main=&quot;Point pattern of schools and McDonalds (red) in West NY-State&quot;)
+plot(McDonaldsWest.ppp, pch=20, cols=rgb(1,0,0,.5),cex=.5,add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre class="r"><code># and plot densities
+
+SchoolWestDensity &lt;- density(SchoolWest.ppp, sigma=10) 
+plot(SchoolWestDensity, main=NULL, las=1)
+contour(SchoolWestDensity, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<pre class="r"><code>McDonaldsWestDensity &lt;- density(McDonaldsWest.ppp, sigma=10) 
+plot(McDonaldsWestDensity, main=NULL, las=1)
+contour(McDonaldsWestDensity, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
+<p><br><br></p>
+</div>
+<div id="wk2--update-3.-density-check" class="section level3">
+<h3>WK2 -Update 3. DENSITY CHECK</h3>
+<ul>
+<li><strong>[Task],</strong> you can now use these code chunks to re-run
+the density plots.</li>
+</ul>
+<pre class="r"><code># and check densities
+SchoolWestDensity &lt;- density(SchoolWest.ppp, sigma=10) 
+plot(SchoolWestDensity, main=NULL, las=1)
+contour(SchoolWestDensity, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<pre class="r"><code># and check densities
+McDonaldsWestDensity &lt;- density(McDonaldsWest.ppp, sigma=10) 
+plot(McDonaldsWestDensity, main=NULL, las=1)
+contour(McDonaldsWestDensity, add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><br></p>
+<ul>
+<li><p><strong>[TASK] . In the text below the plots, explain the NEW
+difference between the McDonalds and Schools data.</strong></p>
+<ul>
+<li><em>HINT, In the point pattern plots above the patterns look quite
+different, but here they are similar. Explain what this means for the
+interpretation of the pattern going on, referring to the processes that
+“cause” a school or McDonalds.</em></li>
+</ul></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="c4.-quadrat-continued" class="section level3">
+<h3>C4. Quadrat continued</h3>
+<p>We spent much of week 15 talking about quadrat analysis. In R, we can
+do this using the quadratcount command, where nx and ny choose the
+number of gridcells</p>
+<p>Here’s an example, where I divide the Schools data in 9 grid-cells,
+or quadrats - 3 quadrats in the x direction and 3 in the y direction.
+You can see that because NY is a weird shape, it ignores the ones
+outside our range.</p>
+<pre class="r"><code>Quad.School &lt;- quadratcount(SchoolWest.ppp, nx = 3, ny = 2)
+
+# and plot
+
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+plot(SchoolWest.ppp,       
+     cex = 0.5, pch = 4, # point size and shape    
+     main=&quot;Schools quadrat count&quot;) # plot title
+
+plot(Quad.School, add = TRUE, cex = 2)  # Now I add Q on top.</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Alternatively, we can plot the intensity, because the colours make it
+simpler to see patterns. This time, I added the points on top.</p>
+<pre class="r"><code># Plot the intensity
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,.5),cex.main=.9)
+
+
+# better colors. you might need to install the RColorBrewer package
+# choose your own palette here!
+# https://earlglynn.github.io/RNotes/package/RColorBrewer/index.html
+ 
+my_colours &lt;- RColorBrewer::brewer.pal(8, &quot;YlGnBu&quot;)[-8]  
+# Specify the number of colors and remove the darkest
+
+plot(intensity(Quad.School, image=TRUE),
+     col=my_colours, 
+     main=&quot;Point intensity of schools&quot;, las=1)  
+plot(west.owin,add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><br></p>
+<ul>
+<li><strong>[TASK] Get the code running in your report, but in your
+case, run your analysis with 6 quadrats in each direction.</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>[TASK] - According to my plot above, I think that there
+should be most points in the West. Do you agree from your analysis? What
+effect are we describing here? (hint, in the lecture notes and linked to
+gerrymandering)</strong></li>
+</ul>
+<p><br></p>
+<div id="hypothesis-tests" class="section level4">
+<h4>Hypothesis tests</h4>
+<p>Now let’s run a hypothesis test to see if overall the data is likely
+to come from an independent random process.</p>
+<p>The code is
+<strong><code>quadrat.test(DATA ,nx=X, ny=Y)</code></strong> where you
+replace DATA, X and Y with your dataset and number of quadrats.</p>
+<ul>
+<li><p><strong>[TASK]</strong> Use the
+<code>quadrat.test() command</code> on the <code>SchoolWest.ppp</code>
+dataset with 6 quadrats in each direction. Below, write out a FULL
+hypothesis test that assesses whether the SCHOOLS data is likely to come
+from an IRP. . E.g. I expect you to write your hypotheses, results and
+conclusion below the code.<br />
+</p>
+<p><br><br />
+</p></li>
+<li><p><strong>[Advanced** **TASK]</strong> Go back to section A1 and B4
+and take a look at your schools points. What nuance is your test result
+missing e.g. do you agree with its results at every scale and
+location?</p></li>
+</ul>
+<p><br><br></p>
+</div>
+</div>
+<div id="c5.-relationship-with-covariates" class="section level3">
+<h3>C5. Relationship with covariates</h3>
+<p>You can skip this section! For those interested in how to go deeper
+into using density based analyses to assess how schools etc link with
+population density,</p>
 <p><a href="https://mgimond.github.io/Spatial/chp11_0.html"
 class="uri">https://mgimond.github.io/Spatial/chp11_0.html</a></p>
 <p><br><br></p>
 </div>
-<div id="c5.-relationship-with-covariates" class="section level3">
-<h3>C5. Relationship with covariates</h3>
-<p>To be updated by the end of Tuesday Dec 3 (“week 2 work”</p>
 </div>
+<div id="check-point" class="section level2">
+<h2>Check point</h2>
+<p><strong>If you reach this point and submit, I will award you between
+a C and a B (depending on how well you did). If you wish to get a higher
+grade, please continue.</strong></p>
+<p><br><br></p>
 </div>
 <div id="d.-distance-based-point-pattern-analysis"
 class="section level2">
 <h2>D. Distance based point pattern analysis</h2>
-<p>To be updated by the end of Tuesday Dec 3 (“week 2 work”</p>
+<p>This part is based on week 16’s classes.</p>
+<div id="d1.-nearest-neighbours" class="section level3">
+<h3>D1. Nearest neighbours</h3>
+<p>The <code>nndist</code> command calculates the distance of the
+nearest neighbour for every point. Here is how I would examine the range
+of nearest neighbours for the school and look at the average.</p>
+<pre class="r"><code>SchoolWest.nn &lt;- nndist(SchoolWest.ppp)
+
+#now I make a histogram of nearest neighbours
+par(mar=c(5,5,2,2))
+hist(SchoolWest.nn,br=30,
+     xlab=&quot;Distance between nearest neighbours&quot;,
+     ylab=&quot;Frequency&quot;);
+box()</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><br></p>
+<p>We can now easily calculate the average nearest neighbor distance
+using the mean command. I have rounded the answer to 3 decimal places.
+As you can see Schools in West NY State, are on average 8.58km
+apart.</p>
+<pre class="r"><code>round(mean(SchoolWest.nn),3)</code></pre>
+<pre><code>## [1] 8.568</code></pre>
+<p><br></p>
+<p>Finally, we can calculate the R.Ratio and see if it is unusal
+compared to a pattern caused by an IRP.</p>
+<pre class="r"><code>clarkevans.test(SchoolWest.ppp)</code></pre>
+<pre><code>## 
+##  Clark-Evans test
+##  CDF correction
+##  Z-test
+## 
+## data:  SchoolWest.ppp
+## R = 1.0916, p-value = 0.00213
+## alternative hypothesis: two-sided</code></pre>
+<ul>
+<li><p><strong>[TASK] Get this analysis running for the McDonalds data.
+Compare your results with mine.</strong> Explain what is going on and
+any similarities or differences that relate to the underlying process of
+how schools were “created” vs “mcdonalds”?<br />
+</p></li>
+<li><p><strong>[TASK] Also explain.</strong><br><strong>#</strong></p>
+<ul>
+<li><p>What would the clarke evens ratio, R, be for very dispersed
+data?<br></p></li>
+<li><p>What would the clarke evens ratio, R, be for very clustered
+data?<br></p></li>
+</ul></li>
+<li><p><strong>[TASK] Also explain</strong><br></p>
+<ol style="list-style-type: decimal">
+<li><p>What are edge effects in point pattern data? Are they going be an
+issue for this SPECIFIC dataset/analysis and why?<br></p></li>
+<li><p>What is the locational fallacy? Is it going going be an issue for
+this SPECIFIC dataset/analysis and why?<br></p></li>
+</ol></li>
+<li><p><br />
+<br />
+</p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="d3.-ripleys-l-function" class="section level3">
+<h3>D3. Ripley’s L-Function</h3>
+<p>We will now conduct an L-Function analysis on the data. This is a
+version of Ripley’s K that is easier to interpret. This code won’t show
+any output if it runs correctly because I’ve saved all the outputs to
+variables.</p>
+<ul>
+<li><p><strong>[TASK] - get the code below working for the McDonalds
+data and explain what is going on (Wednedays lecture will help) - or
+look up Ripley’s K and L.</strong></p>
+<ul>
+<li><p>ADVANCED, explain what the grey cloud means and why you get that
+wiggle at small distances<br />
+</p></li>
+<li><p>IF THIS DOESN’T WORK FOR YOU, YOUR COMPUTER ISN’T POWERFUL ENOUGH
+- People on Posit cloud, take a screenshot of my results, put it in your
+report and explain that.</p></li>
+</ul></li>
+</ul>
+<pre class="r"><code># Calculate the L function. 
+Schools_L &lt;- Lest(SchoolWest.ppp,correction = &quot;Ripley&quot;)
+
+# Create an ensemble (collection) of simulated point patterns 
+# that is based on our data data, 
+# but the points have been rearranged using an independent random process. 
+# For each one, calculate the L function, lest. 
+
+#It will take a minute to run. ideally we would want many more simulations
+# 
+IRPsimulation &lt;- envelope(SchoolWest.ppp, 
+                              Lest, correction = &quot;Ripley&quot;, 
+                              verbose = F,
+                              nsim=20, nrank=1, 
+                              savepatterns = FALSE, savefuns = FALSE)</code></pre>
+<p>Now we can plot the data. This command is horrible, just copy/paste
+changing longleaf to your market data. I will look for a better one!</p>
+<pre class="r"><code>#Find the max and min values
+L_Max&lt;-(max(Schools_L$iso-Schools_L$r))
+L_Min &lt;- 0-L_Max
+
+#The dots are weirdly important here. Copy/paste
+plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max))
+
+# Add IRP simulated Lestimates (so many, they merge into a grey cloud)
+plot(IRPsimulation, . - r ~ r,add=TRUE)</code></pre>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><br><br></p>
+</div>
+<div id="lab-is-complete" class="section level3">
+<h3>LAB IS COMPLETE!</h3>
+<p>You will be graded on a similar rubric to lab 5<br />
+<br><br></p>
+</div>
 </div>
 <div id="submitting-lab-6" class="section level2">
 <h2>SUBMITTING LAB 6</h2>
-<div id="submission-details-to-come" class="section level3">
-<h3>SUBMISSION DETAILS TO COME</h3>
+<p>Remember to save your work throughout and to spell check your writing
+(next to the save button). Now, press the knit button again. If you have
+not made any mistakes in the code then R should create a html file in
+your lab6 folder, complete with a very recent time-stamp.</p>
+<p><br></p>
+<div id="if-you-use-the-posit-cloud-website" class="section level3">
+<h3>If you use the POSIT cloud website</h3>
+<p>You can download each of your .RmD and html files by:</p>
+<ul>
+<li>Clicking on the little box next to the Rmd in the Files tab, then
+going to the little blue cogwheel (might need to make your Rstudio full
+screen) and clicking export.<br></li>
+</ul>
+<p><img src="index_images/im_T2_Download.png" width="90%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Repeat the process exactly for the html file underneath it (e,g,
+just have the html clicked.)<br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 3</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="if-you-use-the-rstudio-desktop-on-your-own-computer"
+class="section level3">
+<h3>If you use the RSTudio desktop on your own computer</h3>
+<ul>
+<li><p>Press knit!</p></li>
+<li><p>Go to your Lab 6 folder, In that folder, double click on the html
+file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU
+WANT TO SUBMIT <br></p></li>
+<li><p>Now go to Canvas and submit BOTH your html and your .Rmd file in
+Lab 6.<br></p></li>
+</ul>
+<p><img src="index_images/pg_364Lab1_Basics_2021_fig1.png" width="1673" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="grading-check-list" class="section level2">
+<h2>GRADING CHECK-LIST</h2>
+<p>[110 marks total]</p>
+<div id="what-does-your-grade-mean" class="section level3">
+<h3>What does your grade mean?</h3>
+<p>Overall, here is what your lab should correspond to:</p>
+<table class=" lightable-classic-2 table table-striped table-hover table-responsive" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Grade
+</th>
+<th style="text-align:left;">
+% Mark
+</th>
+<th style="text-align:left;">
+Rubric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A*
+</td>
+<td style="text-align:left;">
+98-100
+</td>
+<td style="text-align:left;">
+Exceptional.  Not only was it near perfect, but the graders learned
+something.  THIS IS HARD TO GET.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+96+
+</td>
+<td style="text-align:left;">
+You went above and beyond
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+93+:
+</td>
+<td style="text-align:left;">
+Everything asked for with high quality.   Class example
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A-
+</td>
+<td style="text-align:left;">
+90+
+</td>
+<td style="text-align:left;">
+The odd minor mistake, All code done but not written up in full
+sentences etc. A little less care
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B+
+</td>
+<td style="text-align:left;">
+87+
+</td>
+<td style="text-align:left;">
+More minor mistakes.  Things like missing units, getting the odd
+question wrong, no workings shown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+83+
+</td>
+<td style="text-align:left;">
+Solid work but the odd larger mistake or missing answer.  Completely
+misinterpreted something, that type of thing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B-
+</td>
+<td style="text-align:left;">
+80+
+</td>
+<td style="text-align:left;">
+Starting to miss entire/questions sections, or multiple larger mistakes.
+Still a solid attempt. 
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C+
+</td>
+<td style="text-align:left;">
+77+
+</td>
+<td style="text-align:left;">
+You made a good effort and did some things well, but there were a lot of
+problems. (e.g. you wrote up the text well, but messed up the code)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+70+
+</td>
+<td style="text-align:left;">
+It’s clear you tried and learned something.  Just attending labs will
+get you this much as we can help you get to this stage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+60+
+</td>
+<td style="text-align:left;">
+You attempt the lab and submit something. Not clear you put in much
+effort or you had real issues
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:left;">
+0+
+</td>
+<td style="text-align:left;">
+Didn’t submit, or incredibly limited attempt. 
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 

@@ -12,8 +12,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-
 ```{r, include=FALSE, echo=FALSE,results='hide',warning=FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 
@@ -82,15 +80,16 @@ The lab is worth 110 points and there is a rubric at the end of this page.
 #### Step A1. Files & Projects
 
 <details>
+
 <summary>POSIT CLOUD people, expand for set up</summary>
+
 <br>
 
 **Step i:**<br>Go to <https://posit.cloud/content/> and make a new project for Lab 3 <br><br>
 
 **Step ii:**<br>Run this code IN THE CONSOLE to install the packages you need. <br>
 
- -  This is going to take 5-10 minutes, so let it run and carry on. <br><br>
- 
+-   This is going to take 5-10 minutes, so let it run and carry on. <br><br>
 
 ```{r, eval=FALSE}
 
@@ -120,54 +119,65 @@ install.packages("ggstatsplot")
 # Replace all of them and ask Dr G for a shortcut.
 
 ```
+
 <br><br>
 
-**Step iii:   **<br>Go to the Lab Canvas page and download these 3 files.  Upload each one into your project folder.<br>*Forgotten how? See Lab 2 Set-Up.* <br>
+**Step iii:** <br>Go to the Lab Canvas page and download these 3 files. Upload each one into your project
+folder.<br>*Forgotten how? See Lab 2 Set-Up.* <br>
 
-   1. Your PERSONAL UFO dataset (look for the csv file with your email ID). <br>
-   2. Your PERSONAL Spatial State-level dataset. <br>
-   3. The lab report template .RmD file.<br>
-   
-     
+1.  Your PERSONAL UFO dataset (look for the csv file with your email ID). <br>
+2.  Your PERSONAL Spatial State-level dataset. <br>
+3.  The lab report template .RmD file.<br>
+
 <br>
+
 </details>
- 
+
 <br>
+
 <details>
+
 <summary>R-DESKTOP people, expand for set up</summary>
 
 <br>
 
 **Step i:**<br>Create a new project for Lab 3.<br>*Forgotten how? See Lab 2 Set-Up.*<br><br>
 
-**Step ii:**<br>Go to the Lab Canvas page and download these 3 files.<br> Put each one in your Lab 3 project folder. <br>
+**Step ii:**<br>Go to the Lab Canvas page and download these 3 files.<br> Put each one in your Lab 3 project folder.
+<br>
 
-   1. Your PERSONAL UFO dataset (look for the csv file with your email ID). <br>
-   2. Your PERSONAL Spatial State-level dataset. <br>
-   3. The lab report template .RmD file.<br><br>
-   
-**Step iii:**<br>Open the Lab report template and try to knit. Install any packages you are missing (either via clicking the little yellow bar or by clicking Packages/Install)  <br><br>
+1.  Your PERSONAL UFO dataset (look for the csv file with your email ID). <br>
+2.  Your PERSONAL Spatial State-level dataset. <br>
+3.  The lab report template .RmD file.<br><br>
+
+**Step iii:**<br>Open the Lab report template and try to knit. Install any packages you are missing (either via clicking
+the little yellow bar or by clicking Packages/Install) <br><br>
 
 </details>
+
 <br><br>
 
 #### Step A2. Change the theme
 
-
 <details>
+
 <summary>Instructions</summary>
+
 <br>
 
-This is more for us when we're grading!  It helps us to not go insane when we're reading 60 reports.<br><br>
+This is more for us when we're grading! It helps us to not go insane when we're reading 60 reports.<br><br>
 
-**Step i:**  Change the AUTHOR line to your personal E-mail ID <br><br>
- 
-**Step ii:**  Go here and choose a theme out of downcute, robobook, material, readthedown or html_clean: <https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery>.<br> *DO NOT CHOOSE html_docco - it doesn't have a table of contents*  <br><br>
- 
-**Step iii:**<br>Change the theme line on the template YAML code to a theme of your choice. See the example YAML code below <br>
-*Note, downcute chaos is different - see below*<br><br>
+**Step i:** Change the AUTHOR line to your personal E-mail ID <br><br>
 
- 1. Example YAML code if you want `robobook`, `material`, `readthedown` or `html_clean`. You can also change the highlight option to change how code chunks look. - see the rmdformats website.
+**Step ii:** Go here and choose a theme out of downcute, robobook, material, readthedown or html_clean:
+<https://github.com/juba/rmdformats?tab=readme-ov-file#formats-gallery>.<br> *DO NOT CHOOSE html_docco - it doesn't have
+a table of contents* <br><br>
+
+**Step iii:**<br>Change the theme line on the template YAML code to a theme of your choice. See the example YAML code
+below <br> *Note, downcute chaos is different - see below*<br><br>
+
+1.  Example YAML code if you want `robobook`, `material`, `readthedown` or `html_clean`. You can also change the
+    highlight option to change how code chunks look. - see the rmdformats website.
 
 ```{r,eval=FALSE}
 
@@ -185,7 +195,8 @@ output:
 
 <br>
 
- 2. Example YAML code if you want `downcute` or `downcute chaos`. For white standard downcute, remove the downcute_theme line.
+2.  Example YAML code if you want `downcute` or `downcute chaos`. For white standard downcute, remove the downcute_theme
+    line.
 
 ```{r,eval=FALSE}
 
@@ -203,65 +214,70 @@ output:
 ```
 
 <br><br>
+
 </details>
+
 <br><br>
 
 #### Step A3. DO NOT KNIT
 
 There is code missing in your reports for you to complete and it will not work.
 
-
 <br><br>
 
 ### B: UFO Analysis - Week 1
 
-You have each been given some (genuine) about UFOs for a specific US State.  Because you all have unique data, you will all get different results and so you can work together.
+You have each been given some (genuine) about UFOs for a specific US State. Because you all have unique data, you will
+all get different results and so you can work together.
 
 <br>
 
 #### Step B2. Learn about the datasets
 
-
 <details>
+
 <summary>Instructions</summary>
-<br>
-
-
-**Step i:** 
-First, learn about the UFO data (you will write about it in Step 3). Look at these websites and BRIEFLY note down to yourself,, how was the data collected? Why? e.g. what were the people who collected the data trying to achieve?  Also note down any other relevant information you can see. E.g. is data stored as points or polygons etc.  <br>
-
- - The raw data was collected from here: <https://nuforc.org/>  <br>
- 
-  - The actual data was obtained from here <https://github.com/planetsig/ufo-reports>  <br>
- 
 
 <br>
-**Step ii:** 
-You are also going to be using some data from the US government American Community Survey (you will write about it in Step 3). Look at these resources and BRIEFLY note down to yourself, how was the data collected? Why? e.g. what were the people who collected the data trying to achieve?  Also note down any other relevant information you can see. E.g. is data stored as points or polygons etc.  <br>
 
- - You can read about it here: <https://www.socialexplorer.com/help/faq/knowledge-base/american-community-survey-basics>  <br>
- 
-  - Or there are a LOAD of youtube videos and resources out there  <br>
- 
+**Step i:** First, learn about the UFO data (you will write about it in Step 3). Look at these websites and BRIEFLY note
+down to yourself,, how was the data collected? Why? e.g. what were the people who collected the data trying to achieve?
+Also note down any other relevant information you can see. E.g. is data stored as points or polygons etc. <br>
+
+-   The raw data was collected from here: <https://nuforc.org/> <br>
+
+-   The actual data was obtained from here <https://github.com/planetsig/ufo-reports> <br>
+
+<br> **Step ii:** You are also going to be using some data from the US government American Community Survey (you will
+write about it in Step 3). Look at these resources and BRIEFLY note down to yourself, how was the data collected? Why?
+e.g. what were the people who collected the data trying to achieve? Also note down any other relevant information you
+can see. E.g. is data stored as points or polygons etc. <br>
+
+-   You can read about it here:
+    <https://www.socialexplorer.com/help/faq/knowledge-base/american-community-survey-basics> <br>
+
+-   Or there are a LOAD of youtube videos and resources out there <br>
 
 <br><br>
+
 </details>
-<br><br>
 
+<br><br>
 
 ### SUBMITTING WEEK 1
 
-You don't _need_ to submit anything this week.
+You don't *need* to submit anything this week.
 
-HOWEVER, I will give two bonus points (within the lab) to anyone who submits their completed .Rmd and .html up until this point in your Lab 3 canvas assignment. 
+HOWEVER, I will give two bonus points (within the lab) to anyone who submits their completed .Rmd and .html up until
+this point in your Lab 3 canvas assignment.
 
- - You are getting the bonus point for not leaving it all until the last minute.  I don't currently have the capacity to provide individual feedback unless you ask questions as a submission comment.  You will resubmit with the full report next week
+-   You are getting the bonus point for not leaving it all until the last minute. I don't currently have the capacity to
+    provide individual feedback unless you ask questions as a submission comment. You will resubmit with the full report
+    next week
 
+------------------------------------------------------------------------------------------------------------------------
 
-----------------------------------------------------------------------
-
-
-## WEEK 2: 
+## WEEK 2:
 
 <br>
 
@@ -275,11 +291,11 @@ Welcome to the second part of Lab 3. You are going to be looking at the data in 
 
 -   Loading these datasets for your UFO data.
 
-    - Elevation data from the `elevatr` package
+    -   Elevation data from the `elevatr` package
 
-    - US border and road data from the `tigris` package
+    -   US border and road data from the `tigris` package
 
-    - US military locations from the `osmdata` package, which is linked to Open Street Map.
+    -   US military locations from the `osmdata` package, which is linked to Open Street Map.
 
 -   Extracting raster data and polygon data at point locations
 
@@ -291,7 +307,9 @@ Welcome to the second part of Lab 3. You are going to be looking at the data in 
 
 -   Considering the process & pattern in your UFO data.
 
-Note, By this point you have hopefully realised that your object of analysis is NOT an actual UFO! <br> Instead it's *a reported sighting* of a UFO to NUFORC by an interested person. So bear in mind that this dataset might say more about the spatial patterns of "internet savvy people who are interested in UFOs" than anything else.
+Note, By this point you have hopefully realised that your object of analysis is NOT an actual UFO! <br> Instead it's *a
+reported sighting* of a UFO to NUFORC by an interested person. So bear in mind that this dataset might say more about
+the spatial patterns of "internet savvy people who are interested in UFOs" than anything else.
 
 <br><br>
 
@@ -309,12 +327,15 @@ Now, there are few things you MUST tweak in order to make lab 2 work:
 #### C3 IMPORTANT Correct my typo!
 
 <details>
+
 <summary>Instructions</summary>
+
 <br>
 
 Some of you who had an early version of the lab 3 template might need to correct a typo in single code chunk.
 
--   Scroll up to near the top of your report abd look in the "Make Spatial" section. You should see a code chunk about making the ufo_sf variable.
+-   Scroll up to near the top of your report abd look in the "Make Spatial" section. You should see a code chunk about
+    making the ufo_sf variable.
 
 -   In an early version I accidentally left in an old command which sets up your data with the wrong map projection.
 
@@ -331,17 +352,19 @@ acs_sf <-st_transform(acs_sf,crs=albers)
 ```
 
 </details>
+
 <br>
 
 #### C4 IMPORTANT Add packages
 
 <details>
+
 <summary>Instructions</summary>
+
 <br>
 
-
-
-Scroll up to your library code chunk at the top. Add these two packages to the end and save/knit your report. Then try to run the library code chunk and if needed, download/install the packages from the internet.
+Scroll up to your library code chunk at the top. Add these two packages to the end and save/knit your report. Then try
+to run the library code chunk and if needed, download/install the packages from the internet.
 
 ```{r}
 library("raster")
@@ -350,12 +373,15 @@ library("exactextractr")
 ```
 
 </details>
+
 <br>
 
 #### C5 IMPORTANT Week 2 lab template
 
 <details>
+
 <summary>Instructions</summary>
+
 <br>
 
 Finally, I have provided a template for your work in week 2.
@@ -366,19 +392,18 @@ Finally, I have provided a template for your work in week 2.
 4.  Go to your main Lab 3 report, scroll to the end and press paste.
 5.  Knit to check it all works.
 
-
 </details>
+
 <br><br>
 
 ### D. UFO Analysis Continued
 
-
 <br>
 
-You will again continue to follow through your lab report and the instructions are there.  I will be putting tutorials here to help you. 
+You will again continue to follow through your lab report and the instructions are there. I will be putting tutorials
+here to help you.
 
 <br>
-
 
 #### D1. TIGRIS Tutorial
 
@@ -403,69 +428,73 @@ myroads_sf <- st_transform(myroads_sf, crs = albers)
 
 ```
 
-
 <details>
+
 <summary>What is TIGRIS in general?</summary>
+
 <br>
 
 I've cut a one minute section of this seminar for you that explains what data is behind TIGRIS
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908&end=1006"
-        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=908&amp;end=1006" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
 
 </details>
+
 <br>
 
 <details>
+
 <summary>How to use the TIGRIS package IN R?</summary>
+
 <br>
 
-Here's a chapter explaining TIGRIS in R 
+Here's a chapter explaining TIGRIS in R
 
- - <https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html> . 
- 
- 
+-   <https://walker-data.com/census-r/census-geographic-data-and-applications-in-r.html> .
+
 You can also see worked examples here:
 
-- <https://walker-data.com/tigris-webinar>
+-   <https://walker-data.com/tigris-webinar>
 
+And here is longer video from later in the seminar that explains it all.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=1274&amp;end=2151" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 
-And here is  longer video from later in the seminar that explains it all. 
-
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GqC1HjAKui4?start=1274&end=2151"
-        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>
+</iframe>
 
 </details>
+
 <br>
 
-#### D2. Making maps 
+#### D2. Making maps
 
 <details>
+
 <summary>Making maps using BaseR</summary>
+
 <br>
 
 There are MANY tutorials and videos out there. So if my style of explaining doesn't work for you, try one of these.
 
-In base R, we use the plot command.  To add layers, we put a new plot command but put add=TRUE at the end. For example, here's a plot of the UFO locations simply colored blue along with roads and state borders.
+In base R, we use the plot command. To add layers, we put a new plot command but put add=TRUE at the end. For example,
+here's a plot of the UFO locations simply colored blue along with roads and state borders.
 
-**First Sub-Plot** 
- - The base plot is where you define overall settings such as axis labels, titles, and limits. These options apply only when creating the initial plot to set the plot canvas.
+**First Sub-Plot** - The base plot is where you define overall settings such as axis labels, titles, and limits. These
+options apply only when creating the initial plot to set the plot canvas.
 
-**Adding Layers**
- - We can then add adding additional layers by writing a newplot command but putting add=TRUE in the options (note, this is only for maps! For normal data the command is lines() ).  Aspects such as axis labels (xlab, ylab) and main titles (main, sub) are not needed again, but you can change things like point size. 
+**Adding Layers** - We can then add adding additional layers by writing a newplot command but putting add=TRUE in the
+options (note, this is only for maps! For normal data the command is lines() ). Aspects such as axis labels (xlab, ylab)
+and main titles (main, sub) are not needed again, but you can change things like point size.
 
-**st_geometry**
-The st_geometry command means don't look at any of the variables, just plot the locations stored under geometry.
+**st_geometry** The st_geometry command means don't look at any of the variables, just plot the locations stored under
+geometry.
 
+Here's an example with EVERYTHING. You don't need any/all of the variables, they're here so you can see them and so you
+can copy/paste/edit.
 
-Here's an example with EVERYTHING. You don't need any/all of the variables, they're here so you can see them and so you can copy/paste/edit. 
-
-PLEASE DON'T USE THESE DEFAULTS!  That's what this lab is about, to make better custom ones.
-
+PLEASE DON'T USE THESE DEFAULTS! That's what this lab is about, to make better custom ones.
 
 ```{r}
 
@@ -515,50 +544,66 @@ plot(st_geometry(ufo_sf), add = TRUE,
 
 **Options Specific to the First Plot (Base Plot)**
 
-These options are used only for the initial plot (or "first sub-plot") in base R. They set up the overall plot layout, such as axis labels, aspect ratio, and titles, and are not repeated for additional layers.
+These options are used only for the initial plot (or "first sub-plot") in base R. They set up the overall plot layout,
+such as axis labels, aspect ratio, and titles, and are not repeated for additional layers.
 
- - `ann`: Logical value for annotating the plot, such as adding main title and axis labels. Setting ann = FALSE removes all annotations, useful if you don’t want to clutter the plot.
- - `asp`: Sets the aspect ratio of the plot. asp = 1 ensures that one unit on the x-axis is equal in length to one unit on the y-axis, which is especially important for maintaining geographical accuracy.
- - `axes`: Logical value indicating whether to draw axes. Setting to FALSE omits the axes for a cleaner plot.
- - `bg`: Specifies the background color for the entire plot, such as "lightblue" or an RGB value, making it suitable for thematic maps.
- - `cex.axis`: Controls the size of axis tick labels. Values typically range from 0.5 to 2, helping to make axis labels more readable.
- - `cex.lab`: Adjusts the size of axis labels (titles), with values ranging from 0.5 to 2. This is particularly useful for making labels more prominent or subtle.
- - `cex.main`: Size of the main title text. Values greater than 1 enlarge the title, whereas values less than 1 reduce it.
- - `col.axis`: Specifies the color of the axis labels, such as "darkgray" or RGB values.
- - `col.lab`: Color of the axis titles (labels), for instance, "darkgreen" or an RGB value. Helps in making axis labels stand out.
- - `font.main`: Font style for the main title. Possible values include 1 (plain), 2 (bold), 3 (italic), or 4 (bold italic).
- - `frame.plot`: Logical value indicating whether to draw a box around the plot. Set to TRUE to add a frame, which can make the plot boundaries clearer.
- - `main`: Main title of the plot, providing a summary description of the visual representation.
- - `sub`: Subtitle of the plot, providing additional context or information below the main title.
- - `xlab`: Label for the x-axis, describing what the horizontal axis represents.
- - `xlim`: Limits for the x-axis, given as a vector (e.g., c(-130, -60)) to zoom in or out of a particular region.
- - `ylab`: Label for the y-axis, describing what the vertical axis represents.
- - `ylim`: Limits for the y-axis, given as a vector (e.g., c(20, 55)) to focus on a particular latitude range.
+-   `ann`: Logical value for annotating the plot, such as adding main title and axis labels. Setting ann = FALSE removes
+    all annotations, useful if you don’t want to clutter the plot.
+-   `asp`: Sets the aspect ratio of the plot. asp = 1 ensures that one unit on the x-axis is equal in length to one unit
+    on the y-axis, which is especially important for maintaining geographical accuracy.
+-   `axes`: Logical value indicating whether to draw axes. Setting to FALSE omits the axes for a cleaner plot.
+-   `bg`: Specifies the background color for the entire plot, such as "lightblue" or an RGB value, making it suitable
+    for thematic maps.
+-   `cex.axis`: Controls the size of axis tick labels. Values typically range from 0.5 to 2, helping to make axis labels
+    more readable.
+-   `cex.lab`: Adjusts the size of axis labels (titles), with values ranging from 0.5 to 2. This is particularly useful
+    for making labels more prominent or subtle.
+-   `cex.main`: Size of the main title text. Values greater than 1 enlarge the title, whereas values less than 1 reduce
+    it.
+-   `col.axis`: Specifies the color of the axis labels, such as "darkgray" or RGB values.
+-   `col.lab`: Color of the axis titles (labels), for instance, "darkgreen" or an RGB value. Helps in making axis labels
+    stand out.
+-   `font.main`: Font style for the main title. Possible values include 1 (plain), 2 (bold), 3 (italic), or 4 (bold
+    italic).
+-   `frame.plot`: Logical value indicating whether to draw a box around the plot. Set to TRUE to add a frame, which can
+    make the plot boundaries clearer.
+-   `main`: Main title of the plot, providing a summary description of the visual representation.
+-   `sub`: Subtitle of the plot, providing additional context or information below the main title.
+-   `xlab`: Label for the x-axis, describing what the horizontal axis represents.
+-   `xlim`: Limits for the x-axis, given as a vector (e.g., c(-130, -60)) to zoom in or out of a particular region.
+-   `ylab`: Label for the y-axis, describing what the vertical axis represents.
+-   `ylim`: Limits for the y-axis, given as a vector (e.g., c(20, 55)) to focus on a particular latitude range.
 
 <br>
 
 **Options Specific to ANY plot**
 
-These options are used for any plot, whether it is the first plot or an additional layer. They control the appearance of the data being plotted, such as line color, point size, and transparency.
+These options are used for any plot, whether it is the first plot or an additional layer. They control the appearance of
+the data being plotted, such as line color, point size, and transparency.
 
- - `add`: Adds a layer to the existing plot. Set to `TRUE` to layer additional data on the map without erasing previous layers.
- - `col`: COLOR used for points or lines. Can be a named color (e.g., `"blue"`), RGB value INCLUDING TRANSPANCY (e.g., `rgb(1, 0, 0, 0.7)`), or hexadecimal color code (e.g., `"#377eb8"`).
- - `lty`: LINE type, such as `"solid"`, `"dashed"`, "dotted"`, or numeric values from `1` to `6` for different styles.
- - `lwd`: LINE width. Values greater than `1` make lines thicker. Common values range from `1` to `5`.
- - `pch`: POINT symbol shape. Values range from `0` to `25`, with `16` being a common filled circle. Try the command `plot(1:20,1:20,pch=1:20)` to see them all.
- - `cex`: POINT Size. Typically ranges from `0.1` (very small) to `10` (very large).
-
-
+-   `add`: Adds a layer to the existing plot. Set to `TRUE` to layer additional data on the map without erasing previous
+    layers.
+-   `col`: COLOR used for points or lines. Can be a named color (e.g., `"blue"`), RGB value INCLUDING TRANSPANCY (e.g.,
+    `rgb(1, 0, 0, 0.7)`), or hexadecimal color code (e.g., `"#377eb8"`).
+-   `lty`: LINE type, such as `"solid"`, `"dashed"`, "dotted"`, or numeric values from`1`to`6\` for different styles.
+-   `lwd`: LINE width. Values greater than `1` make lines thicker. Common values range from `1` to `5`.
+-   `pch`: POINT symbol shape. Values range from `0` to `25`, with `16` being a common filled circle. Try the command
+    `plot(1:20,1:20,pch=1:20)` to see them all.
+-   `cex`: POINT Size. Typically ranges from `0.1` (very small) to `10` (very large).
 
 </details>
-<br>
 
+<br>
 
 <details>
+
 <summary>Making maps using GGPLOT2</summary>
+
 <br>
 
-On the surface, ggplot2 is similar to baseR.  For example it uses layers similarly, although instead of putting an add=TRUE at the end of the plot command, you use the + symbol to connect layers  Here's an example of a ggplot2 map with the same layers as the baseR example above.
+On the surface, ggplot2 is similar to baseR. For example it uses layers similarly, although instead of putting an
+add=TRUE at the end of the plot command, you use the + symbol to connect layers Here's an example of a ggplot2 map with
+the same layers as the baseR example above.
 
 ```{r}
 
@@ -575,23 +620,25 @@ ggplot() +
 
 ```
 
-
-MORE TO COME!  But ChatGPT is really useful here
+MORE TO COME! But ChatGPT is really useful here
 
 </details>
-<br>
 
+<br>
 
 <details>
+
 <summary>Making maps using tmap</summary>
+
 <br>
 
-There are LOADS of great tutorials out there.  
+There are LOADS of great tutorials out there.
 
-tmap is designed to make mapping easier.  It also uses the + symbol to connect layers but it tries to make all the terminology less confusing.
+tmap is designed to make mapping easier. It also uses the + symbol to connect layers but it tries to make all the
+terminology less confusing.
 
-Basically you "load" a layer with tm_shape, then decide how to plot it.  More to come!  But for now, google tmap tutorial point data or ask Chatgpt.
- 
+Basically you "load" a layer with tm_shape, then decide how to plot it. More to come! But for now, google tmap tutorial
+point data or ask Chatgpt.
 
 ```{r}
 
@@ -608,13 +655,9 @@ tm_layout(legend.title.size = 1)
 
 ```
 
-
-
 </details>
+
 <br>
-
-
-
 
 #### D3. T-Tests tutorial
 
@@ -627,44 +670,47 @@ tm_layout(legend.title.size = 1)
 
 ::: collapsible-content
 <iframe src="https://psu-spatial.github.io/Stat462-2024/probability-distributions.html#one-sided-t-test" style="width: 100%; height: 700px; border: none;">
+
 </iframe>
 :::
 
-
 </details>
+
 <br>
 
 ## SUBMITTING YOUR LAB
 
-Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit button again. If you have not made any mistakes in the code then R should create a html file in your lab2 folder, complete with a very recent time-stamp.
+Remember to save your work throughout and to spell check your writing (next to the save button). Now, press the knit
+button again. If you have not made any mistakes in the code then R should create a html file in your lab2 folder,
+complete with a very recent time-stamp.
 
 <br>
 
-### If you use the POSIT cloud website 
+### If you use the POSIT cloud website
 
 You can download each of your .RmD and html files by:
 
- - Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to make your Rstudio full screen) and clicking export.<br>
+-   Clicking on the little box next to the Rmd in the Files tab, then going to the little blue cogwheel (might need to
+    make your Rstudio full screen) and clicking export.<br>
 
 ```{r, Lab2FigDownload, echo=FALSE,fig.align='center',out.width="90%"}
 knitr::include_graphics('./index_images/im_T2_Download.png')
 ```
 
+-   Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
 
- - Repeat the process exactly for the html file underneath it (e,g, just have the html clicked.)<br>
- 
- - Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
-
+-   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3
 
 <br>
 
 ### If you use the RSTudio desktop on your own computer
 
- - Press knit!
- 
- - Go to your Lab 3 folder,  In that folder, double click on the html file. This will open it in your browser. CHECK THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
+-   Press knit!
 
-- Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3.<br>
+-   Go to your Lab 3 folder, In that folder, double click on the html file. This will open it in your browser. CHECK
+    THAT THIS IS WHAT YOU WANT TO SUBMIT <br>
+
+-   Now go to Canvas and submit BOTH your html and your .Rmd file in Lab 3.<br>
 
 ```{r, echo=FALSE}
 knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
@@ -676,9 +722,7 @@ knitr::include_graphics("./index_images/pg_364Lab1_Basics_2021_fig1.png")
 
 to be added
 
-
 [110 marks total]
-
 
 ### What does your grade mean?
 
@@ -692,21 +736,3 @@ knitr::kable(rubric) %>%
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
