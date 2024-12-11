@@ -829,9 +829,11 @@ We will now conduct an L-Function analysis on the data. This is a version of Rip
 
     -   IF THIS DOESN'T WORK FOR YOU, YOUR COMPUTER ISN'T POWERFUL ENOUGH - People on Posit cloud, take a screenshot of my results, put it in your report and explain that.
 
+Here is my example for schools, but you do not need to analyse this.
+
 ```{r}
 # Calculate the L function. 
-Schools_L <- Lest(McDonalds.ppp,correction = "Ripley")
+Schools_L <- Lest(SchoolWest.ppp,correction = "Ripley")
 
 # Create an ensemble (collection) of simulated point patterns 
 # that is based on our data data, 
