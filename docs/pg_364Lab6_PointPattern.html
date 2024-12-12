@@ -1094,10 +1094,16 @@ plot(west.owin,add=TRUE)</code></pre>
 case, run your analysis with 6 quadrats in each direction.</strong></li>
 </ul>
 <p><br></p>
+<p>As I play with my quadrat size, I seem to get different answers about
+where schools are. For example:</p>
 <ul>
-<li><strong>[TASK] - According to my plot above, I think that there
-should be most points in the West. Do you agree from your analysis? What
-effect are we describing here? (hint, in the lecture notes and linked to
+<li><strong>[TASK] - According to my first plot plot above, I think that
+there should be most points in the West. In the second it looks like I
+should go north.. I’m guessing yours says something different
+again….<br />
+<br />
+What effect are we describing here and why is it a problem for quadrat
+analysis? (hint, in the lecture notes and linked to
 gerrymandering)</strong></li>
 </ul>
 <p><br></p>
@@ -1161,7 +1167,7 @@ hist(SchoolWest.nn,br=30,
      xlab=&quot;Distance between nearest neighbours&quot;,
      ylab=&quot;Frequency&quot;);
 box()</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p><br></p>
 <p>We can now easily calculate the average nearest neighbor distance
 using the mean command. I have rounded the answer to 3 decimal places.
@@ -1226,6 +1232,8 @@ wiggle at small distances<br />
 report and explain that.</p></li>
 </ul></li>
 </ul>
+<p>Here is my example for schools, but you do not need to analyse
+this.</p>
 <pre class="r"><code># Calculate the L function. 
 Schools_L &lt;- Lest(SchoolWest.ppp,correction = &quot;Ripley&quot;)
 
@@ -1252,7 +1260,7 @@ plot(Schools_L,. - r ~ r, ylim=c(L_Min,L_Max),xlim=c(0,30))
 
 # Add IRP simulated Lestimates (so many, they merge into a grey cloud)
 plot(IRPsimulation, . - r ~ r,add=TRUE)</code></pre>
-<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="pg_364Lab6_PointPattern_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p><br><br></p>
 </div>
 <div id="lab-is-complete" class="section level3">

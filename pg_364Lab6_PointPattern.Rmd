@@ -725,7 +725,34 @@ plot(west.owin,add=TRUE)
 
 <br>
 
--   **[TASK] - According to my plot above, I think that there should be most points in the West. Do you agree from your analysis? What effect are we describing here? (hint, in the lecture notes and linked to gerrymandering)**
+As I play with my quadrat size, I seem to get different answers about where schools are. For example:
+
+```{r, include=FALSE}
+
+# Plot the intensity
+par(oma=c(0,0,0,0),mar=c(.5,.5,1,4),cex.main=.9,mfrow=c(1,2))
+ 
+my_colours <- RColorBrewer::brewer.pal(8, "YlGnBu")[-8]  
+# Specify the number of colors and remove the darkest
+
+Quad.School <- quadratcount(SchoolWest.ppp, nx = 3, ny = 2)
+plot(intensity(Quad.School, image=TRUE),
+     col=my_colours, 
+     main="Point intensity of schools", las=1)  
+plot(west.owin,add=TRUE)
+
+Quad.School <- quadratcount(SchoolWest.ppp, nx = 12, ny = 3)
+plot(intensity(Quad.School, image=TRUE),
+     col=my_colours, 
+     main="Point intensity of schools", las=1)  
+plot(west.owin,add=TRUE)
+
+
+```
+
+-   **[TASK] - According to my first plot plot above, I think that there should be most points in the West. In the second it looks like I should go north.. I'm guessing yours says something different again.... \
+    \
+    What effect are we describing here and why is it a problem for quadrat analysis? (hint, in the lecture notes and linked to gerrymandering)**
 
 <br>
 
