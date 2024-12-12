@@ -447,11 +447,9 @@ pop_density   <- rescale(pop_density, 1000, "km")
 
 *(this might be missing from your lab template, add it in!)*
 
-A basic measure of a pattern’s density is its overall, or **global** **density**. E.g. how many points are there per unit area:
+A basic measure of a pattern’s density is its overall, or **global** **density**. E.g. how many points are there per unit area, ( e.g. number of penguins per square mile, or number of flowers per square-foot)
 
-$$
-\text{Global density} = \frac{\text{number points}}{\text{study area}}
-$$
+Global_density = number_points / study_area
 
 here's how to do this for a ppp dataset, in this case the schools data.
 
@@ -520,7 +518,7 @@ plot(SchoolDensity, main=NULL, las=1)
 contour(SchoolDensity, add=TRUE)
 ```
 
-2.  See if you can adjust the bandwidth for Schools and McDonald's to say something interesting about each pattern, linking it to the underlying geography/envrionment (e.g. these are real school/Mcdonalds locations, what's going on) Explain your process/ reasoning below your maps. <br><br>
+2.  See if you can adjust the bandwidth for Schools and McDonald's to say something interesting about each pattern, linking it to the underlying geography/environment (e.g. these are real school/Mcdonalds locations, what's going on) Explain your process/ reasoning below your maps. <br><br>
 
 ### C4. Quadrat analysis
 
@@ -766,7 +764,7 @@ The code is **`quadrat.test(DATA ,nx=X, ny=Y)`** where you replace DATA, X and Y
 
     <br>\
 
--   **[Advanced\*\* \*\*TASK]** Go back to section A1 and B4 and take a look at your schools points. What nuance is your test result missing e.g. do you agree with its results at every scale and location?
+-   **[Advanced\*\* \*\*TASK]** Go back to section A1 and B4 and take a look at your schools points. What nuance is your test result missing e.g. do you agree with its results at every scale and location? By this, I mean - quadrat test is a global statistic. What are the pros and cons of this vs local statistics?
 
 <br><br>
 
