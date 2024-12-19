@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 # THE FORMAT YOU LIKE IS LAB 3 INSIDE 2022
 
 # invisible data read
+library(httr2)
 library(tidyverse)
 library(sp)
 library(sf)

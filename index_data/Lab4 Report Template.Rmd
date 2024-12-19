@@ -1,0 +1,119 @@
+---
+title: "Lab 4 - Spatial Attributes"
+author: "ADD YOUR EMAIL ID"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    downcute_theme: "chaos"
+    default_style: "dark"
+---
+
+```{r, include=FALSE, libraries, message=FALSE, warning=FALSE}
+
+#-------------------------------------------------
+# If you are using POSIT-Cloud, 
+# FIRST FOLLOW THE LAB SETUP INSTRUCTIONS TO INSTALL SF.
+# 
+# Run this code chunk. 
+# If you get an error, install the relevant package.
+# 
+# The include=FALSE at the top means it will be invisible 
+# when you knit 
+#-------------------------------------------------
+
+rm(list=ls())
+library("httr2")
+library("readxl")
+library("tidyverse")
+library("ggplot2")
+library("dplyr")
+library("sf")
+library("terra")
+library("tmap")
+library("elevatr")
+library("nasapower")
+library("osmdata")
+library("tigris")
+library("rmdformats")
+library("plotly")
+library("ggstatsplot")
+library("spdep")
+
+options(tigris_use_cache = TRUE)
+
+```
+
+# Understanding Domain
+
+*This section is linked with the Lab 4 Exercise, C.Data Detective. Go and read the background or this won't make sense.*
+
+## Exercise: The Non Uniformity of Space
+
+C1. Your explanation.
+
+## Exercise: Mystery data analysis
+
+C2. *Read in the two datasets.*
+
+```{r}
+# YOUR CODE
+# You did this at the start of Lab 3
+```
+
+C3. *Then, explore/map each one, making sure any maps/graphics are professional*
+
+```{r}
+# YOUR CODE.
+# Remember lab 3 tutorials
+```
+
+### Matching experiments.
+
+C4. *Now. explain which of my experiments matches each dataset(see the exercise intro). Explain your reasoning, providing common-sense evidence linking to your explanation of the non uniformity of space*
+
+Ans
+
+### Choosing a domain
+
+*C5. For EACH of the two datasets and given my experiment aims, describe what would be an appropriate spatial domain and whether you consider the objects to be clustered or uniformly distributed. Explain your reasoning.*
+
+*Answer IN WORDS (50 words at least per dataset and no code needed)*
+
+Ans
+
+# Understanding Distance
+
+## Exercise: OpenStreetMap 
+
+### What is Open Streetmap?
+
+*D1. Based on the resources in the lab instructions write at least 100 words describing Open Street Map and explaining why its useful.*
+
+Ans
+
+### Getting data
+
+*D2-D3. Use the lab code to load the data*
+
+```{r}
+# YOUR CODE
+```
+
+### 
+
+### Exploratory analysis 
+
+*D4, D5, D6. Plot the data, convert to points, replot and DESCRIBE THE PATTERN YOU SEE (and why it looks that way, e.g. whats causing it?)*
+
+```{r}
+# YOUR CODE
+```
+
+ANS
+
+## Exercise: Closeness
+
+*D7. Based on the resources given, come up with at least 3 different ways that you could measure the "distance" between the stations (e.g. it doesn't HAVE to be the X-Y straight line distance, and in fact that might be misleading....)*
+
+ANS
